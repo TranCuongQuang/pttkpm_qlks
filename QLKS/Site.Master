@@ -25,6 +25,32 @@
     <!-- inline styles related to this page -->
     <!-- ace settings handler -->
     <script src="Scripts/assets/js/ace-extra.min.js"></script>
+    <!-- /.main-container -->
+    <script src="Scripts/assets/js/jquery-2.1.4.min.js"></script>
+
+    <script type="text/javascript">
+        if ('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+    </script>
+    <script src="Scripts/assets/js/bootstrap.min.js"></script>
+
+    <!-- page specific plugin scripts -->
+    <script src="Scripts/assets/js/jquery-ui.custom.min.js"></script>
+    <script src="Scripts/assets/js/jquery.ui.touch-punch.min.js"></script>
+    <script src="Scripts/assets/js/jquery.easypiechart.min.js"></script>
+    <script src="Scripts/assets/js/jquery.sparkline.index.min.js"></script>
+    <script src="Scripts/assets/js/jquery.flot.min.js"></script>
+    <script src="Scripts/assets/js/jquery.flot.pie.min.js"></script>
+    <script src="Scripts/assets/js/jquery.flot.resize.min.js"></script>
+
+    <!-- ace scripts -->
+    <script src="Scripts/assets/js/ace-elements.min.js"></script>
+    <script src="Scripts/assets/js/ace.min.js"></script>
+
+    <%--Angular--%>
+    <script src="Scripts/assets/js/angular.min.js"></script>
+    <script src="Scripts/assets/js/angular-select2.js"></script>
+    <script src="Scripts/assets/js/angular-filter.min.js"></script>
+    <script src="Scripts/assets/js/angular-datatables.min.js"></script>
 </head>
 <body class="no-skin">
     <form runat="server">
@@ -595,26 +621,6 @@
                 <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
             </a>
         </div>
-        <!-- /.main-container -->
-        <script src="Scripts/assets/js/jquery-2.1.4.min.js"></script>
-
-        <script type="text/javascript">
-            if ('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
-        </script>
-        <script src="Scripts/assets/js/bootstrap.min.js"></script>
-
-        <!-- page specific plugin scripts -->
-        <script src="Scripts/assets/js/jquery-ui.custom.min.js"></script>
-        <script src="Scripts/assets/js/jquery.ui.touch-punch.min.js"></script>
-        <script src="Scripts/assets/js/jquery.easypiechart.min.js"></script>
-        <script src="Scripts/assets/js/jquery.sparkline.index.min.js"></script>
-        <script src="Scripts/assets/js/jquery.flot.min.js"></script>
-        <script src="Scripts/assets/js/jquery.flot.pie.min.js"></script>
-        <script src="Scripts/assets/js/jquery.flot.resize.min.js"></script>
-
-        <!-- ace scripts -->
-        <script src="Scripts/assets/js/ace-elements.min.js"></script>
-        <script src="Scripts/assets/js/ace.min.js"></script>
     </form>
 </body>
 </html>

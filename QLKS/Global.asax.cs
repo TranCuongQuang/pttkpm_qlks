@@ -13,6 +13,9 @@ namespace QLKS
     {
         void Application_Start(object sender, EventArgs e)
         {
+            //System.Net.WebRequest.DefaultWebProxy = null; //https://stackoverflow.com/questions/6988981/webclient-is-very-slow
+            //BundleConfig.RegisterBundles(BundleTable.Bundles);
+
             // Code that runs on application startup
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);

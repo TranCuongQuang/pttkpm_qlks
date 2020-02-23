@@ -130,6 +130,7 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Login.aspx" />
     <Content Include="Scripts\assets\font-awesome\4.5.0\fonts\fontawesome-webfont.eot" />
     <Content Include="Scripts\assets\font-awesome\4.5.0\fonts\fontawesome-webfont.ttf" />
     <Content Include="Scripts\assets\font-awesome\4.5.0\fonts\fontawesome-webfont.woff" />
@@ -205,6 +206,10 @@
     <Content Include="Scripts\assets\js\ace-elements.min.js" />
     <Content Include="Scripts\assets\js\ace-extra.min.js" />
     <Content Include="Scripts\assets\js\ace.min.js" />
+    <Content Include="Scripts\assets\js\angular-datatables.min.js" />
+    <Content Include="Scripts\assets\js\angular-filter.min.js" />
+    <Content Include="Scripts\assets\js\angular-select2.js" />
+    <Content Include="Scripts\assets\js\angular.min.js" />
     <Content Include="Scripts\assets\js\autosize.min.js" />
     <Content Include="Scripts\assets\js\bootbox.js" />
     <Content Include="Scripts\assets\js\bootstrap-colorpicker.min.js" />
@@ -327,6 +332,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
