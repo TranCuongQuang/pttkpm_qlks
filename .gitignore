@@ -20,3 +20,4 @@ compilation-stats.json
 config_url.dev.js
 .vscode
 .vs
+.csproj
