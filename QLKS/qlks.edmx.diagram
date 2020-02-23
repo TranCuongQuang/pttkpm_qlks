@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7aee3f756da846afb731d5f3b03ca9dd" Name="Diagram1">
+        <EntityTypeShape EntityType="qlksModel.tblDichVu" Width="1.5" PointX="2.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlksModel.tblKhachHang" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlksModel.tblNhanVien" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlksModel.tblPhieuDatPhong" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlksModel.tblPhong" Width="1.5" PointX="0.75" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlksModel.tblSanPham" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="qlksModel.tblTrangThietBi" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="qlksModel.FK_tblPhieuDatPhong_tblKhachHang" ManuallyRouted="false" />
+        <AssociationConnector Association="qlksModel.FK_tblPhieuDatPhong_tblNhanVien" ManuallyRouted="false" />
+        <AssociationConnector Association="qlksModel.FK_tblPhieuDatPhong_tblPhong" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

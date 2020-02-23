@@ -44,12 +44,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -131,6 +139,17 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Login.aspx" />
+    <Content Include="qlks.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>qlks.Context.cs</LastGenOutput>
+      <DependentUpon>qlks.edmx</DependentUpon>
+    </Content>
+    <Content Include="qlks.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>qlks.edmx</DependentUpon>
+      <LastGenOutput>qlks.cs</LastGenOutput>
+    </Content>
+    <Content Include="Scripts\assets\css\style.css" />
     <Content Include="Scripts\assets\font-awesome\4.5.0\fonts\fontawesome-webfont.eot" />
     <Content Include="Scripts\assets\font-awesome\4.5.0\fonts\fontawesome-webfont.ttf" />
     <Content Include="Scripts\assets\font-awesome\4.5.0\fonts\fontawesome-webfont.woff" />
@@ -139,6 +158,13 @@
     <Content Include="Scripts\assets\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Scripts\assets\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Scripts\assets\fonts\glyphicons-halflings-regular.woff2" />
+    <EntityDeploy Include="qlks.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>qlks.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="qlks.edmx.diagram">
+      <DependentUpon>qlks.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\assets\css\ace-ie.min.css" />
     <Content Include="Scripts\assets\css\ace-part2.min.css" />
@@ -341,6 +367,21 @@
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="qlks.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>qlks.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="qlks.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>qlks.tt</DependentUpon>
+    </Compile>
+    <Compile Include="qlks.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>qlks.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -354,6 +395,27 @@
     </Compile>
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
+    </Compile>
+    <Compile Include="tblDichVu.cs">
+      <DependentUpon>qlks.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblKhachHang.cs">
+      <DependentUpon>qlks.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblNhanVien.cs">
+      <DependentUpon>qlks.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPhieuDatPhong.cs">
+      <DependentUpon>qlks.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblPhong.cs">
+      <DependentUpon>qlks.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblSanPham.cs">
+      <DependentUpon>qlks.tt</DependentUpon>
+    </Compile>
+    <Compile Include="tblTrangThietBi.cs">
+      <DependentUpon>qlks.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
@@ -376,6 +438,9 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

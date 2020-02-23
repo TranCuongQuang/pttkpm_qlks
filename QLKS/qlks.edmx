@@ -1,0 +1,415 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="qlksModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblDichVu">
+          <Key>
+            <PropertyRef Name="MaDV" />
+          </Key>
+          <Property Name="MaDV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenDV" Type="nvarchar" MaxLength="255" />
+          <Property Name="DonGia" Type="money" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'qlks.dbo.tblDichVuPhong' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="tblDichVuPhong">
+          <Property Name="MaPhieuDP" Type="int" />
+          <Property Name="MaDV" Type="int" />
+          <Property Name="SoLuong" Type="int" />
+          <Property Name="ThanhTien" Type="money" />
+        </EntityType>-->
+        <EntityType Name="tblKhachHang">
+          <Key>
+            <PropertyRef Name="MaKH" />
+          </Key>
+          <Property Name="MaKH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenKH" Type="nvarchar" MaxLength="255" />
+          <Property Name="NgaySinh" Type="date" />
+          <Property Name="DiaChi" Type="nvarchar(max)" />
+          <Property Name="SDT" Type="varchar" MaxLength="20" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblNhanVien">
+          <Key>
+            <PropertyRef Name="MaNV" />
+          </Key>
+          <Property Name="MaNV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenNV" Type="nvarchar" MaxLength="255" />
+          <Property Name="SDT" Type="varchar" MaxLength="20" />
+          <Property Name="NgaySinh" Type="date" />
+          <Property Name="DiaChi" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="ChucVu" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="tblPhieuDatPhong">
+          <Key>
+            <PropertyRef Name="MaPhieuDP" />
+          </Key>
+          <Property Name="MaPhieuDP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MaKH" Type="int" />
+          <Property Name="MaPhong" Type="int" />
+          <Property Name="MaNV" Type="int" />
+          <Property Name="NgayBD" Type="datetime" />
+          <Property Name="NgayKT" Type="datetime" />
+          <Property Name="TongTien" Type="money" />
+        </EntityType>
+        <EntityType Name="tblPhong">
+          <Key>
+            <PropertyRef Name="MaPhong" />
+          </Key>
+          <Property Name="MaPhong" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenPhong" Type="nvarchar" MaxLength="255" />
+          <Property Name="TrangThai" Type="bit" />
+          <Property Name="DonGia" Type="money" />
+        </EntityType>
+        <EntityType Name="tblSanPham">
+          <Key>
+            <PropertyRef Name="MaSP" />
+          </Key>
+          <Property Name="MaSP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenSP" Type="nvarchar" MaxLength="255" />
+          <Property Name="DonGia" Type="money" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'qlks.dbo.tblSanPhamPhong' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="tblSanPhamPhong">
+          <Property Name="MaPhieuDP" Type="int" />
+          <Property Name="MaSP" Type="int" />
+          <Property Name="SoLuong" Type="int" />
+          <Property Name="ThanhTien" Type="money" />
+        </EntityType>-->
+        <EntityType Name="tblTrangThietBi">
+          <Key>
+            <PropertyRef Name="MaThietBi" />
+          </Key>
+          <Property Name="MaThietBi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenThietBi" Type="nvarchar" MaxLength="255" />
+          <Property Name="TinhTrang" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'qlks.dbo.tblTrangThietBiPhong' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="tblTrangThietBiPhong">
+          <Property Name="MaThietBiPhong" Type="int" />
+          <Property Name="MaThietBi" Type="int" />
+          <Property Name="MaPhong" Type="int" />
+          <Property Name="SoLuong" Type="int" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+error 6004: The table 'qlks.dbo.tblDichVuPhong' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_tblDichVuPhong_tblDichVu" />-->
+        <!--Errors Found During Generation:
+error 6004: The table 'qlks.dbo.tblDichVuPhong' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_tblDichVuPhong_tblPhieuDatPhong" />-->
+        <Association Name="FK_tblPhieuDatPhong_tblKhachHang">
+          <End Role="tblKhachHang" Type="Self.tblKhachHang" Multiplicity="0..1" />
+          <End Role="tblPhieuDatPhong" Type="Self.tblPhieuDatPhong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblKhachHang">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="tblPhieuDatPhong">
+              <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPhieuDatPhong_tblNhanVien">
+          <End Role="tblNhanVien" Type="Self.tblNhanVien" Multiplicity="0..1" />
+          <End Role="tblPhieuDatPhong" Type="Self.tblPhieuDatPhong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblNhanVien">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="tblPhieuDatPhong">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPhieuDatPhong_tblPhong">
+          <End Role="tblPhong" Type="Self.tblPhong" Multiplicity="0..1" />
+          <End Role="tblPhieuDatPhong" Type="Self.tblPhieuDatPhong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPhong">
+              <PropertyRef Name="MaPhong" />
+            </Principal>
+            <Dependent Role="tblPhieuDatPhong">
+              <PropertyRef Name="MaPhong" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+error 6004: The table 'qlks.dbo.tblSanPhamPhong' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_tblSanPhamPhong_tblPhieuDatPhong" />-->
+        <!--Errors Found During Generation:
+error 6004: The table 'qlks.dbo.tblSanPhamPhong' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_tblSanPhamPhong_tblSanPham" />-->
+        <!--Errors Found During Generation:
+error 6004: The table 'qlks.dbo.tblTrangThietBiPhong' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_tblTrangThietBiPhong_tblPhong" />-->
+        <!--Errors Found During Generation:
+error 6004: The table 'qlks.dbo.tblTrangThietBiPhong' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_tblTrangThietBiPhong_tblTrangThietBi" />-->
+        <EntityContainer Name="qlksModelStoreContainer">
+          <EntitySet Name="tblDichVu" EntityType="Self.tblDichVu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblKhachHang" EntityType="Self.tblKhachHang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblNhanVien" EntityType="Self.tblNhanVien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPhieuDatPhong" EntityType="Self.tblPhieuDatPhong" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPhong" EntityType="Self.tblPhong" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSanPham" EntityType="Self.tblSanPham" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblTrangThietBi" EntityType="Self.tblTrangThietBi" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblPhieuDatPhong_tblKhachHang" Association="Self.FK_tblPhieuDatPhong_tblKhachHang">
+            <End Role="tblKhachHang" EntitySet="tblKhachHang" />
+            <End Role="tblPhieuDatPhong" EntitySet="tblPhieuDatPhong" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPhieuDatPhong_tblNhanVien" Association="Self.FK_tblPhieuDatPhong_tblNhanVien">
+            <End Role="tblNhanVien" EntitySet="tblNhanVien" />
+            <End Role="tblPhieuDatPhong" EntitySet="tblPhieuDatPhong" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPhieuDatPhong_tblPhong" Association="Self.FK_tblPhieuDatPhong_tblPhong">
+            <End Role="tblPhong" EntitySet="tblPhong" />
+            <End Role="tblPhieuDatPhong" EntitySet="tblPhieuDatPhong" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="qlksModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblDichVu">
+          <Key>
+            <PropertyRef Name="MaDV" />
+          </Key>
+          <Property Name="MaDV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenDV" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DonGia" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="tblKhachHang">
+          <Key>
+            <PropertyRef Name="MaKH" />
+          </Key>
+          <Property Name="MaKH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenKH" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NgaySinh" Type="DateTime" Precision="0" />
+          <Property Name="DiaChi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblPhieuDatPhongs" Relationship="Self.FK_tblPhieuDatPhong_tblKhachHang" FromRole="tblKhachHang" ToRole="tblPhieuDatPhong" />
+        </EntityType>
+        <EntityType Name="tblNhanVien">
+          <Key>
+            <PropertyRef Name="MaNV" />
+          </Key>
+          <Property Name="MaNV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenNV" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="NgaySinh" Type="DateTime" Precision="0" />
+          <Property Name="DiaChi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ChucVu" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="tblPhieuDatPhongs" Relationship="Self.FK_tblPhieuDatPhong_tblNhanVien" FromRole="tblNhanVien" ToRole="tblPhieuDatPhong" />
+        </EntityType>
+        <EntityType Name="tblPhieuDatPhong">
+          <Key>
+            <PropertyRef Name="MaPhieuDP" />
+          </Key>
+          <Property Name="MaPhieuDP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MaKH" Type="Int32" />
+          <Property Name="MaPhong" Type="Int32" />
+          <Property Name="MaNV" Type="Int32" />
+          <Property Name="NgayBD" Type="DateTime" Precision="3" />
+          <Property Name="NgayKT" Type="DateTime" Precision="3" />
+          <Property Name="TongTien" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="tblKhachHang" Relationship="Self.FK_tblPhieuDatPhong_tblKhachHang" FromRole="tblPhieuDatPhong" ToRole="tblKhachHang" />
+          <NavigationProperty Name="tblNhanVien" Relationship="Self.FK_tblPhieuDatPhong_tblNhanVien" FromRole="tblPhieuDatPhong" ToRole="tblNhanVien" />
+          <NavigationProperty Name="tblPhong" Relationship="Self.FK_tblPhieuDatPhong_tblPhong" FromRole="tblPhieuDatPhong" ToRole="tblPhong" />
+        </EntityType>
+        <EntityType Name="tblPhong">
+          <Key>
+            <PropertyRef Name="MaPhong" />
+          </Key>
+          <Property Name="MaPhong" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenPhong" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TrangThai" Type="Boolean" />
+          <Property Name="DonGia" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="tblPhieuDatPhongs" Relationship="Self.FK_tblPhieuDatPhong_tblPhong" FromRole="tblPhong" ToRole="tblPhieuDatPhong" />
+        </EntityType>
+        <EntityType Name="tblSanPham">
+          <Key>
+            <PropertyRef Name="MaSP" />
+          </Key>
+          <Property Name="MaSP" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenSP" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DonGia" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="tblTrangThietBi">
+          <Key>
+            <PropertyRef Name="MaThietBi" />
+          </Key>
+          <Property Name="MaThietBi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenThietBi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TinhTrang" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_tblPhieuDatPhong_tblKhachHang">
+          <End Role="tblKhachHang" Type="Self.tblKhachHang" Multiplicity="0..1" />
+          <End Role="tblPhieuDatPhong" Type="Self.tblPhieuDatPhong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblKhachHang">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="tblPhieuDatPhong">
+              <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPhieuDatPhong_tblNhanVien">
+          <End Role="tblNhanVien" Type="Self.tblNhanVien" Multiplicity="0..1" />
+          <End Role="tblPhieuDatPhong" Type="Self.tblPhieuDatPhong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblNhanVien">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="tblPhieuDatPhong">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblPhieuDatPhong_tblPhong">
+          <End Role="tblPhong" Type="Self.tblPhong" Multiplicity="0..1" />
+          <End Role="tblPhieuDatPhong" Type="Self.tblPhieuDatPhong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblPhong">
+              <PropertyRef Name="MaPhong" />
+            </Principal>
+            <Dependent Role="tblPhieuDatPhong">
+              <PropertyRef Name="MaPhong" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="qlksEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblDichVus" EntityType="Self.tblDichVu" />
+          <EntitySet Name="tblKhachHangs" EntityType="Self.tblKhachHang" />
+          <EntitySet Name="tblNhanViens" EntityType="Self.tblNhanVien" />
+          <EntitySet Name="tblPhieuDatPhongs" EntityType="Self.tblPhieuDatPhong" />
+          <EntitySet Name="tblPhongs" EntityType="Self.tblPhong" />
+          <EntitySet Name="tblSanPhams" EntityType="Self.tblSanPham" />
+          <EntitySet Name="tblTrangThietBis" EntityType="Self.tblTrangThietBi" />
+          <AssociationSet Name="FK_tblPhieuDatPhong_tblKhachHang" Association="Self.FK_tblPhieuDatPhong_tblKhachHang">
+            <End Role="tblKhachHang" EntitySet="tblKhachHangs" />
+            <End Role="tblPhieuDatPhong" EntitySet="tblPhieuDatPhongs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPhieuDatPhong_tblNhanVien" Association="Self.FK_tblPhieuDatPhong_tblNhanVien">
+            <End Role="tblNhanVien" EntitySet="tblNhanViens" />
+            <End Role="tblPhieuDatPhong" EntitySet="tblPhieuDatPhongs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblPhieuDatPhong_tblPhong" Association="Self.FK_tblPhieuDatPhong_tblPhong">
+            <End Role="tblPhong" EntitySet="tblPhongs" />
+            <End Role="tblPhieuDatPhong" EntitySet="tblPhieuDatPhongs" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="qlksModelStoreContainer" CdmEntityContainer="qlksEntities">
+          <EntitySetMapping Name="tblDichVus">
+            <EntityTypeMapping TypeName="qlksModel.tblDichVu">
+              <MappingFragment StoreEntitySet="tblDichVu">
+                <ScalarProperty Name="MaDV" ColumnName="MaDV" />
+                <ScalarProperty Name="TenDV" ColumnName="TenDV" />
+                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblKhachHangs">
+            <EntityTypeMapping TypeName="qlksModel.tblKhachHang">
+              <MappingFragment StoreEntitySet="tblKhachHang">
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="TenKH" ColumnName="TenKH" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblNhanViens">
+            <EntityTypeMapping TypeName="qlksModel.tblNhanVien">
+              <MappingFragment StoreEntitySet="tblNhanVien">
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+                <ScalarProperty Name="TenNV" ColumnName="TenNV" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ChucVu" ColumnName="ChucVu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPhieuDatPhongs">
+            <EntityTypeMapping TypeName="qlksModel.tblPhieuDatPhong">
+              <MappingFragment StoreEntitySet="tblPhieuDatPhong">
+                <ScalarProperty Name="MaPhieuDP" ColumnName="MaPhieuDP" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="MaPhong" ColumnName="MaPhong" />
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+                <ScalarProperty Name="NgayBD" ColumnName="NgayBD" />
+                <ScalarProperty Name="NgayKT" ColumnName="NgayKT" />
+                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPhongs">
+            <EntityTypeMapping TypeName="qlksModel.tblPhong">
+              <MappingFragment StoreEntitySet="tblPhong">
+                <ScalarProperty Name="MaPhong" ColumnName="MaPhong" />
+                <ScalarProperty Name="TenPhong" ColumnName="TenPhong" />
+                <ScalarProperty Name="TrangThai" ColumnName="TrangThai" />
+                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSanPhams">
+            <EntityTypeMapping TypeName="qlksModel.tblSanPham">
+              <MappingFragment StoreEntitySet="tblSanPham">
+                <ScalarProperty Name="MaSP" ColumnName="MaSP" />
+                <ScalarProperty Name="TenSP" ColumnName="TenSP" />
+                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblTrangThietBis">
+            <EntityTypeMapping TypeName="qlksModel.tblTrangThietBi">
+              <MappingFragment StoreEntitySet="tblTrangThietBi">
+                <ScalarProperty Name="MaThietBi" ColumnName="MaThietBi" />
+                <ScalarProperty Name="TenThietBi" ColumnName="TenThietBi" />
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace QLKS
 {
@@ -11,7 +6,18 @@ namespace QLKS
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+        }
 
+        protected void login_Click(object sender, EventArgs e)
+        {
+            using (var db = new qlksEntities())
+            {
+                tblDichVu dichVu = new tblDichVu();
+                dichVu.TenDV = "A";
+                dichVu.DonGia = 2000;
+                db.tblDichVus.Add(dichVu);
+                db.SaveChanges();
+            }
         }
     }
 }

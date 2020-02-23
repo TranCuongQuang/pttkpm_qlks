@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="qlksModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tblDichVu">
+    <Key>
+      <PropertyRef Name="MaDV" />
+    </Key>
+    <Property Name="MaDV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenDV" Type="nvarchar" MaxLength="255" />
+    <Property Name="DonGia" Type="money" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'qlks.dbo.tblDichVuPhong' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="tblDichVuPhong">
+          <Property Name="MaPhieuDP" Type="int" />
+          <Property Name="MaDV" Type="int" />
+          <Property Name="SoLuong" Type="int" />
+          <Property Name="ThanhTien" Type="money" />
+        </EntityType>-->
+  <EntityType Name="tblKhachHang">
+    <Key>
+      <PropertyRef Name="MaKH" />
+    </Key>
+    <Property Name="MaKH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenKH" Type="nvarchar" MaxLength="255" />
+    <Property Name="NgaySinh" Type="date" />
+    <Property Name="DiaChi" Type="nvarchar(max)" />
+    <Property Name="SDT" Type="varchar" MaxLength="20" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tblNhanVien">
+    <Key>
+      <PropertyRef Name="MaNV" />
+    </Key>
+    <Property Name="MaNV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenNV" Type="nvarchar" MaxLength="255" />
+    <Property Name="SDT" Type="varchar" MaxLength="20" />
+    <Property Name="NgaySinh" Type="date" />
+    <Property Name="DiaChi" Type="nvarchar(max)" />
+    <Property Name="Email" Type="nvarchar" MaxLength="50" />
+    <Property Name="ChucVu" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="tblPhieuDatPhong">
+    <Key>
+      <PropertyRef Name="MaPhieuDP" />
+    </Key>
+    <Property Name="MaPhieuDP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MaKH" Type="int" />
+    <Property Name="MaPhong" Type="int" />
+    <Property Name="MaNV" Type="int" />
+    <Property Name="NgayBD" Type="datetime" />
+    <Property Name="NgayKT" Type="datetime" />
+    <Property Name="TongTien" Type="money" />
+  </EntityType>
+  <EntityType Name="tblPhong">
+    <Key>
+      <PropertyRef Name="MaPhong" />
+    </Key>
+    <Property Name="MaPhong" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenPhong" Type="nvarchar" MaxLength="255" />
+    <Property Name="TrangThai" Type="bit" />
+    <Property Name="DonGia" Type="money" />
+  </EntityType>
+  <EntityType Name="tblSanPham">
+    <Key>
+      <PropertyRef Name="MaSP" />
+    </Key>
+    <Property Name="MaSP" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenSP" Type="nvarchar" MaxLength="255" />
+    <Property Name="DonGia" Type="money" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'qlks.dbo.tblSanPhamPhong' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="tblSanPhamPhong">
+          <Property Name="MaPhieuDP" Type="int" />
+          <Property Name="MaSP" Type="int" />
+          <Property Name="SoLuong" Type="int" />
+          <Property Name="ThanhTien" Type="money" />
+        </EntityType>-->
+  <EntityType Name="tblTrangThietBi">
+    <Key>
+      <PropertyRef Name="MaThietBi" />
+    </Key>
+    <Property Name="MaThietBi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TenThietBi" Type="nvarchar" MaxLength="255" />
+    <Property Name="TinhTrang" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'qlks.dbo.tblTrangThietBiPhong' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="tblTrangThietBiPhong">
+          <Property Name="MaThietBiPhong" Type="int" />
+          <Property Name="MaThietBi" Type="int" />
+          <Property Name="MaPhong" Type="int" />
+          <Property Name="SoLuong" Type="int" />
+        </EntityType>-->
+  <!--Errors Found During Generation:
+error 6004: The table 'qlks.dbo.tblDichVuPhong' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_tblDichVuPhong_tblDichVu" />-->
+  <!--Errors Found During Generation:
+error 6004: The table 'qlks.dbo.tblDichVuPhong' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_tblDichVuPhong_tblPhieuDatPhong" />-->
+  <Association Name="FK_tblPhieuDatPhong_tblKhachHang">
+    <End Role="tblKhachHang" Type="Self.tblKhachHang" Multiplicity="0..1" />
+    <End Role="tblPhieuDatPhong" Type="Self.tblPhieuDatPhong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblKhachHang">
+        <PropertyRef Name="MaKH" />
+      </Principal>
+      <Dependent Role="tblPhieuDatPhong">
+        <PropertyRef Name="MaKH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblPhieuDatPhong_tblNhanVien">
+    <End Role="tblNhanVien" Type="Self.tblNhanVien" Multiplicity="0..1" />
+    <End Role="tblPhieuDatPhong" Type="Self.tblPhieuDatPhong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblNhanVien">
+        <PropertyRef Name="MaNV" />
+      </Principal>
+      <Dependent Role="tblPhieuDatPhong">
+        <PropertyRef Name="MaNV" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tblPhieuDatPhong_tblPhong">
+    <End Role="tblPhong" Type="Self.tblPhong" Multiplicity="0..1" />
+    <End Role="tblPhieuDatPhong" Type="Self.tblPhieuDatPhong" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblPhong">
+        <PropertyRef Name="MaPhong" />
+      </Principal>
+      <Dependent Role="tblPhieuDatPhong">
+        <PropertyRef Name="MaPhong" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Errors Found During Generation:
+error 6004: The table 'qlks.dbo.tblSanPhamPhong' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_tblSanPhamPhong_tblPhieuDatPhong" />-->
+  <!--Errors Found During Generation:
+error 6004: The table 'qlks.dbo.tblSanPhamPhong' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_tblSanPhamPhong_tblSanPham" />-->
+  <!--Errors Found During Generation:
+error 6004: The table 'qlks.dbo.tblTrangThietBiPhong' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_tblTrangThietBiPhong_tblPhong" />-->
+  <!--Errors Found During Generation:
+error 6004: The table 'qlks.dbo.tblTrangThietBiPhong' is referenced by a relationship, but cannot be found.
+        <Association Name="FK_tblTrangThietBiPhong_tblTrangThietBi" />-->
+  <EntityContainer Name="qlksModelStoreContainer">
+    <EntitySet Name="tblDichVu" EntityType="Self.tblDichVu" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblKhachHang" EntityType="Self.tblKhachHang" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblNhanVien" EntityType="Self.tblNhanVien" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblPhieuDatPhong" EntityType="Self.tblPhieuDatPhong" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblPhong" EntityType="Self.tblPhong" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblSanPham" EntityType="Self.tblSanPham" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblTrangThietBi" EntityType="Self.tblTrangThietBi" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_tblPhieuDatPhong_tblKhachHang" Association="Self.FK_tblPhieuDatPhong_tblKhachHang">
+      <End Role="tblKhachHang" EntitySet="tblKhachHang" />
+      <End Role="tblPhieuDatPhong" EntitySet="tblPhieuDatPhong" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblPhieuDatPhong_tblNhanVien" Association="Self.FK_tblPhieuDatPhong_tblNhanVien">
+      <End Role="tblNhanVien" EntitySet="tblNhanVien" />
+      <End Role="tblPhieuDatPhong" EntitySet="tblPhieuDatPhong" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tblPhieuDatPhong_tblPhong" Association="Self.FK_tblPhieuDatPhong_tblPhong">
+      <End Role="tblPhong" EntitySet="tblPhong" />
+      <End Role="tblPhieuDatPhong" EntitySet="tblPhieuDatPhong" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

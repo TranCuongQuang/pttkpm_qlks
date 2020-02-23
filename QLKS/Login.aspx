@@ -29,28 +29,29 @@
     <script src="Scripts/assets/js/angular-datatables.min.js"></script>
 </head>
 <body class="login-layout blur-login">
-    <div class="main-container">
-        <div class="main-content">
-            <div class="row">
-                <div class="col-sm-10 col-sm-offset-1">
-                    <div class="login-container">
-                        <div class="center">
-                            <h1>
-                                <i class="ace-icon fa fa-leaf green"></i>
-                                <span class="white" id="id-text2">Đăng nhập</span>
-                            </h1>
-                        </div>
-                        <div class="space-6"></div>
-                        <div class="position-relative">
-                            <div id="login-box" class="login-box visible widget-box no-border">
-                                <div class="widget-body">
-                                    <div class="widget-main">
-                                        <h4 class="header blue lighter bigger">
-                                            <i class="ace-icon fa fa-coffee green"></i>
-                                            Vui lòng nhập thông tin
-                                        </h4>
-                                        <div class="space-6"></div>
-                                        <form>
+    <form runat="server">
+        <div class="main-container">
+            <div class="main-content">
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1">
+                        <div class="login-container">
+                            <div class="center">
+                                <h1>
+                                    <i class="ace-icon fa fa-leaf green"></i>
+                                    <span class="white" id="id-text2">Đăng nhập</span>
+                                </h1>
+                            </div>
+                            <div class="space-6"></div>
+                            <div class="position-relative">
+                                <div id="login-box" class="login-box visible widget-box no-border">
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+                                            <h4 class="header blue lighter bigger">
+                                                <i class="ace-icon fa fa-coffee green"></i>
+                                                Vui lòng nhập thông tin
+                                            </h4>
+                                            <div class="space-6"></div>
+
                                             <fieldset>
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
@@ -66,30 +67,30 @@
                                                 </label>
                                                 <div class="space"></div>
                                                 <div class="clearfix">
-                                                    <button type="button" class="width-35 pull-right btn btn-sm btn-primary">
+                                                    <button type="button" id="abc" class="width-35 pull-right btn btn-sm btn-primary" runat="server" onserverclick="login_Click">
                                                         <i class="ace-icon fa fa-key"></i>
                                                         <span class="bigger-110">Login</span>
                                                     </button>
                                                 </div>
                                                 <div class="space-4"></div>
                                             </fieldset>
-                                        </form>
+                                        </div>
+                                        <!-- /.widget-main -->
                                     </div>
-                                    <!-- /.widget-main -->
+                                    <!-- /.widget-body -->
                                 </div>
-                                <!-- /.widget-body -->
+                                <!-- /.login-box -->
                             </div>
-                            <!-- /.login-box -->
+                            <!-- /.position-relative -->
                         </div>
-                        <!-- /.position-relative -->
                     </div>
+                    <!-- /.col -->
                 </div>
-                <!-- /.col -->
+                <!-- /.row -->
             </div>
-            <!-- /.row -->
+            <!-- /.main-content -->
         </div>
-        <!-- /.main-content -->
-    </div>
-    <!-- /.main-container -->
+        <!-- /.main-container -->
+    </form>
 </body>
 </html>
