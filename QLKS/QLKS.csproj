@@ -158,6 +158,7 @@
     <Content Include="Scripts\assets\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Scripts\assets\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Scripts\assets\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="WebServiceCTQ.aspx" />
     <EntityDeploy Include="qlks.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>qlks.Designer.cs</LastGenOutput>
@@ -342,6 +343,7 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Class\AjaxResponseModel.cs" />
     <Compile Include="Contact.aspx.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -423,6 +425,13 @@
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="WebServiceCTQ.aspx.cs">
+      <DependentUpon>WebServiceCTQ.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebServiceCTQ.aspx.designer.cs">
+      <DependentUpon>WebServiceCTQ.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
