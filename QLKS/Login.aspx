@@ -6,10 +6,10 @@
 <head runat="server">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta charset="utf-8" />
-    <title>Dashboard - Ace Admin</title>
-    <meta name="description" content="overview &amp; stats" />
+    <title>Login Page - Ace Admin</title>
+
+    <meta name="description" content="User login page" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
     <link rel="stylesheet" href="Scripts/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="Scripts/assets/font-awesome/4.5.0/css/font-awesome.min.css" />
@@ -67,7 +67,7 @@
                                                 </label>
                                                 <div class="space"></div>
                                                 <div class="clearfix">
-                                                    <button type="button" id="abc" class="width-35 pull-right btn btn-sm btn-primary" runat="server" onserverclick="login_Click">
+                                                    <button type="button" id="abc" class="width-35 pull-right btn btn-sm btn-primary">
                                                         <i class="ace-icon fa fa-key"></i>
                                                         <span class="bigger-110">Login</span>
                                                     </button>
