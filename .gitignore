@@ -20,3 +20,6 @@ compilation-stats.json
 config_url.dev.js
 .vscode
 .vs
+.csproj
+QLKS/bin
+QLKS/obj
