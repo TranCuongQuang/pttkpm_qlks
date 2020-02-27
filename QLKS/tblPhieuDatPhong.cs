@@ -14,6 +14,13 @@ namespace QLKS
     
     public partial class tblPhieuDatPhong
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tblPhieuDatPhong()
+        {
+            this.tblDichVuPhongs = new HashSet<tblDichVuPhong>();
+            this.tblSanPhamPhongs = new HashSet<tblSanPhamPhong>();
+        }
+    
         public int MaPhieuDP { get; set; }
         public Nullable<int> MaKH { get; set; }
         public Nullable<int> MaPhong { get; set; }
@@ -22,8 +29,12 @@ namespace QLKS
         public Nullable<System.DateTime> NgayKT { get; set; }
         public Nullable<decimal> TongTien { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblDichVuPhong> tblDichVuPhongs { get; set; }
         public virtual tblKhachHang tblKhachHang { get; set; }
         public virtual tblNhanVien tblNhanVien { get; set; }
         public virtual tblPhong tblPhong { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblSanPhamPhong> tblSanPhamPhongs { get; set; }
     }
 }

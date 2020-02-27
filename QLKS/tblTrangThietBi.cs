@@ -14,8 +14,17 @@ namespace QLKS
     
     public partial class tblTrangThietBi
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tblTrangThietBi()
+        {
+            this.tblTrangThietBiPhongs = new HashSet<tblTrangThietBiPhong>();
+        }
+    
         public int MaThietBi { get; set; }
         public string TenThietBi { get; set; }
         public string TinhTrang { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblTrangThietBiPhong> tblTrangThietBiPhongs { get; set; }
     }
 }

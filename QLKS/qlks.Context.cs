@@ -26,11 +26,15 @@ namespace QLKS
         }
     
         public virtual DbSet<tblDichVu> tblDichVus { get; set; }
+        public virtual DbSet<tblDichVuPhong> tblDichVuPhongs { get; set; }
         public virtual DbSet<tblKhachHang> tblKhachHangs { get; set; }
         public virtual DbSet<tblNhanVien> tblNhanViens { get; set; }
         public virtual DbSet<tblPhieuDatPhong> tblPhieuDatPhongs { get; set; }
         public virtual DbSet<tblPhong> tblPhongs { get; set; }
         public virtual DbSet<tblSanPham> tblSanPhams { get; set; }
+        public virtual DbSet<tblSanPhamPhong> tblSanPhamPhongs { get; set; }
+        public virtual DbSet<tblTaiKhoan> tblTaiKhoans { get; set; }
         public virtual DbSet<tblTrangThietBi> tblTrangThietBis { get; set; }
+        public virtual DbSet<tblTrangThietBiPhong> tblTrangThietBiPhongs { get; set; }
     }
 }

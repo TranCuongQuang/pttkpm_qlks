@@ -12,19 +12,15 @@ namespace QLKS
     using System;
     using System.Collections.Generic;
     
-    public partial class tblDichVu
+    public partial class tblDichVuPhong
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblDichVu()
-        {
-            this.tblDichVuPhongs = new HashSet<tblDichVuPhong>();
-        }
-    
-        public int MaDV { get; set; }
-        public string TenDV { get; set; }
+        public int MaDVP { get; set; }
+        public Nullable<int> MaPhieuDP { get; set; }
+        public Nullable<int> MaDV { get; set; }
+        public Nullable<int> SoLuong { get; set; }
         public Nullable<decimal> DonGia { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblDichVuPhong> tblDichVuPhongs { get; set; }
+        public virtual tblDichVu tblDichVu { get; set; }
+        public virtual tblPhieuDatPhong tblPhieuDatPhong { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace QLKS
         public tblPhong()
         {
             this.tblPhieuDatPhongs = new HashSet<tblPhieuDatPhong>();
+            this.tblTrangThietBiPhongs = new HashSet<tblTrangThietBiPhong>();
         }
     
         public int MaPhong { get; set; }
@@ -27,5 +28,7 @@ namespace QLKS
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPhieuDatPhong> tblPhieuDatPhongs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblTrangThietBiPhong> tblTrangThietBiPhongs { get; set; }
     }
 }
