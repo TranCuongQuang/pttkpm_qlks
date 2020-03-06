@@ -14,23 +14,33 @@
     <link rel="stylesheet" href="Scripts/assets/css/bootstrap.min.css" />
     <link rel="stylesheet" href="Scripts/assets/font-awesome/4.5.0/css/font-awesome.min.css" />
     <link rel="stylesheet" href="Scripts/assets/css/fonts.googleapis.com.css" />
+    <link href="Content/datatables.min.css" rel="stylesheet" />
+    <link href="Content/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="Content/select.dataTables.min.css" rel="stylesheet" />
 
     <!-- ace styles -->
     <link rel="stylesheet" href="Scripts/assets/css/ace.min.css" class="ace-main-stylesheet" />
     <link rel="stylesheet" href="Scripts/assets/css/ace-skins.min.css" />
     <link rel="stylesheet" href="Scripts/assets/css/ace-rtl.min.css" />
+    <script src="Scripts/jquery.min.js"></script>
 
-    <script src="Scripts/assets/js/jquery-2.1.4.min.js"></script>
+    <%--<script src="Scripts/assets/js/jquery-2.1.4.min.js"></script>--%>
+    <%--<script src="Scripts/jquery-3.3.1.js"></script>--%>
 
+    <script src="Scripts/assets/js/jquery.dataTables.min.js"></script>
+    <script src="Scripts/assets/js/dataTables.select.min.js"></script>
     <%--Angular--%>
-    <script src="Scripts/assets/js/angular.min.js"></script>
+    <script data-require="angular.js@*" data-semver="Scripts" src="Scripts/assets/js/angular.min.js"></script>
+    <script src="Scripts/assets/js/angular-block-ui.min.js"></script>
+    <link href="Content/angular-block-ui.min.css" rel="stylesheet" />
     <script src="Scripts/assets/js/angular-select2.js"></script>
     <script src="Scripts/assets/js/angular-filter.min.js"></script>
     <script src="Scripts/assets/js/angular-datatables.min.js"></script>
+    <script src="Scripts/assets/js/ui-bootstrap-tpls-2.5.0.min.js"></script>
 </head>
 <body class="login-layout blur-login">
     <form runat="server">
-        <div class="main-container">
+        <div class="main-container" ng-app="QLKS" ng-controller="LoginCtrl">
             <div class="main-content">
                 <div class="row">
                     <div class="col-sm-10 col-sm-offset-1">
@@ -55,21 +65,21 @@
                                             <fieldset>
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        <input type="text" class="form-control" placeholder="Username" />
+                                                        <input type="text" class="form-control" placeholder="Tên đăng nhập" ng-model="txtUserName" />
                                                         <i class="ace-icon fa fa-user"></i>
                                                     </span>
                                                 </label>
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        <input type="password" class="form-control" placeholder="Password" />
+                                                        <input type="password" class="form-control" placeholder="Mật khẩu" ng-model="txtPassWord" />
                                                         <i class="ace-icon fa fa-lock"></i>
                                                     </span>
                                                 </label>
                                                 <div class="space"></div>
                                                 <div class="clearfix">
-                                                    <button type="button" id="abc" class="width-35 pull-right btn btn-sm btn-primary">
+                                                    <button type="button" class=" pull-right btn btn-sm btn-primary" ng-click="Login()">
                                                         <i class="ace-icon fa fa-key"></i>
-                                                        <span class="bigger-110">Login</span>
+                                                        <span class="bigger-110">Đăng nhập</span>
                                                     </button>
                                                 </div>
                                                 <div class="space-4"></div>
@@ -92,5 +102,6 @@
         </div>
         <!-- /.main-container -->
     </form>
+    <script src="App/Login.js"></script>
 </body>
 </html>
