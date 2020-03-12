@@ -1,5 +1,7 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EmployeeManagement.ascx.cs" Inherits="QLKS.EmployeeManagement" %>
-<div class="col-sm-12 form_contact__left form_contact__research accounting_form_final">
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EmployeeManagement.aspx.cs" Inherits="QLKS.EmployeeManagement1" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
+
+    <div class="col-sm-12 form_contact__left form_contact__research accounting_form_final">
     <div class="col-sm-12" style="padding: 10px; padding-top: 0">
         <div class="form_show">
             <div class="row">
@@ -105,4 +107,6 @@
         </div>
     </div>
 </div>
-<script src="MdlACCE/App/ACCE_frmVoucherPayslipEntryIndex.js"></script>
+<script src="~/App/EmployeeManagement.js?1"></script>
+</asp:Content>
+

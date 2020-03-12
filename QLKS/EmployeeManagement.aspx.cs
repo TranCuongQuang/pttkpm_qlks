@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace QLKS
 {
-    public partial class EmployeeManagement : System.Web.UI.UserControl
+    public partial class EmployeeManagement1 : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

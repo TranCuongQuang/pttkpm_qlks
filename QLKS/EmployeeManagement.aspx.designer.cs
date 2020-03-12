@@ -10,7 +10,7 @@
 namespace QLKS {
     
     
-    public partial class EmployeeManagement {
+    public partial class EmployeeManagement1 {
         
         /// <summary>
         /// txtTransactionNo control.
