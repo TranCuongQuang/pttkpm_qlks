@@ -107,6 +107,6 @@
         </div>
     </div>
 </div>
-<script src="~/App/EmployeeManagement.js?1"></script>
+    <script src="App/EmployeeManagement.js"></script>
 </asp:Content>
 
