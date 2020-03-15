@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
-    <link rel="stylesheet" href="Scripts/assets/css/bootstrap.min.css" />
+    <link href="Scripts/assets/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="Scripts/assets/font-awesome/4.5.0/css/font-awesome.min.css" />
 
     <!-- page specific plugin styles -->
@@ -23,6 +23,15 @@
     <link rel="stylesheet" href="Scripts/assets/css/ace-skins.min.css" />
     <link rel="stylesheet" href="Scripts/assets/css/ace-rtl.min.css" />
     <link href="Scripts/assets/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="Scripts/assets/css/jquery-ui.custom.min.css" />
+	<link rel="stylesheet" href="Scripts/assets/css/chosen.min.css" />
+	<link rel="stylesheet" href="Scripts/assets/css/bootstrap-datepicker3.min.css" />
+	<link rel="stylesheet" href="Scripts/assets/css/bootstrap-timepicker.min.css" />
+	<link rel="stylesheet" href="Scripts/assets/css/daterangepicker.min.css" />
+	<link rel="stylesheet" href="Scripts/assets/css/bootstrap-datetimepicker.min.css" />
+	<link rel="stylesheet" href="Scripts/assets/css/bootstrap-colorpicker.min.css" />
+    <link rel="stylesheet" href="Scripts/assets/css/ace-skins.min.css" />
+	<link rel="stylesheet" href="Scripts/assets/css/ace-rtl.min.css" />
 
     <%-- easyui --%>
     <link href="Scripts/easyui/css/easyui.css" rel="stylesheet" />
@@ -47,6 +56,29 @@
     <script src="Scripts/assets/js/jquery.flot.min.js"></script>
     <script src="Scripts/assets/js/jquery.flot.pie.min.js"></script>
     <script src="Scripts/assets/js/jquery.flot.resize.min.js"></script>
+	<script src="Scripts/assets/js/chosen.jquery.min.js"></script>
+	<script src="Scripts/assets/js/spinbox.min.js"></script>
+	<script src="Scripts/assets/js/bootstrap-datepicker.min.js"></script>
+	<script src="Scripts/assets/js/bootstrap-timepicker.min.js"></script>
+	<script src="Scripts/assets/js/moment.min.js"></script>
+	<script src="Scripts/assets/js/daterangepicker.min.js"></script>
+	<script src="Scripts/assets/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="Scripts/assets/js/bootstrap-colorpicker.min.js"></script>
+	<script src="Scripts/assets/js/jquery.knob.min.js"></script>
+	<script src="Scripts/assets/js/autosize.min.js"></script>
+	<script src="Scripts/assets/js/jquery.inputlimiter.min.js"></script>
+	<script src="Scripts/assets/js/jquery.maskedinput.min.js"></script>
+	<script src="Scripts/assets/js/bootstrap-tag.min.js"></script>
+
+    <script src="Scripts/assets/js/jquery.dataTables.min.js"></script>
+	<script src="Scripts/assets/js/jquery.dataTables.bootstrap.min.js"></script>
+	<script src="Scripts/assets/js/dataTables.buttons.min.js"></script>
+	<script src="Scripts/assets/js/buttons.flash.min.js"></script>
+	<script src="Scripts/assets/js/buttons.html5.min.js"></script>
+	<script src="Scripts/assets/js/buttons.print.min.js"></script>
+	<script src="Scripts/assets/js/buttons.colVis.min.js"></script>
+	<script src="Scripts/assets/js/dataTables.select.min.js"></script>
+
 
     <!-- ace scripts -->
     <script src="Scripts/assets/js/ace-elements.min.js"></script>
@@ -59,43 +91,43 @@
     <script src="Scripts/assets/js/angular-datatables.min.js"></script>
 
     <!-- jquery-easyui -->
-    <script src="Scripts/easyui/js/jquery.easyui.min.js"></script>
+    <%--<script src="Scripts/easyui/js/jquery.easyui.min.js"></script>
     <script src="Scripts/easyui/js/jquery-easyui/jquery.edatagrid.js"></script>
     <script src="Scripts/easyui/js/jquery-easyui/datagrid-cellediting.js"></script>
     <script src="Scripts/easyui/js/jquery-easyui/datagrid-groupview.js"></script>
-    <script src="Scripts/easyui/js/jquery-easyui/datagrid-export.js"></script>
+    <script src="Scripts/easyui/js/jquery-easyui/datagrid-export.js"></script>--%>
 
     <%--  --%>
-    <script src="Scripts/Common/JavaScript/acccommon.js"></script>
+    <%--<script src="Scripts/Common/JavaScript/acccommon.js"></script>
     <script src="Scripts/Common/JavaScript/accounting.js"></script>
     <script src="Scripts/Common/JavaScript/commonEM.js"></script>
     <script src="Scripts/Common/JavaScript/popup.window.open.js"></script>
     <script src="Scripts/Common/JavaScript/moment.js"></script>
     <script src="Scripts/Common/JavaScript/moment.min.js"></script>
-    <script src="Scripts/Common/JavaScript/select2.min.js"></script>
+    <script src="Scripts/Common/JavaScript/select2.min.js"></script>--%>
 
     <%-- datepicker --%>
-    <script src="Scripts/Common/JavaScript/bootstrap-datepicker.min.js"></script>
+    <%--<script src="Scripts/Common/JavaScript/bootstrap-datepicker.min.js"></script>
     <script src="Scripts/Common/JavaScript/bootstrap-datetimepicker.min.js"></script>
     <script src="Scripts/Common/JavaScript/bootstrap-timepicker.min.js"></script>
     <script src="Scripts/Common/JavaScript/daterangepicker.min.js"></script>
     <script src="Scripts/Common/JavaScript/inputmask/inputmask.js"></script>
     <script src="Scripts/Common/JavaScript/inputmask/inputmask.numeric.extensions.js"></script>
     <script src="Scripts/Common/JavaScript/inputmask/jquery.inputmask.bundle.js"></script>
-    <script src="Scripts/Common/JavaScript/inputmask/jquery.inputmask.js"></script>
+    <script src="Scripts/Common/JavaScript/inputmask/jquery.inputmask.js"></script>--%>
     
     <%-- datatable --%>
-    <script src="Scripts/Common/JavaScript/jquery.dataTables.min.js"></script>
+    <%--<script src="Scripts/Common/JavaScript/jquery.dataTables.min.js"></script>
     <script src="Scripts/Common/JavaScript/jquery.dataTables.bootstrap.min.js"></script>
     <script src="Scripts/Common/JavaScript/dataTables.buttons.min.js"></script>
     <script src="Scripts/Common/JavaScript/dataTables.select.min.js"></script>
     <script src="Scripts/Common/JavaScript/datatable/buttons.flash.min.js"></script>
     <script src="Scripts/Common/JavaScript/datatable/buttons.html5.min.js"></script>
     <script src="Scripts/Common/JavaScript/datatable/buttons.print.min.js"></script>
-    <script src="Scripts/Common/JavaScript/datatable/dataTables.buttons.min.js"></script>
+    <script src="Scripts/Common/JavaScript/datatable/dataTables.buttons.min.js"></script>--%>
 
 
-    <script type="text/javascript">
+    <%--<script type="text/javascript">
         jQuery(function ($) {
             //jquery tabs
             $("#tabs").tabs();
@@ -296,7 +328,7 @@
                 }
             }).tabs('resize');
         });
-    </script>
+    </script>--%>
 
 </head>
 <body class="no-skin">
