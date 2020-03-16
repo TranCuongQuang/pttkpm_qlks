@@ -51,13 +51,15 @@
 								                                    <i class="ace-icon fa fa-check bigger-110"></i>
 								                                    Tìm kiếm
 							                                    </button>
-
-<%--							                                    &nbsp; &nbsp; &nbsp;
-							            
-                                                                <button class="btn" type="reset">
-								                                    <i class="ace-icon fa fa-undo bigger-110"></i>
-								                                    Reset
-							                                    </button>--%>
+							                                    &nbsp; &nbsp; &nbsp;
+                                                                <a href="#modal-table" role="button" data-toggle="modal" style="text-decoration: none; color: antiquewhite;">
+                                                                    <button class="btn" type="button">
+                                                                    
+								                                            <i class="ace-icon fa fa-plus bigger-110"></i>
+                                                                            Thêm mới
+                                                                    
+							                                        </button>
+                                                                </a>
 						                                    </div>
 					                                    </div>
 
@@ -1734,6 +1736,85 @@
         </div>
     </div>
     </body>
+    <div id="modal-table" class="modal fade" tabindex="-1">
+	    <div class="modal-dialog">
+		    <div class="modal-content">
+			    <div class="modal-header no-padding">
+				    <div class="table-header">
+					    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						    <span class="white">&times;</span>
+					    </button>
+					    Results for "Latest Registered Domains
+				    </div>
+			    </div>
+
+			    <div class="modal-body no-padding">
+				    <div class="widget-box">
+											<div class="widget-header widget-header-small">
+												<h5 class="widget-title lighter">Search Form</h5>
+											</div>
+											<div class="widget-body">
+												<div class="widget-main">
+				                                    <div class="form-horizontal" role="form">
+					                                    <div class="form-group col-sm-4">
+						                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Mã nhân viên </label>
+
+						                                    <div class="col-sm-8">
+							                                    <input type="text" id="EmployeeID" placeholder="Mã nhân viên" class="form-control" />
+						                                    </div>
+					                                    </div>
+
+					                                    <div class="form-group col-sm-4">
+						                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1"> Tên nhân viên </label>
+
+						                                    <div class="col-sm-8">
+							                                    <input type="text" id="EmployeeName" placeholder="Tên nhân viên" class="form-control" />
+						                                    </div>
+					                                    </div>
+                                                        <br />
+                                                        
+					                                    <div class="space-4"></div>
+
+					                                    <div class="clearfix form-actions">
+						                                    <div class="col-md-offset-3 col-md-12">
+							                                    <button class="btn btn-info" type="button">
+								                                    <i class="ace-icon fa fa-check bigger-110"></i>
+								                                    Tìm kiếm
+							                                    </button>
+							                                    &nbsp; &nbsp; &nbsp;
+                                                                <a href="#modal-table" role="button" data-toggle="modal" style="text-decoration: none; color: antiquewhite;">
+                                                                    <button class="btn" type="button">
+                                                                    
+								                                            <i class="ace-icon fa fa-plus bigger-110"></i>
+                                                                            Thêm mới
+                                                                    
+							                                        </button>
+                                                                </a>
+						                                    </div>
+					                                    </div>
+
+					                                    <div class="hr hr-18 dotted hr-double"></div>
+                                                        
+				                                    </div>
+                                                </div>
+											</div>
+										</div>
+			            </div><!-- /.col -->
+                </div>
+
+			    <div class="modal-footer no-margin-top">
+				    <button class="btn btn-sm btn-danger pull-left" data-dismiss="modal">
+					    <i class="ace-icon fa fa-times"></i>
+					    Close
+				    </button>
+                    <button class="btn btn-sm btn-success pull-right" data-dismiss="modal">
+					    <i class="ace-icon fa fa-times"></i>
+					    Save
+				    </button>
+			    </div>
+		    </div><!-- /.modal-content -->
+	    </div><!-- /.modal-dialog -->
+    </div>
     <!-- inline scripts related to this page -->
 		<script type="text/javascript">
 			jQuery(function($) {
