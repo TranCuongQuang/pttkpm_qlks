@@ -12,6 +12,8 @@ namespace QLKS
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class qlksEntities : DbContext
     {
@@ -25,7 +27,6 @@ namespace QLKS
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<tblDichVu> tblDichVus { get; set; }
         public virtual DbSet<tblDichVuPhong> tblDichVuPhongs { get; set; }
         public virtual DbSet<tblKhachHang> tblKhachHangs { get; set; }
         public virtual DbSet<tblNhanVien> tblNhanViens { get; set; }
@@ -36,5 +37,15 @@ namespace QLKS
         public virtual DbSet<tblTaiKhoan> tblTaiKhoans { get; set; }
         public virtual DbSet<tblTrangThietBi> tblTrangThietBis { get; set; }
         public virtual DbSet<tblTrangThietBiPhong> tblTrangThietBiPhongs { get; set; }
+        public virtual DbSet<tblDichVu> tblDichVus { get; set; }
+    
+        public virtual ObjectResult<GetUser_Result> GetUser(string user)
+        {
+            var userParameter = user != null ?
+                new ObjectParameter("User", user) :
+                new ObjectParameter("User", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<GetUser_Result>("GetUser", userParameter);
+        }
     }
 }

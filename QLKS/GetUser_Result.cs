@@ -10,17 +10,13 @@
 namespace QLKS
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class tblDichVuPhong
+    public partial class GetUser_Result
     {
-        public int MaDVP { get; set; }
-        public Nullable<int> MaPhieuDP { get; set; }
-        public Nullable<int> MaDV { get; set; }
-        public Nullable<int> SoLuong { get; set; }
-        public Nullable<decimal> DonGia { get; set; }
-    
-        public virtual tblPhieuDatPhong tblPhieuDatPhong { get; set; }
-        public virtual tblDichVu tblDichVu { get; set; }
+        public int MaTK { get; set; }
+        public string TenNV { get; set; }
+        public string TenDangNhap { get; set; }
+        public string MatKhau { get; set; }
+        public string Quyen { get; set; }
     }
 }

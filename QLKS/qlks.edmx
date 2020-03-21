@@ -220,6 +220,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GetUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="User" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="qlksModelStoreContainer">
           <EntitySet Name="tblDichVu" EntityType="Self.tblDichVu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblDichVuPhong" EntityType="Self.tblDichVuPhong" Schema="dbo" store:Type="Tables" />
@@ -274,7 +277,6 @@
     <edmx:ConceptualModels>
       <Schema Namespace="qlksModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="qlksEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tblDichVus" EntityType="qlksModel.tblDichVu" />
           <EntitySet Name="tblDichVuPhongs" EntityType="qlksModel.tblDichVuPhong" />
           <EntitySet Name="tblKhachHangs" EntityType="qlksModel.tblKhachHang" />
           <EntitySet Name="tblNhanViens" EntityType="qlksModel.tblNhanVien" />
@@ -285,10 +287,6 @@
           <EntitySet Name="tblTaiKhoans" EntityType="qlksModel.tblTaiKhoan" />
           <EntitySet Name="tblTrangThietBis" EntityType="qlksModel.tblTrangThietBi" />
           <EntitySet Name="tblTrangThietBiPhongs" EntityType="qlksModel.tblTrangThietBiPhong" />
-          <AssociationSet Name="FK_tblDichVuPhong_tblDichVu" Association="qlksModel.FK_tblDichVuPhong_tblDichVu">
-            <End Role="tblDichVu" EntitySet="tblDichVus" />
-            <End Role="tblDichVuPhong" EntitySet="tblDichVuPhongs" />
-          </AssociationSet>
           <AssociationSet Name="FK_tblDichVuPhong_tblPhieuDatPhong" Association="qlksModel.FK_tblDichVuPhong_tblPhieuDatPhong">
             <End Role="tblPhieuDatPhong" EntitySet="tblPhieuDatPhongs" />
             <End Role="tblDichVuPhong" EntitySet="tblDichVuPhongs" />
@@ -321,16 +319,15 @@
             <End Role="tblTrangThietBi" EntitySet="tblTrangThietBis" />
             <End Role="tblTrangThietBiPhong" EntitySet="tblTrangThietBiPhongs" />
           </AssociationSet>
+          <EntitySet Name="tblDichVus" EntityType="qlksModel.tblDichVu" />
+          <AssociationSet Name="FK_tblDichVuPhong_tblDichVu" Association="qlksModel.FK_tblDichVuPhong_tblDichVu">
+            <End Role="tblDichVu" EntitySet="tblDichVus" />
+            <End Role="tblDichVuPhong" EntitySet="tblDichVuPhongs" />
+          </AssociationSet>
+          <FunctionImport Name="GetUser" ReturnType="Collection(qlksModel.GetUser_Result)">
+            <Parameter Name="User" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
-        <EntityType Name="tblDichVu">
-          <Key>
-            <PropertyRef Name="MaDV" />
-          </Key>
-          <Property Name="MaDV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenDV" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="DonGia" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="tblDichVuPhongs" Relationship="qlksModel.FK_tblDichVuPhong_tblDichVu" FromRole="tblDichVu" ToRole="tblDichVuPhong" />
-        </EntityType>
         <EntityType Name="tblDichVuPhong">
           <Key>
             <PropertyRef Name="MaDVP" />
@@ -340,8 +337,8 @@
           <Property Name="MaDV" Type="Int32" />
           <Property Name="SoLuong" Type="Int32" />
           <Property Name="DonGia" Type="Decimal" Precision="19" Scale="4" />
-          <NavigationProperty Name="tblDichVu" Relationship="qlksModel.FK_tblDichVuPhong_tblDichVu" FromRole="tblDichVuPhong" ToRole="tblDichVu" />
           <NavigationProperty Name="tblPhieuDatPhong" Relationship="qlksModel.FK_tblDichVuPhong_tblPhieuDatPhong" FromRole="tblDichVuPhong" ToRole="tblPhieuDatPhong" />
+          <NavigationProperty Name="tblDichVu" Relationship="qlksModel.FK_tblDichVuPhong_tblDichVu" FromRole="tblDichVuPhong" ToRole="tblDichVu" />
         </EntityType>
         <EntityType Name="tblKhachHang">
           <Key>
@@ -447,18 +444,6 @@
           <NavigationProperty Name="tblPhong" Relationship="qlksModel.FK_tblTrangThietBiPhong_tblPhong" FromRole="tblTrangThietBiPhong" ToRole="tblPhong" />
           <NavigationProperty Name="tblTrangThietBi" Relationship="qlksModel.FK_tblTrangThietBiPhong_tblTrangThietBi" FromRole="tblTrangThietBiPhong" ToRole="tblTrangThietBi" />
         </EntityType>
-        <Association Name="FK_tblDichVuPhong_tblDichVu">
-          <End Type="qlksModel.tblDichVu" Role="tblDichVu" Multiplicity="0..1" />
-          <End Type="qlksModel.tblDichVuPhong" Role="tblDichVuPhong" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblDichVu">
-              <PropertyRef Name="MaDV" />
-            </Principal>
-            <Dependent Role="tblDichVuPhong">
-              <PropertyRef Name="MaDV" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tblDichVuPhong_tblPhieuDatPhong">
           <End Type="qlksModel.tblPhieuDatPhong" Role="tblPhieuDatPhong" Multiplicity="0..1" />
           <End Type="qlksModel.tblDichVuPhong" Role="tblDichVuPhong" Multiplicity="*" />
@@ -555,21 +540,40 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tblDichVu">
+          <Key>
+            <PropertyRef Name="MaDV" />
+          </Key>
+          <Property Name="MaDV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenDV" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DonGia" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="tblDichVuPhongs" Relationship="qlksModel.FK_tblDichVuPhong_tblDichVu" FromRole="tblDichVu" ToRole="tblDichVuPhong" />
+        </EntityType>
+        <Association Name="FK_tblDichVuPhong_tblDichVu">
+          <End Type="qlksModel.tblDichVu" Role="tblDichVu" Multiplicity="0..1" />
+          <End Type="qlksModel.tblDichVuPhong" Role="tblDichVuPhong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblDichVu">
+              <PropertyRef Name="MaDV" />
+            </Principal>
+            <Dependent Role="tblDichVuPhong">
+              <PropertyRef Name="MaDV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="GetUser_Result">
+          <Property Type="Int32" Name="MaTK" Nullable="false" />
+          <Property Type="String" Name="TenNV" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="TenDangNhap" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="MatKhau" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Quyen" Nullable="true" MaxLength="50" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="qlksModelStoreContainer" CdmEntityContainer="qlksEntities">
-          <EntitySetMapping Name="tblDichVus">
-            <EntityTypeMapping TypeName="qlksModel.tblDichVu">
-              <MappingFragment StoreEntitySet="tblDichVu">
-                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
-                <ScalarProperty Name="TenDV" ColumnName="TenDV" />
-                <ScalarProperty Name="MaDV" ColumnName="MaDV" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblDichVuPhongs">
             <EntityTypeMapping TypeName="qlksModel.tblDichVuPhong">
               <MappingFragment StoreEntitySet="tblDichVuPhong">
@@ -679,6 +683,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="tblDichVus">
+            <EntityTypeMapping TypeName="qlksModel.tblDichVu">
+              <MappingFragment StoreEntitySet="tblDichVu">
+                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
+                <ScalarProperty Name="TenDV" ColumnName="TenDV" />
+                <ScalarProperty Name="MaDV" ColumnName="MaDV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetUser" FunctionName="qlksModel.Store.GetUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="qlksModel.GetUser_Result">
+                <ScalarProperty Name="MaTK" ColumnName="MaTK" />
+                <ScalarProperty Name="TenNV" ColumnName="TenNV" />
+                <ScalarProperty Name="TenDangNhap" ColumnName="TenDangNhap" />
+                <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
+                <ScalarProperty Name="Quyen" ColumnName="Quyen" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
