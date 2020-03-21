@@ -10,6 +10,6 @@
 namespace QLKS {
     
     
-    public partial class _Default {
+    public partial class EmployeeManagement1 {
     }
 }

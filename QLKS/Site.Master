@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 
-    <link rel="stylesheet" href="Scripts/assets/css/bootstrap.min.css" />
+    <link href="Scripts/assets/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="Scripts/assets/font-awesome/4.5.0/css/font-awesome.min.css" />
 
     <!-- page specific plugin styles -->
@@ -23,6 +23,19 @@
     <link rel="stylesheet" href="Scripts/assets/css/ace-skins.min.css" />
     <link rel="stylesheet" href="Scripts/assets/css/ace-rtl.min.css" />
     <link href="Scripts/assets/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="Scripts/assets/css/jquery-ui.custom.min.css" />
+	<link rel="stylesheet" href="Scripts/assets/css/chosen.min.css" />
+	<link rel="stylesheet" href="Scripts/assets/css/bootstrap-datepicker3.min.css" />
+	<link rel="stylesheet" href="Scripts/assets/css/bootstrap-timepicker.min.css" />
+	<link rel="stylesheet" href="Scripts/assets/css/daterangepicker.min.css" />
+	<link rel="stylesheet" href="Scripts/assets/css/bootstrap-datetimepicker.min.css" />
+	<link rel="stylesheet" href="Scripts/assets/css/bootstrap-colorpicker.min.css" />
+    <link rel="stylesheet" href="Scripts/assets/css/ace-skins.min.css" />
+	<link rel="stylesheet" href="Scripts/assets/css/ace-rtl.min.css" />
+
+    <%-- easyui --%>
+    <link href="Scripts/easyui/css/easyui.css" rel="stylesheet" />
+
 
     <!-- inline styles related to this page -->
     <!-- ace settings handler -->
@@ -43,6 +56,29 @@
     <script src="Scripts/assets/js/jquery.flot.min.js"></script>
     <script src="Scripts/assets/js/jquery.flot.pie.min.js"></script>
     <script src="Scripts/assets/js/jquery.flot.resize.min.js"></script>
+	<script src="Scripts/assets/js/chosen.jquery.min.js"></script>
+	<script src="Scripts/assets/js/spinbox.min.js"></script>
+	<script src="Scripts/assets/js/bootstrap-datepicker.min.js"></script>
+	<script src="Scripts/assets/js/bootstrap-timepicker.min.js"></script>
+	<script src="Scripts/assets/js/moment.min.js"></script>
+	<script src="Scripts/assets/js/daterangepicker.min.js"></script>
+	<script src="Scripts/assets/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="Scripts/assets/js/bootstrap-colorpicker.min.js"></script>
+	<script src="Scripts/assets/js/jquery.knob.min.js"></script>
+	<script src="Scripts/assets/js/autosize.min.js"></script>
+	<script src="Scripts/assets/js/jquery.inputlimiter.min.js"></script>
+	<script src="Scripts/assets/js/jquery.maskedinput.min.js"></script>
+	<script src="Scripts/assets/js/bootstrap-tag.min.js"></script>
+
+    <script src="Scripts/assets/js/jquery.dataTables.min.js"></script>
+	<script src="Scripts/assets/js/jquery.dataTables.bootstrap.min.js"></script>
+	<script src="Scripts/assets/js/dataTables.buttons.min.js"></script>
+	<script src="Scripts/assets/js/buttons.flash.min.js"></script>
+	<script src="Scripts/assets/js/buttons.html5.min.js"></script>
+	<script src="Scripts/assets/js/buttons.print.min.js"></script>
+	<script src="Scripts/assets/js/buttons.colVis.min.js"></script>
+	<script src="Scripts/assets/js/dataTables.select.min.js"></script>
+
 
     <!-- ace scripts -->
     <script src="Scripts/assets/js/ace-elements.min.js"></script>
@@ -53,6 +89,247 @@
     <script src="Scripts/assets/js/angular-select2.js"></script>
     <script src="Scripts/assets/js/angular-filter.min.js"></script>
     <script src="Scripts/assets/js/angular-datatables.min.js"></script>
+
+    <!-- jquery-easyui -->
+    <%--<script src="Scripts/easyui/js/jquery.easyui.min.js"></script>
+    <script src="Scripts/easyui/js/jquery-easyui/jquery.edatagrid.js"></script>
+    <script src="Scripts/easyui/js/jquery-easyui/datagrid-cellediting.js"></script>
+    <script src="Scripts/easyui/js/jquery-easyui/datagrid-groupview.js"></script>
+    <script src="Scripts/easyui/js/jquery-easyui/datagrid-export.js"></script>--%>
+
+    <%--  --%>
+    <%--<script src="Scripts/Common/JavaScript/acccommon.js"></script>
+    <script src="Scripts/Common/JavaScript/accounting.js"></script>
+    <script src="Scripts/Common/JavaScript/commonEM.js"></script>
+    <script src="Scripts/Common/JavaScript/popup.window.open.js"></script>
+    <script src="Scripts/Common/JavaScript/moment.js"></script>
+    <script src="Scripts/Common/JavaScript/moment.min.js"></script>
+    <script src="Scripts/Common/JavaScript/select2.min.js"></script>--%>
+
+    <%-- datepicker --%>
+    <%--<script src="Scripts/Common/JavaScript/bootstrap-datepicker.min.js"></script>
+    <script src="Scripts/Common/JavaScript/bootstrap-datetimepicker.min.js"></script>
+    <script src="Scripts/Common/JavaScript/bootstrap-timepicker.min.js"></script>
+    <script src="Scripts/Common/JavaScript/daterangepicker.min.js"></script>
+    <script src="Scripts/Common/JavaScript/inputmask/inputmask.js"></script>
+    <script src="Scripts/Common/JavaScript/inputmask/inputmask.numeric.extensions.js"></script>
+    <script src="Scripts/Common/JavaScript/inputmask/jquery.inputmask.bundle.js"></script>
+    <script src="Scripts/Common/JavaScript/inputmask/jquery.inputmask.js"></script>--%>
+    
+    <%-- datatable --%>
+    <%--<script src="Scripts/Common/JavaScript/jquery.dataTables.min.js"></script>
+    <script src="Scripts/Common/JavaScript/jquery.dataTables.bootstrap.min.js"></script>
+    <script src="Scripts/Common/JavaScript/dataTables.buttons.min.js"></script>
+    <script src="Scripts/Common/JavaScript/dataTables.select.min.js"></script>
+    <script src="Scripts/Common/JavaScript/datatable/buttons.flash.min.js"></script>
+    <script src="Scripts/Common/JavaScript/datatable/buttons.html5.min.js"></script>
+    <script src="Scripts/Common/JavaScript/datatable/buttons.print.min.js"></script>
+    <script src="Scripts/Common/JavaScript/datatable/dataTables.buttons.min.js"></script>--%>
+
+
+    <%--<script type="text/javascript">
+        jQuery(function ($) {
+            //jquery tabs
+            $("#tabs").tabs();
+            //datepicker plugin
+            //link
+            $('.date-picker').datepicker({
+                autoclose: true,
+                todayHighlight: true,
+                format: 'dd/mm/yyyy'
+            })
+                .mask('99/99/9999')
+                .next().on(ace.click_event, function () {
+                    $(this).prev().focus();
+                });
+            $(".date-picker").keyup(function (e) {
+                if (46 == e.keyCode || 8 == e.keyCode || 9 == e.keyCode) {
+                    var $this = $(this);
+                    if ($this.val() == "__/__/____")
+                        $this.val("");
+                }
+            });
+
+            $('.month_year').datepicker({
+                format: 'mm/yyyy',
+                viewMode: "months", //this
+                minViewMode: "months",//and this
+                autoClose: true
+            }).mask('99/9999')
+                .next().on(ace.click_event, function () {
+                    $(this).prev().focus();
+                });
+            $(".month_year").keyup(function (e) {
+                if (46 == e.keyCode || 8 == e.keyCode || 9 == e.keyCode) {
+                    var $this = $(this);
+                    if ($this.val() == "__/____")
+                        $this.val("");
+                }
+            });
+
+            $('.only_year').datepicker({
+                format: 'yyyy',
+                viewMode: "years", //this
+                minViewMode: "years",//and this
+                autoClose: true,
+            }).mask('9999')
+                .next().on(ace.click_event, function () {
+                    $(this).prev().focus();
+                });
+            $(".only_year").keyup(function (e) {
+                if (46 == e.keyCode || 8 == e.keyCode || 9 == e.keyCode) {
+                    var $this = $(this);
+                    if ($this.val() == "____")
+                        $this.val("");
+                }
+            });
+
+            $(".EMSelect2").select2();
+            jQuery(".chosen").chosen({
+                no_results_text: "Không tìm thấy dữ liệu.",
+                placeholder_text: "Vui lòng chọn.",
+                search_contains: true,
+                disable_search_threshold: 10
+            });
+            //sheeeeeeee
+            //override dialog's title function to allow for HTML titles
+            $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+                _title: function (title) {
+                    var $title = this.options.title || '&nbsp;'
+                    if (("title_html" in this.options) && this.options.title_html == true)
+                        title.html($title);
+                    else title.text($title);
+                }
+            }));
+
+            $("#id-btn-dialog1").on('click', function (e) {
+                e.preventDefault();
+                var dialog = $("#dialog-message").removeClass('hide').dialog({
+                    modal: true,
+                    width: 800,
+                    height: 530,
+                    title: "<div class='widget-header widget-header-small'><h4 class='smaller'><i class='ace-icon fa fa-check'></i>  </h4></div>",
+                    title_html: true,
+                    buttons: [
+                    ]
+                });
+            });
+
+            //style cho editor
+            //$('.wysiwyg-editor').ace_wysiwyg({
+            //    toolbar:
+            //        [
+            //            null,
+            //            'fontSize',
+            //            null,
+            //            { name: 'bold', className: 'btn-info' },
+            //            { name: 'italic', className: 'btn-info' },
+            //            null,
+            //            'foreColor',
+            //        ],
+            //}).prev().addClass('wysiwyg-style2');
+
+            //DateRange -- SangDev
+            var start = moment().subtract(29, 'days');
+            var end = moment();
+            $('.date-rank-picker').each(function () {
+                //Biến cờ
+                // true: hiển thị custom
+                // false: không hiển thị custom
+                var flag = $(this).attr("flag") == "true";
+                $(this).daterangepicker({
+                    startDate: start,
+                    endDate: end,
+                    showCustomRangeLabel: flag,
+                    ranges: {
+                        '7 ngày trước': [moment().subtract(6, 'days'), moment()],
+                        '1 tháng trước': [moment().subtract(29, 'days'), moment()],
+                        '3 tháng trước': [moment().subtract(90, 'days'), moment()]
+                    },
+                    locale: {
+                        format: 'DD/MM/YYYY'
+                    },
+                }, cb);
+            })
+            function cb(start, end) {
+                console.log('start', start.format('YYYY-MM-DD'));
+                console.log('end', end.format('YYYY-MM-DD'));
+                $('.date-rank-picker').html(start.format('YYYY-MM-DD') + ' - ' + end.format('YYYY-MM-DD'));
+            }
+
+            // PhuLV - input only decimal - start
+            // Example: class="decimal_10_2"
+            $('input[class*="decimal_"]').each(function () {
+                var clEx = this.className.toString().match(/decimal_(\d+)_(\d+)/);
+
+                $(this).inputmask("decimal", { integerDigits: clEx[1] - clEx[2], digits: clEx[2], negationSymbol: { front: " " } });
+                $(this).unbind('cut.inputmask');
+
+                $(this).on('keydown', function (e) {
+                    // Allow: backspace, delete, tab, escape, enter and .
+                    if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                        // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
+                        (e.ctrlKey === true && (e.keyCode == 65 || e.keyCode == 67 || e.keyCode == 86 || e.keyCode == 88)) ||
+                        // Allow: home, end, left, right, down, up
+                        (e.keyCode >= 35 && e.keyCode <= 40)) {
+                        // let it happen, don't do anything
+                        return;
+                    }
+                    // Ensure that it is a number and stop the keypress
+                    if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                        e.preventDefault();
+                    }
+                });
+                $(this).css("ime-mode", "disabled");
+                $(this).attr("type", "tel");
+            });
+
+            // PhuLV - ASCII code only
+            $('input[class*="ascii_code_only"]').on('keyup blur', function (e) {
+                var node = $(this);
+                // /^[a-zA-Z0-9~`!@#$%^&*()_+-={}|:;<>,.?\/']+$/
+                // node.val(node.val().replace(/[^a-z]/g, ''));
+                node.val(node.val().replace(/[^a-zA-Z0-9_+-]/g, ''));
+            });
+
+            $('input[class*="remove_unicode"]').keypress(function (event) {
+                var regex = new RegExp("^[a-zA-Z ]+$");
+                var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+                if (!regex.test(key)) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+
+            $(".pl_money_decimal").priceFormat({ prefix: '', centsLimit: 0 });
+            //hung add ACC Tab
+            var frontH, frontW;
+            frontH = window.innerHeight;
+            frontW = window.innerWidth - 40 - $("#sidebar").outerWidth();
+            $("#tab").tabs({
+                height: frontH,
+                width: frontW,
+                onLoad: function (panel) {
+                },
+                onAdd: function (title, index) {
+                    if (index == 0) {
+                        $("#tab").show();
+                    }
+                },
+                onClose: function (title, index) {
+                    var len = $("#tab").tabs('tabs').length;
+                    if (len == 0) {
+                        $("#tab").hide();
+                    }
+                },
+                onBeforeClose: function (title, index) {
+                    var target = this;
+                    var tab = $(target).tabs('getTab', index);
+                }
+            }).tabs('resize');
+        });
+    </script>--%>
+
 </head>
 <body class="no-skin">
     <form runat="server">
