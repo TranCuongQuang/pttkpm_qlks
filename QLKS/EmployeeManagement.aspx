@@ -1737,26 +1737,26 @@
     </div>
     </body>
     <div id="modal-table" class="modal fade" tabindex="-1">
-	    <div class="modal-dialog">
+	    <div class="modal-dialog" style ="width: 850px!important; height:auto;">
 		    <div class="modal-content">
 			    <div class="modal-header no-padding">
 				    <div class="table-header">
 					    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 						    <span class="white">&times;</span>
 					    </button>
-					    Results for "Latest Registered Domains
+					    Thêm mới
 				    </div>
 			    </div>
 
 			    <div class="modal-body no-padding">
 				    <div class="widget-box">
-											<div class="widget-header widget-header-small">
+											<%--<div class="widget-header widget-header-small">
 												<h5 class="widget-title lighter">Search Form</h5>
-											</div>
+											</div>--%>
 											<div class="widget-body">
 												<div class="widget-main">
 				                                    <div class="form-horizontal" role="form">
-					                                    <div class="form-group col-sm-4">
+					                                    <div class="form-group col-sm-6">
 						                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1"> Mã nhân viên </label>
 
 						                                    <div class="col-sm-8">
@@ -1764,7 +1764,7 @@
 						                                    </div>
 					                                    </div>
 
-					                                    <div class="form-group col-sm-4">
+					                                    <div class="form-group col-sm-6">
 						                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1"> Tên nhân viên </label>
 
 						                                    <div class="col-sm-8">
