@@ -38,19 +38,7 @@ namespace QLKS
 
             var a = Request.Params["a"];
 
-            using (qlksEntities db = new qlksEntities)
-            {
-                tblDichVu tb = new tblDichVu();
-                tb.DonGia = 1;
-
-                db.tblDichVus.Add(tb);
-                
-                db.SaveChanges();
-
-               
-            };
-
-                return response;
+            return response;
         }
     }
 }
