@@ -5,8 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.Web.Script.Services;
 
 namespace QLKS
 {
@@ -30,9 +29,10 @@ namespace QLKS
             //        break;
             //}
         }
-        //[WebMethod(EnableSession = true)]
-        [WebMethod]
-        public dynamic GetEmpList()
+        [WebMethod(EnableSession = true)]
+        //[WebMethod]
+        [ScriptMethod]
+        public static dynamic GetEmpList(string userName, string passWord)
         {
             try
             {
