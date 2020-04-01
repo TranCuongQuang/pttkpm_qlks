@@ -8,6 +8,22 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
     });
 
     $scope.searchEmp = function () {
+       $.ajax({
+            type: "GET",
+            contentType: "application/json; charset=utf-8",
+            url: "./WebServiceCP.aspx/test",
+            data: {},
+            dataType: "json",
+            success: function (data) {
+                console.log("response:", data);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+
+    $scope.searchEmp1 = function () {
         debugger
         var params = {
             userName: "",
@@ -41,6 +57,5 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
         //        console.log(err);
         //    }
         //});
-        
     }
 })

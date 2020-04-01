@@ -10,8 +10,14 @@ using System.Web.UI.WebControls;
 
 namespace QLKS
 {
-    public partial class WebServiceCP : System.Web.UI.Page
+    public partial class WebServiceCP :  System.Web.UI.Page //System.Web.Services.WebService
     {
+        //public WebServiceCP()
+        //{
+        //    //Uncomment the following line if using designed components
+        //    //InitializeComponent();
+        //}
+
         protected void Page_Load(object sender, EventArgs e)
         {
             //var action = Request.Params["Action"];
@@ -39,6 +45,22 @@ namespace QLKS
                 var ctx = new qlksEntities();
                 var emp = ctx.tblNhanViens.Find();
                 return emp;
+            }
+            catch (Exception)
+            {
+                return "";
+            }
+            finally
+            {
+            }
+        }
+
+        [WebMethod]
+        public static string test()
+        {
+            try
+            {
+                return "";
             }
             catch (Exception)
             {
