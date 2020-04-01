@@ -33,7 +33,7 @@ namespace QLKS
         private AjaxReponseModel<dynamic> Login()
         {
             var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
-            var data = (new StreamReader(Request.InputStream).ReadToEnd());
+            var data = new StreamReader(Request.InputStream).ReadToEnd();
             var dym = JsonConvert.DeserializeObject<dynamic>(data);
 
             var a = Request.Params["a"];

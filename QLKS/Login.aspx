@@ -102,6 +102,6 @@
         </div>
         <!-- /.main-container -->
     </form>
-    <script src="App/Login.js"></script>
+    <script src="App/Login.js?v=1"></script>
 </body>
 </html>

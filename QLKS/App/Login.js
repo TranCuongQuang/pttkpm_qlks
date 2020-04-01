@@ -3,8 +3,8 @@ app.controller('LoginCtrl', function ($scope, $http, $timeout, $window) {
     $scope.txtUserName = "";
     $scope.txtPassWord = "";
 
-    angular.element(document).ready(function () {
-    });
+    //angular.element(document).ready(function () {
+    //});
 
     $scope.Login = function () {
         //var params = {
