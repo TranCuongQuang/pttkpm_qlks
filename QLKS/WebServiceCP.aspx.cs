@@ -5,19 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.Web.Script.Services;
 
 namespace QLKS
 {
-    public partial class WebServiceCP :  System.Web.UI.Page //System.Web.Services.WebService
+    public partial class WebServiceCP : System.Web.UI.Page
     {
-        //public WebServiceCP()
-        //{
-        //    //Uncomment the following line if using designed components
-        //    //InitializeComponent();
-        //}
-
         protected void Page_Load(object sender, EventArgs e)
         {
             //var action = Request.Params["Action"];
@@ -36,31 +29,16 @@ namespace QLKS
             //        break;
             //}
         }
-        //[WebMethod(EnableSession = true)]
-        [WebMethod]
-        public dynamic GetEmpList()
+        [WebMethod(EnableSession = true)]
+        //[WebMethod]
+        [ScriptMethod]
+        public static dynamic GetEmpList(string userName, string passWord)
         {
             try
             {
                 var ctx = new qlksEntities();
                 var emp = ctx.tblNhanViens.Find();
                 return emp;
-            }
-            catch (Exception)
-            {
-                return "";
-            }
-            finally
-            {
-            }
-        }
-
-        [WebMethod]
-        public static string test()
-        {
-            try
-            {
-                return "";
             }
             catch (Exception)
             {

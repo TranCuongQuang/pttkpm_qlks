@@ -8,11 +8,31 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
     });
 
     $scope.searchEmp = function () {
-       $.ajax({
-            type: "GET",
-            contentType: "application/json; charset=utf-8",
-            url: "./WebServiceCP.aspx/test",
-            data: {},
+        debugger
+        var params = {
+            userName: "a",
+            passWord: "b"
+        }
+        console.log("params", params);
+        //$http({
+        //    url: `./WebServiceCP.aspx/GetEmpList`,
+        //    method: "POST",
+        //    headers: {
+        //        'Content-Type': 'application/json; charset=utf-8'
+        //    },
+        //    data: { params }
+        //}).then(function (response) {
+        //    console.log("response:", response);
+        //}, function (err) {
+        //    //toastr.error("Xảy ra lỗi trong quá trình thực thi.");
+        //    console.log(err);
+        //});
+
+        $.ajax({
+            type: "POST",
+            //contentType: "application/json; charset=utf-8",
+            url: "./WebServiceCP.aspx/GetEmpList",
+            data: JSON.stringify(params),
             dataType: "json",
             success: function (data) {
                 console.log("response:", data);
@@ -21,41 +41,6 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
                 console.log(err);
             }
         });
-    }
 
-    $scope.searchEmp1 = function () {
-        debugger
-        var params = {
-            userName: "",
-            passWord: ""
-        }
-        console.log("params", params);
-        $http({
-            url: `./WebServiceCP.aspx/GetEmpList`,
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            },
-            data: {}
-        }).then(function (response) {
-            console.log("response:", response);
-        }, function (err) {
-            //toastr.error("Xảy ra lỗi trong quá trình thực thi.");
-            console.log(err);
-        });
-
-        //$.ajax({
-        //    type: "POST",
-        //    contentType: "application/json; charset=utf-8",
-        //    url: "./WebServiceCP.aspx/GetEmpList",
-        //    data: {},
-        //    dataType: "json",
-        //    success: function (data) {
-        //        console.log("response:", data);
-        //    },
-        //    error: function (err) {
-        //        console.log(err);
-        //    }
-        //});
     }
 })
