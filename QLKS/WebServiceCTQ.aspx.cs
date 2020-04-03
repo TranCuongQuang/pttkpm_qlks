@@ -2,6 +2,7 @@
 using QLKS.Class;
 using System;
 using System.IO;
+using System.Linq;
 
 namespace QLKS
 {
@@ -36,7 +37,24 @@ namespace QLKS
             var data = new StreamReader(Request.InputStream).ReadToEnd();
             var dym = JsonConvert.DeserializeObject<dynamic>(data);
 
-            var a = Request.Params["a"];
+            string userName = dym.userName;
+            string passWord = dym.passWord;
+
+            using (var db = new qlksEntities())
+            {
+                var user = db.tblTaiKhoans.SingleOrDefault(w => w.MatKhau == passWord && w.TenDangNhap == userName);
+
+                if (user != null)
+                {
+                    response.Message = "Đăng nhập thành công.";
+                    Session["UserLogin"] = user;
+                }
+                else
+                {
+                    response.Status = AjaxReponseStatusEnum.Fail;
+                    response.Message = "Đăng nhập thất bại. Vui lòng kiểm tra lại tên đăng nhập hoặc mật khẩu.";
+                }
+            };
 
             return response;
         }
