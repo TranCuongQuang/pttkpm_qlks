@@ -8,25 +8,37 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
     });
 
     $scope.searchEmp = function () {
-        debugger
         var params = {
             userName: "a",
             passWord: "b"
         }
         console.log("params", params);
         $http({
-            url: `./WebServiceCP.aspx/GetEmpList?Action=GetEmpList`,
-            method: "POST",
+            url: `/WebServiceCP.aspx?action=GetEmpList`,
+            method: "GET",
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
-            },
-            data: { params }
+            }
         }).then(function (response) {
             console.log("response:", response);
         }, function (err) {
             //toastr.error("Xảy ra lỗi trong quá trình thực thi.");
             console.log(err);
         });
+
+        //$http({
+        //    url: `/WebServiceCP.aspx?action=GetEmpList`,
+        //    method: "POST",
+        //    headers: {
+        //        'Content-Type': 'application/json; charset=utf-8'
+        //    },
+        //    data: params
+        //}).then(function (response) {
+        //    console.log("response:", response);
+        //}, function (err) {
+        //    //toastr.error("Xảy ra lỗi trong quá trình thực thi.");
+        //    console.log(err);
+        //});
 
         //$.ajax({
         //    type: "POST",

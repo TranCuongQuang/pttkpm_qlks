@@ -1,4 +1,4 @@
-﻿using QLKS.App_Code;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace QLKS
 {
-    public partial class _Default : AuthenPage
+    public partial class _Default
     {
         protected void Page_Load(object sender, EventArgs e)
         {

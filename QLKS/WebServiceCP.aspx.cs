@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Services;
 using System.Web.Script.Services;
+using System.IO;
+using QLKS.Class;
 
 namespace QLKS
 {
@@ -20,7 +22,7 @@ namespace QLKS
             switch (action)
             {
                 case "GetEmpList":
-                    //Response.Write(JsonConvert.SerializeObject(GetEmpList()));
+                    Response.Write(JsonConvert.SerializeObject(GetEmpList()));
                     Response.End();
                     break;
 
@@ -33,17 +35,26 @@ namespace QLKS
         [WebMethod(EnableSession = true)]
         //[WebMethod]
         [ScriptMethod]
-        public static dynamic GetEmpList(string userName, string passWord)
+        public AjaxReponseModel<dynamic> GetEmpList()
         {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            var data = new StreamReader(Request.InputStream).ReadToEnd();
+            var dym = JsonConvert.DeserializeObject<dynamic>(data);
+
+            //string userName1 = dym.userName;
+            //string passWord1 = dym.passWord;
             try
             {
-                var ctx = new qlksEntities();
-                var emp = ctx.tblNhanViens.Find();
-                return emp;
+                using (var ctx = new qlksEntities())
+                {
+                    var emp = ctx.tblNhanViens.ToList();
+                    response.Data = emp;
+                }
+                return response;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return "";
+                return response;
             }
             finally
             {

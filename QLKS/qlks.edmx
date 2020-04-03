@@ -220,9 +220,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Function Name="GetUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="User" Type="nvarchar" Mode="In" />
-        </Function>
         <EntityContainer Name="qlksModelStoreContainer">
           <EntitySet Name="tblDichVu" EntityType="Self.tblDichVu" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblDichVuPhong" EntityType="Self.tblDichVuPhong" Schema="dbo" store:Type="Tables" />
@@ -692,17 +689,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="GetUser" FunctionName="qlksModel.Store.GetUser">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="qlksModel.GetUser_Result">
-                <ScalarProperty Name="MaTK" ColumnName="MaTK" />
-                <ScalarProperty Name="TenNV" ColumnName="TenNV" />
-                <ScalarProperty Name="TenDangNhap" ColumnName="TenDangNhap" />
-                <ScalarProperty Name="MatKhau" ColumnName="MatKhau" />
-                <ScalarProperty Name="Quyen" ColumnName="Quyen" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
