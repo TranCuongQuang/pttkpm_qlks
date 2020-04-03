@@ -13,21 +13,22 @@ namespace QLKS
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //var action = Request.Params["Action"];
-            //Response.ContentType = "application/json; charset=utf-8";
+            var a = Request;
+            var action = Request.Params["Action"];
+            Response.ContentType = "application/json; charset=utf-8";
 
-            //switch (action)
-            //{
-            //    case "GetEmp":
-            //        Response.Write(JsonConvert.SerializeObject(GetEmpList()));
-            //        Response.End();
-            //        break;
+            switch (action)
+            {
+                case "GetEmpList":
+                    //Response.Write(JsonConvert.SerializeObject(GetEmpList()));
+                    Response.End();
+                    break;
 
-            //    default:
+                default:
 
-            //        Response.End();
-            //        break;
-            //}
+                    Response.End();
+                    break;
+            }
         }
         [WebMethod(EnableSession = true)]
         //[WebMethod]
