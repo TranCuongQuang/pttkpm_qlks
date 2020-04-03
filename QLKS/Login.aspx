@@ -17,7 +17,7 @@
     <link href="Content/datatables.min.css" rel="stylesheet" />
     <link href="Content/jquery.dataTables.min.css" rel="stylesheet" />
     <link href="Content/select.dataTables.min.css" rel="stylesheet" />
-
+    <link href="Scripts/assets/css/toastr.min.css" rel="stylesheet" />
     <!-- ace styles -->
     <link rel="stylesheet" href="Scripts/assets/css/ace.min.css" class="ace-main-stylesheet" />
     <link rel="stylesheet" href="Scripts/assets/css/ace-skins.min.css" />
@@ -29,6 +29,7 @@
 
     <script src="Scripts/assets/js/jquery.dataTables.min.js"></script>
     <script src="Scripts/assets/js/dataTables.select.min.js"></script>
+
     <%--Angular--%>
     <script data-require="angular.js@*" data-semver="Scripts" src="Scripts/assets/js/angular.min.js"></script>
     <script src="Scripts/assets/js/angular-block-ui.min.js"></script>
@@ -37,6 +38,8 @@
     <script src="Scripts/assets/js/angular-filter.min.js"></script>
     <script src="Scripts/assets/js/angular-datatables.min.js"></script>
     <script src="Scripts/assets/js/ui-bootstrap-tpls-2.5.0.min.js"></script>
+
+    <script src="Scripts/assets/js/toastr.js"></script>
 </head>
 <body class="login-layout blur-login">
     <form runat="server">
@@ -65,13 +68,13 @@
                                             <fieldset>
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        <input type="text" class="form-control" placeholder="Tên đăng nhập" ng-model="txtUserName" />
+                                                        <input type="text" class="form-control entry_required" placeholder="Tên đăng nhập" ng-model="txtUserName" />
                                                         <i class="ace-icon fa fa-user"></i>
                                                     </span>
                                                 </label>
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        <input type="password" class="form-control" placeholder="Mật khẩu" ng-model="txtPassWord" />
+                                                        <input type="password" class="form-control entry_required" placeholder="Mật khẩu" ng-model="txtPassWord" />
                                                         <i class="ace-icon fa fa-lock"></i>
                                                     </span>
                                                 </label>
