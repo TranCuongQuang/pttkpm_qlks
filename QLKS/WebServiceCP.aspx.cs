@@ -47,7 +47,16 @@ namespace QLKS
             {
                 using (var ctx = new qlksEntities())
                 {
-                    var emp = ctx.tblNhanViens.ToList();
+                    //var emp1 = ctx.tblNhanViens.ToList();
+                    var emp = ctx.tblNhanViens.AsEnumerable().Select(st => new {
+                        st.MaNV,
+                        st.TenNV,
+                        st.SDT,
+                        NgaySinh = st.NgaySinh.GetValueOrDefault().ToString("dd-MM-yyyy"),
+                        st.Email,
+                        st.DiaChi,
+                        st.ChucVu
+                    }).ToList();
                     response.Data = emp;
                 }
                 return response;

@@ -2,9 +2,10 @@
 app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $window) {
     $scope.txtUserName = "";
     $scope.txtPassWord = "";
+    $scope.dataTable = []
 
     angular.element(document).ready(function () {
-        //debugger
+        $scope.searchEmp();
     });
 
     $scope.searchEmp = function () {
@@ -21,6 +22,11 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
             }
         }).then(function (response) {
             console.log("response:", response);
+            var temp = response.data.Data;
+            if (temp.length > 0) {
+                $scope.dataTable = temp;
+            }
+            
         }, function (err) {
             //toastr.error("Xảy ra lỗi trong quá trình thực thi.");
             console.log(err);
