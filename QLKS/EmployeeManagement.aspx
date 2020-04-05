@@ -215,42 +215,52 @@
 											</div>--%>
                                 <div class="widget-body">
                                     <div class="widget-main">
-                                        <div class="form-horizontal" role="form">
-                                            <div class="form-group col-sm-6">
-                                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Mã nhân viên </label>
-
-                                                <div class="col-sm-8">
-                                                    <input type="text" id="EmployeeID" placeholder="Mã nhân viên" class="form-control" />
-                                                </div>
-                                            </div>
-
+                                        <div class="form-horizontal" role="form" style="height:150px;">
                                             <div class="form-group col-sm-6">
                                                 <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Tên nhân viên </label>
 
                                                 <div class="col-sm-8">
-                                                    <input type="text" id="EmployeeName" placeholder="Tên nhân viên" class="form-control" />
+                                                    <input type="text" id="txtMEmployeeName" placeholder="Tên nhân viên" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-6">
+                                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Số điện thoại</label>
+
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="txtMSDT" placeholder="Số điện thoại" class="form-control" />
                                                 </div>
                                             </div>
                                             <br />
+                                            <div class="form-group col-sm-6">
+                                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Email</label>
 
-                                            <div class="space-4"></div>
-
-                                            <div class="clearfix form-actions">
-                                                <div class="col-md-offset-3 col-md-12">
-                                                    <button class="btn btn-info" type="button">
-                                                        <i class="ace-icon fa fa-check bigger-110"></i>
-                                                        Tìm kiếm
-                                                    </button>
-                                                    &nbsp; &nbsp; &nbsp;
-                                                                <a href="#modal-table" role="button" data-toggle="modal" style="text-decoration: none; color: antiquewhite;">
-                                                                    <button class="btn" type="button">
-
-                                                                        <i class="ace-icon fa fa-plus bigger-110"></i>
-                                                                        Thêm mới
-                                                                    </button>
-                                                                </a>
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="txtMEmail" placeholder="Email" class="form-control" />
                                                 </div>
                                             </div>
+                                            <div class="form-group col-sm-6">
+                                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Địa chỉ</label>
+
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="txtMAddress" placeholder="Địa chỉ" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <div class="form-group col-sm-6">
+                                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Ngày sinh</label>
+
+                                                <div class="col-sm-8">
+                                                    <input type="date" id="txtMBirthday" placeholder="Ngày sinh" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-sm-6">
+                                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Chức vụ</label>
+
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="txtMRole" placeholder="Chức vụ" class="form-control" />
+                                                </div>
+                                            </div>
+                                            <br />
 
                                             <div class="hr hr-18 dotted hr-double"></div>
                                         </div>
@@ -267,7 +277,7 @@
                             Close
                         </button>
                         <button class="btn btn-sm btn-success pull-right" data-dismiss="modal">
-                            <i class="ace-icon fa fa-times"></i>
+                            <i class="ace-icon fa fa-save"></i>
                             Save
                         </button>
                     </div>
