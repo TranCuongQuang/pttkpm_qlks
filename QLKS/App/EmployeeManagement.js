@@ -13,7 +13,6 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
             userName: "a",
             passWord: "b"
         }
-        console.log("params", params);
         $http({
             url: `/WebServiceCP.aspx?action=GetEmpList`,
             method: "GET",
@@ -32,6 +31,8 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
             console.log(err);
         });
 
+        
+        
         //$http({
         //    url: `/WebServiceCP.aspx?action=GetEmpList`,
         //    method: "POST",
@@ -59,6 +60,10 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
         //        console.log(err);
         //    }
         //});
+
+    }
+
+    $scope.SaveEmp = function () {
 
     }
 })

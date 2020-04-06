@@ -32,10 +32,9 @@ namespace QLKS
                     break;
             }
         }
-        [WebMethod(EnableSession = true)]
-        //[WebMethod]
-        [ScriptMethod]
-        public AjaxReponseModel<dynamic> GetEmpList()
+        //[WebMethod(EnableSession = true)]
+        //[ScriptMethod]
+        private AjaxReponseModel<dynamic> GetEmpList()
         {
             var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
             var data = new StreamReader(Request.InputStream).ReadToEnd();
@@ -48,7 +47,8 @@ namespace QLKS
                 using (var ctx = new qlksEntities())
                 {
                     //var emp1 = ctx.tblNhanViens.ToList();
-                    var emp = ctx.tblNhanViens.AsEnumerable().Select(st => new {
+                    var emp = ctx.tblNhanViens.AsEnumerable().Select(st => new
+                    {
                         st.MaNV,
                         st.TenNV,
                         st.SDT,
@@ -68,6 +68,27 @@ namespace QLKS
             finally
             {
             }
+        }
+
+        private AjaxReponseModel<dynamic> Save()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            var data = new StreamReader(Request.InputStream).ReadToEnd();
+            var dym = JsonConvert.DeserializeObject<dynamic>(data);
+
+            string nameStaff = dym.nameStaff;
+            string phone = dym.phone;
+            string email = dym.email;
+            string address = dym.address;
+            string birthday = dym.birthday;
+            string role = dym.role;
+
+            using (var db = new qlksEntities())
+            {
+                
+            };
+
+            return response;
         }
     }
 }
