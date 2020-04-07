@@ -64,6 +64,27 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
     }
 
     $scope.SaveEmp = function () {
-
+        var params = {
+            nameStaff: $("#txtMEmployeeName").val(),
+            phone: $("#txtMSDT").val(),
+            email: $("#txtMEmail").val(),
+            address: $("#txtMAddress").val(),
+            birthday: $("#txtMBirthday").val(),
+            role: $("#txtMRole").val()
+        }
+        $http({
+            url: `/WebServiceCP.aspx?action=SaveEmp`,
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            data: params
+        }).then(function (response) {
+            console.log("response:", response);
+            
+        }, function (err) {
+            //toastr.error("Xảy ra lỗi trong quá trình thực thi.");
+            console.log(err);
+        });
     }
 })

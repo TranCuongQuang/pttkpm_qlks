@@ -25,6 +25,10 @@ namespace QLKS
                     Response.Write(JsonConvert.SerializeObject(GetEmpList()));
                     Response.End();
                     break;
+                case "SaveEmp":
+                    Response.Write(JsonConvert.SerializeObject(Save()));
+                    Response.End();
+                    break;
 
                 default:
 
@@ -76,16 +80,23 @@ namespace QLKS
             var data = new StreamReader(Request.InputStream).ReadToEnd();
             var dym = JsonConvert.DeserializeObject<dynamic>(data);
 
-            string nameStaff = dym.nameStaff;
-            string phone = dym.phone;
-            string email = dym.email;
-            string address = dym.address;
-            string birthday = dym.birthday;
-            string role = dym.role;
+            //string nameStaff = dym.nameStaff;
+            //string phone = dym.phone;
+            //string email = dym.email;
+            //string address = dym.address;
+            //string birthday = dym.birthday;
+            //string role = dym.role;
 
             using (var db = new qlksEntities())
             {
-                
+                tblNhanVien nv = new tblNhanVien();
+                nv.TenNV = dym.nameStaff;
+                nv.SDT = dym.phone;
+                nv.Email = dym.email;
+                nv.DiaChi = dym.address;
+                nv.NgaySinh = DateTime.Parse(dym.birthday);
+                nv.ChucVu = dym.role;
+                //db.tblNhanViens;
             };
 
             return response;
