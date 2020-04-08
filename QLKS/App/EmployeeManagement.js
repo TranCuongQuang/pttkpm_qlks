@@ -8,6 +8,14 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
         $scope.searchEmp();
     });
 
+    $(document).on("click", ".modal123", function (e) {
+        e.preventDefault();
+        var _self = $(this);
+        var myBookId = _self.data('id');
+        $("#titleheader").text(myBookId);
+        debugger
+    });
+
     $scope.searchEmp = function () {
         var params = {
             userName: "a",
@@ -63,17 +71,17 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
 
     }
 
-    $scope.SaveEmp = function () {
+    $scope.InsertEmp = function () {
         var params = {
-            nameStaff: $("#txtMEmployeeName").val(),
-            phone: $("#txtMSDT").val(),
-            email: $("#txtMEmail").val(),
-            address: $("#txtMAddress").val(),
-            birthday: $("#txtMBirthday").val(),
-            role: $("#txtMRole").val()
+            TenNV: $("#txtMEmployeeName").val(),
+            SDT: $("#txtMSDT").val(),
+            Email: $("#txtMEmail").val(),
+            DiaChi: $("#txtMAddress").val(),
+            NgaySinh: $("#txtMBirthday").val(),
+            ChucVu: $("#txtMRole").val()
         }
         $http({
-            url: `/WebServiceCP.aspx?action=SaveEmp`,
+            url: `/WebServiceCP.aspx?action=CreateEmp`,
             method: "POST",
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
@@ -82,6 +90,52 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
         }).then(function (response) {
             console.log("response:", response);
             
+        }, function (err) {
+            //toastr.error("Xảy ra lỗi trong quá trình thực thi.");
+            console.log(err);
+        });
+    }
+
+    $scope.UpdateEmp = function () {
+        var params = {
+            MaNV: $("#txtMEmployeeID").val(),
+            TenNV: $("#txtMEmployeeName").val(),
+            SDT: $("#txtMSDT").val(),
+            Email: $("#txtMEmail").val(),
+            DiaChi: $("#txtMAddress").val(),
+            NgaySinh: $("#txtMBirthday").val(),
+            ChucVu: $("#txtMRole").val()
+        }
+        $http({
+            url: `/WebServiceCP.aspx?action=UpdateEmp`,
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            data: params
+        }).then(function (response) {
+            console.log("response:", response);
+
+        }, function (err) {
+            //toastr.error("Xảy ra lỗi trong quá trình thực thi.");
+            console.log(err);
+        });
+    }
+
+    $scope.DeleteEmp = function () {
+        var params = {
+            MaNV: $("#txtMEmployeeID").val()
+        }
+        $http({
+            url: `/WebServiceCP.aspx?action=DeleteEmp`,
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            data: params
+        }).then(function (response) {
+            console.log("response:", response);
+
         }, function (err) {
             //toastr.error("Xảy ra lỗi trong quá trình thực thi.");
             console.log(err);

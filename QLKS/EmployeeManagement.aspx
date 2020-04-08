@@ -53,9 +53,8 @@
                                                                 Tìm kiếm
                                                             </button>
                                                             &nbsp; &nbsp; &nbsp;
-                                                                <a href="#modal-table" role="button" data-toggle="modal" style="text-decoration: none; color: antiquewhite;">
+                                                                <a class="modal123" href="#modal-table" role="button" data-toggle="modal" data-id="Create" style="text-decoration: none; color: antiquewhite;">
                                                                     <button class="btn" type="button">
-
                                                                         <i class="ace-icon fa fa-plus bigger-110"></i>
                                                                         Thêm mới
                                                                     </button>
@@ -200,7 +199,7 @@
                 <div class="modal-dialog" style="width: 850px!important; height: auto;">
                     <div class="modal-content">
                         <div class="modal-header no-padding">
-                            <div class="table-header">
+                            <div class="table-header" id="titleheader">
                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                     <span class="white">&times;</span>
                                 </button>
@@ -216,6 +215,13 @@
                                 <div class="widget-body">
                                     <div class="widget-main">
                                         <div class="form-horizontal" role="form" style="height:150px;">
+                                            <div class="form-group col-sm-6" id="manv">
+                                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Mã nhân viên </label>
+
+                                                <div class="col-sm-8">
+                                                    <input type="text" id="txtMEmployeeID" placeholder="Mã nhân viên" class="form-control" readonly="readonly"/>
+                                                </div>
+                                            </div>
                                             <div class="form-group col-sm-6">
                                                 <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Tên nhân viên </label>
 
@@ -276,7 +282,11 @@
                             <i class="ace-icon fa fa-times"></i>
                             Close
                         </button>
-                        <button class="btn btn-sm btn-success pull-right" data-dismiss="modal">
+                        <button class="btn btn-sm btn-success pull-right" data-dismiss="modal" ng-click="InsertEmp()">
+                            <i class="ace-icon fa fa-save"></i>
+                            Save
+                        </button>
+                        <button class="btn btn-sm btn-success pull-right" data-dismiss="modal" ng-click="UpdateEmp()">
                             <i class="ace-icon fa fa-save"></i>
                             Save
                         </button>
