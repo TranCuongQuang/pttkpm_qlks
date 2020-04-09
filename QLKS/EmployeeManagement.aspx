@@ -125,11 +125,17 @@
 
                                                                             <td>
                                                                                 <div class="hidden-sm hidden-xs action-buttons">
-                                                                                    <a class="blue" href="#">
+                                                                                    <%--<a class="blue" href="#">
+                                                                                        <i class="ace-icon fa fa-search-plus bigger-130"></i>
+                                                                                    </a>--%>
+                                                                                    <a class="modal123" href="#modal-table" role="button" data-toggle="modal" data-id="Info" data-value="{{x.MaNV}}" style="text-decoration: none; color: antiquewhite;">
                                                                                         <i class="ace-icon fa fa-search-plus bigger-130"></i>
                                                                                     </a>
 
-                                                                                    <a class="green" href="#">
+                                                                                    <%--<a class="green" href="#">
+                                                                                        <i class="ace-icon fa fa-pencil bigger-130"></i>
+                                                                                    </a>--%>
+                                                                                    <a class="modal123" href="#modal-table" role="button" data-toggle="modal" data-id="Update" data-value="{{x.MaNV}}" style="text-decoration: none; color: antiquewhite;">
                                                                                         <i class="ace-icon fa fa-pencil bigger-130"></i>
                                                                                     </a>
 
@@ -208,13 +214,13 @@
                         </div>
 
                         <div class="modal-body no-padding">
-                            <div class="widget-box">
+                            <%--<div class="widget-box">--%>
                                 <%--<div class="widget-header widget-header-small">
 												<h5 class="widget-title lighter">Search Form</h5>
 											</div>--%>
-                                <div class="widget-body">
+                                <%--<div class="widget-body">--%>
                                     <div class="widget-main">
-                                        <div class="form-horizontal" role="form" style="height:150px;">
+                                        <div class="form-horizontal" role="form" style="height:200px;">
                                             <div class="form-group col-sm-6" id="manv">
                                                 <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Mã nhân viên </label>
 
@@ -272,8 +278,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            <%--</div>--%>
+                        <%--</div>--%>
                         <!-- /.col -->
                     </div>
 
@@ -282,11 +288,11 @@
                             <i class="ace-icon fa fa-times"></i>
                             Close
                         </button>
-                        <button class="btn btn-sm btn-success pull-right" data-dismiss="modal" ng-click="InsertEmp()">
+                        <button id="insert" class="btn btn-sm btn-success pull-right" data-dismiss="modal" ng-click="InsertEmp()">
                             <i class="ace-icon fa fa-save"></i>
                             Save
                         </button>
-                        <button class="btn btn-sm btn-success pull-right" data-dismiss="modal" ng-click="UpdateEmp()">
+                        <button id="update" class="btn btn-sm btn-success pull-right" data-dismiss="modal" ng-click="UpdateEmp()">
                             <i class="ace-icon fa fa-save"></i>
                             Save
                         </button>

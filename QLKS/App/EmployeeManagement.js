@@ -12,8 +12,21 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
         e.preventDefault();
         var _self = $(this);
         var myBookId = _self.data('id');
-        $("#titleheader").text(myBookId);
         debugger
+        if (myBookId === "Create") {
+            $("#titleheader").text("Thêm mới");
+            $("#update").remove();
+        } else if (myBookId === "Update") {
+            $("#titleheader").text("Cập nhật");
+            $("#insert").remove();
+            var maNV = _self.data('value');
+            $scope.getEmpByID(maNV);
+        } else {
+            $("#titleheader").text("Thông tin");
+            $("#insert").remove();
+            $("#update").remove();
+
+        }
     });
 
     $scope.searchEmp = function () {
@@ -69,6 +82,31 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
         //    }
         //});
 
+    }
+
+    $scope.getEmpByID = function (ID) {
+        var params = {
+            MaNV: ID
+        }
+        $http({
+            url: `/WebServiceCP.aspx?action=GetEmpByID`,
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            data: params
+        }).then(function (response) {
+            console.log("response:", response);
+            debugger
+            var temp = response.data.Data;
+            //if (temp.length > 0) {
+            //    $scope.dataTable = temp;
+            //}
+
+        }, function (err) {
+            //toastr.error("Xảy ra lỗi trong quá trình thực thi.");
+            console.log(err);
+        });
     }
 
     $scope.InsertEmp = function () {
