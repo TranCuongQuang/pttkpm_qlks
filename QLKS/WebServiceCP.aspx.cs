@@ -90,7 +90,7 @@ namespace QLKS
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
                 var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                int maNV = int.Parse(dym.MaNV);
+                int maNV = Convert.ToInt32(dym.MaNV);
                 using (var ctx = new qlksEntities())
                 {
                     //var emp1 = ctx.tblNhanViens.ToList();
@@ -99,7 +99,7 @@ namespace QLKS
                         st.MaNV,
                         st.TenNV,
                         st.SDT,
-                        NgaySinh = st.NgaySinh.GetValueOrDefault().ToString("dd-MM-yyyy"),
+                        NgaySinh = st.NgaySinh.GetValueOrDefault().ToString("yyyy-MM-dd"),
                         st.Email,
                         st.DiaChi,
                         st.ChucVu
@@ -125,12 +125,12 @@ namespace QLKS
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
                 var dym = JsonConvert.DeserializeObject<dynamic>(data);
 
-                string nameStaff = dym.TenNV;
-                string phone = dym.SDT;
-                string email = dym.Email;
-                string address = dym.DiaChi;
-                string birthday = dym.NgaySinh;
-                string role = dym.ChucVu;
+                //string nameStaff = dym.TenNV;
+                //string phone = dym.SDT;
+                //string email = dym.Email;
+                //string address = dym.DiaChi;
+                //string birthday = dym.NgaySinh;
+                //string role = dym.ChucVu;
 
                 using (var db = new qlksEntities())
                 {
@@ -143,13 +143,13 @@ namespace QLKS
                     nv.ChucVu = dym.ChucVu;
                     db.tblNhanViens.Add(nv);
                     db.SaveChanges();
-                    response.Message = "Lưu thành công!";
+                    response.Message = "SUCCESS";
                 };
                 return response;
             }
             catch (Exception e)
             {
-                response.Message = "Lưu thất bại!";
+                response.Message = "ERROR";
                 return response;
             }
             finally
@@ -164,25 +164,33 @@ namespace QLKS
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
                 var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                int maNV = int.Parse(dym.MaNV);
+                int maNV = Convert.ToInt32(dym.MaNV);
                 using (var db = new qlksEntities())
                 {
                     tblNhanVien nv = db.tblNhanViens.SingleOrDefault(w => w.MaNV == maNV);
-                    nv.TenNV = dym.nameStaff;
-                    nv.SDT = dym.phone;
-                    nv.Email = dym.email;
-                    nv.DiaChi = dym.address;
-                    nv.NgaySinh = DateTime.Parse(dym.birthday);
-                    nv.ChucVu = dym.role;
+                    nv.TenNV = dym.TenNV;
+                    nv.SDT = dym.SDT;
+                    nv.Email = dym.Email;
+                    nv.DiaChi = dym.DiaChi;
+                    nv.NgaySinh = dym.NgaySinh;
+                    nv.ChucVu = dym.ChucVu;
+
+                    //nv.TenNV = String.IsNullOrEmpty(dym.TenNV) ? String.Empty : dym.TenNV.Trim();
+                    //nv.SDT = String.IsNullOrEmpty(dym.SDT) ? String.Empty : dym.SDT.Trim();
+                    //nv.Email = String.IsNullOrEmpty(dym.Email) ? String.Empty : dym.Email.Trim();
+                    //nv.DiaChi = String.IsNullOrEmpty(dym.DiaChi) ? String.Empty : dym.DiaChi.Trim();
+                    //nv.NgaySinh = dym.NgaySinh;
+                    //nv.ChucVu = String.IsNullOrEmpty(dym.ChucVu) ? String.Empty : dym.ChucVu.Trim();
+
                     db.SaveChanges();
-                    response.Message = "Lưu thành công!";
+                    response.Message = "SUCCESS";
                 };
 
                 return response;
             }
             catch (Exception e)
             {
-                response.Message = "Lưu thất bại!";
+                response.Message = "ERROR";
                 return response;
             }
             finally
@@ -197,20 +205,20 @@ namespace QLKS
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
                 var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                int maNV = int.Parse(dym.MaNV);
+                int maNV = Convert.ToInt32(dym.MaNV);
                 using (var db = new qlksEntities())
                 {
                     tblNhanVien nv = db.tblNhanViens.SingleOrDefault(w => w.MaNV == maNV);
                     db.tblNhanViens.Remove(nv);
                     db.SaveChanges();
-                    response.Message = "Xoá thành công!";
+                    response.Message = "SUCCESS";
                 };
 
                 return response;
             }
             catch (Exception e)
             {
-                response.Message = "Xoá thất bại!";
+                response.Message = "ERROR";
                 return response;
             }
             finally

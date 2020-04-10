@@ -12,21 +12,31 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
         e.preventDefault();
         var _self = $(this);
         var myBookId = _self.data('id');
-        debugger
         if (myBookId === "Create") {
             $("#titleheader").text("Thêm mới");
-            $("#update").remove();
+            $("#update").hide();
+            $("#insert").show();
+            clearValueModal();
         } else if (myBookId === "Update") {
             $("#titleheader").text("Cập nhật");
-            $("#insert").remove();
+            $("#insert").hide();
+            $("#update").show();
             var maNV = _self.data('value');
             $scope.getEmpByID(maNV);
         } else {
             $("#titleheader").text("Thông tin");
-            $("#insert").remove();
-            $("#update").remove();
-
+            $("#insert").hide();
+            $("#update").hide();
+            var maNV = _self.data('value');
+            $scope.getEmpByID(maNV);
         }
+    });
+
+    $(document).on("click", "#DeleteEmp", function (e) {
+        e.preventDefault();
+        var _self = $(this);
+        var maNV = _self.data('value');
+        $scope.DeleteEmp(maNV);
     });
 
     $scope.searchEmp = function () {
@@ -97,11 +107,10 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
             data: params
         }).then(function (response) {
             console.log("response:", response);
-            debugger
             var temp = response.data.Data;
-            //if (temp.length > 0) {
-            //    $scope.dataTable = temp;
-            //}
+            if (temp.length > 0) {
+                setValueModal(temp[0]);
+            }
 
         }, function (err) {
             //toastr.error("Xảy ra lỗi trong quá trình thực thi.");
@@ -126,23 +135,27 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
             },
             data: params
         }).then(function (response) {
-            console.log("response:", response);
-            
+            if (response.data.Message === "SUCCESS") {
+                $scope.searchEmp();
+                toastr.success("Lưu thành công !");
+            } else {
+                toastr.error("Lưu thất bại !");
+            }
         }, function (err) {
-            //toastr.error("Xảy ra lỗi trong quá trình thực thi.");
+            toastr.error("Xảy ra lỗi trong quá trình thực thi.");
             console.log(err);
         });
     }
 
     $scope.UpdateEmp = function () {
         var params = {
-            MaNV: $("#txtMEmployeeID").val(),
-            TenNV: $("#txtMEmployeeName").val(),
-            SDT: $("#txtMSDT").val(),
-            Email: $("#txtMEmail").val(),
-            DiaChi: $("#txtMAddress").val(),
+            MaNV: $("#txtMEmployeeID").val().trim(),
+            TenNV: $("#txtMEmployeeName").val().trim(),
+            SDT: $("#txtMSDT").val().trim(),
+            Email: $("#txtMEmail").val().trim(),
+            DiaChi: $("#txtMAddress").val().trim(),
             NgaySinh: $("#txtMBirthday").val(),
-            ChucVu: $("#txtMRole").val()
+            ChucVu: $("#txtMRole").val().trim()
         }
         $http({
             url: `/WebServiceCP.aspx?action=UpdateEmp`,
@@ -152,17 +165,21 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
             },
             data: params
         }).then(function (response) {
-            console.log("response:", response);
-
+            if (response.data.Message === "SUCCESS") {
+                $scope.searchEmp();
+                toastr.success("Lưu thành công !");
+            } else {
+                toastr.error("Lưu thất bại !");
+            }
         }, function (err) {
-            //toastr.error("Xảy ra lỗi trong quá trình thực thi.");
+            toastr.error("Xảy ra lỗi trong quá trình thực thi.");
             console.log(err);
         });
     }
 
-    $scope.DeleteEmp = function () {
+    $scope.DeleteEmp = function (maNV) {
         var params = {
-            MaNV: $("#txtMEmployeeID").val()
+            MaNV: maNV
         }
         $http({
             url: `/WebServiceCP.aspx?action=DeleteEmp`,
@@ -173,10 +190,35 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
             data: params
         }).then(function (response) {
             console.log("response:", response);
-
+            if (response.data.Message === "SUCCESS") {
+                $scope.searchEmp();
+                toastr.success("Xoá thành công !");
+            } else {
+                toastr.error("Xoá thất bại !");
+            }
         }, function (err) {
             //toastr.error("Xảy ra lỗi trong quá trình thực thi.");
             console.log(err);
         });
     }
+
+    setValueModal = function (e) {
+        $("#txtMEmployeeID").val(e.MaNV);
+        $("#txtMEmployeeName").val(e.TenNV);
+        $("#txtMSDT").val(e.SDT);
+        $("#txtMEmail").val(e.Email);
+        $("#txtMAddress").val(e.DiaChi);
+        $("#txtMBirthday").val(e.NgaySinh);
+        $("#txtMRole").val(e.ChucVu);
+    }
+    clearValueModal = function () {
+        $("#txtMEmployeeID").val("");
+        $("#txtMEmployeeName").val("");
+        $("#txtMSDT").val("");
+        $("#txtMEmail").val("");
+        $("#txtMAddress").val("");
+        $("#txtMBirthday").val("");
+        $("#txtMRole").val("");
+    }
+
 })

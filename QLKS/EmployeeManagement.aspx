@@ -125,21 +125,15 @@
 
                                                                             <td>
                                                                                 <div class="hidden-sm hidden-xs action-buttons">
-                                                                                    <%--<a class="blue" href="#">
-                                                                                        <i class="ace-icon fa fa-search-plus bigger-130"></i>
-                                                                                    </a>--%>
-                                                                                    <a class="modal123" href="#modal-table" role="button" data-toggle="modal" data-id="Info" data-value="{{x.MaNV}}" style="text-decoration: none; color: antiquewhite;">
+                                                                                    <a class="modal123 blue" href="#modal-table" role="button" data-toggle="modal" data-id="Info" data-value="{{x.MaNV}}" style="text-decoration: none; color: antiquewhite;">
                                                                                         <i class="ace-icon fa fa-search-plus bigger-130"></i>
                                                                                     </a>
 
-                                                                                    <%--<a class="green" href="#">
-                                                                                        <i class="ace-icon fa fa-pencil bigger-130"></i>
-                                                                                    </a>--%>
-                                                                                    <a class="modal123" href="#modal-table" role="button" data-toggle="modal" data-id="Update" data-value="{{x.MaNV}}" style="text-decoration: none; color: antiquewhite;">
+                                                                                    <a class="modal123 green" href="#modal-table" role="button" data-toggle="modal" data-id="Update" data-value="{{x.MaNV}}" style="text-decoration: none; color: antiquewhite;">
                                                                                         <i class="ace-icon fa fa-pencil bigger-130"></i>
                                                                                     </a>
 
-                                                                                    <a class="red" href="#">
+                                                                                    <a class="red" href="#" id="DeleteEmp" data-value="{{x.MaNV}}">
                                                                                         <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                                                                     </a>
                                                                                 </div>
