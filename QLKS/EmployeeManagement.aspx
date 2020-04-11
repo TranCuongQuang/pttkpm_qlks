@@ -226,14 +226,14 @@
                                                 <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Tên nhân viên </label>
 
                                                 <div class="col-sm-8">
-                                                    <input type="text" id="txtMEmployeeName" placeholder="Tên nhân viên" class="form-control" />
+                                                    <input type="text" id="txtMEmployeeName" placeholder="Tên nhân viên" class="form-control input-required" />
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-6">
                                                 <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Số điện thoại</label>
 
                                                 <div class="col-sm-8">
-                                                    <input type="text" id="txtMSDT" placeholder="Số điện thoại" class="form-control" />
+                                                    <input type="text" id="txtMSDT" placeholder="Số điện thoại" class="form-control input-required" />
                                                 </div>
                                             </div>
                                             <br />
@@ -241,14 +241,14 @@
                                                 <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Email</label>
 
                                                 <div class="col-sm-8">
-                                                    <input type="text" id="txtMEmail" placeholder="Email" class="form-control" />
+                                                    <input type="text" id="txtMEmail" placeholder="Email" class="form-control input-required" />
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-6">
                                                 <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Địa chỉ</label>
 
                                                 <div class="col-sm-8">
-                                                    <input type="text" id="txtMAddress" placeholder="Địa chỉ" class="form-control" />
+                                                    <input type="text" id="txtMAddress" placeholder="Địa chỉ" class="form-control input-required" />
                                                 </div>
                                             </div>
                                             <br />
@@ -256,14 +256,25 @@
                                                 <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Ngày sinh</label>
 
                                                 <div class="col-sm-8">
-                                                    <input type="date" id="txtMBirthday" placeholder="Ngày sinh" class="form-control" />
+                                                    <%--<input type="date" id="txtMBirthday" placeholder="Ngày sinh" class="form-control" />--%>
+                                                    <div class="input-group">
+														<input class="form-control date-picker input-required" id="txtMBirthday" type="text" data-date-format="dd-mm-yyyy" />
+														<span class="input-group-addon">
+															<i class="fa fa-calendar bigger-110"></i>
+														</span>
+													</div>
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-6">
                                                 <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Chức vụ</label>
 
                                                 <div class="col-sm-8">
-                                                    <input type="text" id="txtMRole" placeholder="Chức vụ" class="form-control" />
+                                                    <%--<input type="text" id="txtMRole" placeholder="Chức vụ" class="form-control" />--%>
+                                                    <select class="chosen-select form-control input-required" id="txtMRole" data-placeholder="Chức vụ">
+														<option value="">  </option>
+														<option value="QL">Quản Lý</option>
+														<option value="NV">Nhân Viên</option>
+													</select>
                                                 </div>
                                             </div>
                                             <br />
@@ -282,11 +293,11 @@
                             <i class="ace-icon fa fa-times"></i>
                             Close
                         </button>
-                        <button id="insert" class="btn btn-sm btn-success pull-right" data-dismiss="modal" ng-click="InsertEmp()">
+                        <button type='button' id="insert" class="btn btn-sm btn-success pull-right" ng-click="InsertEmp()">
                             <i class="ace-icon fa fa-save"></i>
                             Save
                         </button>
-                        <button id="update" class="btn btn-sm btn-success pull-right" data-dismiss="modal" ng-click="UpdateEmp()">
+                        <button type='button' id="update" class="btn btn-sm btn-success pull-right" ng-click="UpdateEmp()">
                             <i class="ace-icon fa fa-save"></i>
                             Save
                         </button>

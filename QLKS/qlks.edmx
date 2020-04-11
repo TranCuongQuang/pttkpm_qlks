@@ -44,7 +44,7 @@
           <Property Name="NgaySinh" Type="date" />
           <Property Name="DiaChi" Type="nvarchar(max)" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
-          <Property Name="ChucVu" Type="nchar" MaxLength="10" />
+          <Property Name="ChucVu" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="tblPhieuDatPhong">
           <Key>
@@ -359,7 +359,7 @@
           <Property Name="NgaySinh" Type="DateTime" Precision="0" />
           <Property Name="DiaChi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ChucVu" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ChucVu" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="tblPhieuDatPhongs" Relationship="qlksModel.FK_tblPhieuDatPhong_tblNhanVien" FromRole="tblNhanVien" ToRole="tblPhieuDatPhong" />
         </EntityType>
         <EntityType Name="tblPhieuDatPhong">

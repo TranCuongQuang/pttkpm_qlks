@@ -2,7 +2,8 @@
 app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $window) {
     $scope.txtUserName = "";
     $scope.txtPassWord = "";
-    $scope.dataTable = []
+    $scope.dataTable = [];
+    var requiredList = document.getElementsByClassName('input-required');
 
     angular.element(document).ready(function () {
         $scope.searchEmp();
@@ -41,15 +42,16 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
 
     $scope.searchEmp = function () {
         var params = {
-            userName: "a",
-            passWord: "b"
+            MaNV: $("#EmployeeID").val(),
+            TenNV: $("#EmployeeName").val()
         }
         $http({
             url: `/WebServiceCP.aspx?action=GetEmpList`,
-            method: "GET",
+            method: "POST",
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
-            }
+            },
+            data: params
         }).then(function (response) {
             console.log("response:", response);
             var temp = response.data.Data;
@@ -119,6 +121,11 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
     }
 
     $scope.InsertEmp = function () {
+        var checkRequired = validForm();
+        if (!checkRequired) {
+            toastr.warning("Vui lòng điền đầy đủ thông tin !");
+            return false;
+        }
         var params = {
             TenNV: $("#txtMEmployeeName").val(),
             SDT: $("#txtMSDT").val(),
@@ -148,13 +155,18 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
     }
 
     $scope.UpdateEmp = function () {
+        var checkRequired = validForm();
+        if (!checkRequired) {
+            toastr.warning("Vui lòng điền đầy đủ thông tin !");
+            return false;
+        }
         var params = {
             MaNV: $("#txtMEmployeeID").val().trim(),
             TenNV: $("#txtMEmployeeName").val().trim(),
             SDT: $("#txtMSDT").val().trim(),
             Email: $("#txtMEmail").val().trim(),
             DiaChi: $("#txtMAddress").val().trim(),
-            NgaySinh: $("#txtMBirthday").val(),
+            NgaySinh: moment($("#txtMBirthday").val(), "DD-MM-YYYY").format("YYYY-MM-DD"),
             ChucVu: $("#txtMRole").val().trim()
         }
         $http({
@@ -197,7 +209,7 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
                 toastr.error("Xoá thất bại !");
             }
         }, function (err) {
-            //toastr.error("Xảy ra lỗi trong quá trình thực thi.");
+            toastr.error("Xảy ra lỗi trong quá trình thực thi.");
             console.log(err);
         });
     }
@@ -219,6 +231,31 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
         $("#txtMAddress").val("");
         $("#txtMBirthday").val("");
         $("#txtMRole").val("");
+    }
+
+    //valid
+    function required(i) {
+        requiredList[i].style.borderColor = "red";
+    }
+
+    function reset_effect(i) {
+        requiredList[i].style.borderColor = "#D5D5D5";
+    }
+
+    function validForm() {
+        var flag = true;
+        if (requiredList.length > 0) {
+            for (var i = 0; i < requiredList.length; i++) {
+                if (requiredList[i].value.trim() === '') {
+                    required(i);
+                    flag = false;
+                } else {
+                    reset_effect(i);
+                }
+            }
+        }
+        
+        return flag;
     }
 
 })

@@ -56,10 +56,12 @@ namespace QLKS
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
                 var dym = JsonConvert.DeserializeObject<dynamic>(data);
-
+                //string maNV = dym.MaNV;
+                //string tenNV = dym.TenNV;
                 using (var ctx = new qlksEntities())
                 {
                     //var emp1 = ctx.tblNhanViens.ToList();
+                    //.Where(st => st.MaNV == (maNV != null ? Convert.ToInt32(maNV) : 0) && st.TenNV == tenNV)
                     var emp = ctx.tblNhanViens.AsEnumerable().Select(st => new
                     {
                         st.MaNV,
@@ -99,7 +101,7 @@ namespace QLKS
                         st.MaNV,
                         st.TenNV,
                         st.SDT,
-                        NgaySinh = st.NgaySinh.GetValueOrDefault().ToString("yyyy-MM-dd"),
+                        NgaySinh = st.NgaySinh.GetValueOrDefault().ToString("dd-MM-yyyy"),
                         st.Email,
                         st.DiaChi,
                         st.ChucVu
@@ -124,23 +126,17 @@ namespace QLKS
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
                 var dym = JsonConvert.DeserializeObject<dynamic>(data);
-
-                //string nameStaff = dym.TenNV;
-                //string phone = dym.SDT;
-                //string email = dym.Email;
-                //string address = dym.DiaChi;
-                //string birthday = dym.NgaySinh;
-                //string role = dym.ChucVu;
-
+                
                 using (var db = new qlksEntities())
                 {
                     tblNhanVien nv = new tblNhanVien();
-                    nv.TenNV = dym.TenNV;
-                    nv.SDT = dym.SDT;
-                    nv.Email = dym.Email;
-                    nv.DiaChi = dym.DiaChi;
+                    nv.TenNV = String.IsNullOrEmpty(dym.TenNV.ToString()) ? String.Empty : dym.TenNV.ToString().Trim();
+                    nv.SDT = String.IsNullOrEmpty(dym.SDT.ToString()) ? String.Empty : dym.SDT.ToString().Trim();
+                    nv.Email = String.IsNullOrEmpty(dym.Email.ToString()) ? String.Empty : dym.Email.ToString().Trim();
+                    nv.DiaChi = String.IsNullOrEmpty(dym.DiaChi.ToString()) ? String.Empty : dym.DiaChi.ToString().Trim();
                     nv.NgaySinh = dym.NgaySinh;
-                    nv.ChucVu = dym.ChucVu;
+                    nv.ChucVu = String.IsNullOrEmpty(dym.ChucVu.ToString()) ? String.Empty : dym.ChucVu.ToString().Trim();
+
                     db.tblNhanViens.Add(nv);
                     db.SaveChanges();
                     response.Message = "SUCCESS";
@@ -168,19 +164,12 @@ namespace QLKS
                 using (var db = new qlksEntities())
                 {
                     tblNhanVien nv = db.tblNhanViens.SingleOrDefault(w => w.MaNV == maNV);
-                    nv.TenNV = dym.TenNV;
-                    nv.SDT = dym.SDT;
-                    nv.Email = dym.Email;
-                    nv.DiaChi = dym.DiaChi;
+                    nv.TenNV = String.IsNullOrEmpty(dym.TenNV.ToString()) ? String.Empty : dym.TenNV.ToString().Trim();
+                    nv.SDT = String.IsNullOrEmpty(dym.SDT.ToString()) ? String.Empty : dym.SDT.ToString().Trim();
+                    nv.Email = String.IsNullOrEmpty(dym.Email.ToString()) ? String.Empty : dym.Email.ToString().Trim();
+                    nv.DiaChi = String.IsNullOrEmpty(dym.DiaChi.ToString()) ? String.Empty : dym.DiaChi.ToString().Trim();
                     nv.NgaySinh = dym.NgaySinh;
-                    nv.ChucVu = dym.ChucVu;
-
-                    //nv.TenNV = String.IsNullOrEmpty(dym.TenNV) ? String.Empty : dym.TenNV.Trim();
-                    //nv.SDT = String.IsNullOrEmpty(dym.SDT) ? String.Empty : dym.SDT.Trim();
-                    //nv.Email = String.IsNullOrEmpty(dym.Email) ? String.Empty : dym.Email.Trim();
-                    //nv.DiaChi = String.IsNullOrEmpty(dym.DiaChi) ? String.Empty : dym.DiaChi.Trim();
-                    //nv.NgaySinh = dym.NgaySinh;
-                    //nv.ChucVu = String.IsNullOrEmpty(dym.ChucVu) ? String.Empty : dym.ChucVu.Trim();
+                    nv.ChucVu = String.IsNullOrEmpty(dym.ChucVu.ToString()) ? String.Empty : dym.ChucVu.ToString().Trim();
 
                     db.SaveChanges();
                     response.Message = "SUCCESS";
