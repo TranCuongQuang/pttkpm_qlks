@@ -933,6 +933,14 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="">
+                        <a href="EmployeeManagement.aspx">
+                            <i class="menu-icon fa fa-tachometer"></i>
+                            <span class="menu-text">QL Nhân viên </span>
+                        </a>
+
+                        <b class="arrow"></b>
+                    </li>
                 </ul>
                 <!-- /.nav-list -->
 

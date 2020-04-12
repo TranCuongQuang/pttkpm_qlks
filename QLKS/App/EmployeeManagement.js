@@ -53,14 +53,16 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
             },
             data: params
         }).then(function (response) {
-            console.log("response:", response);
             var temp = response.data.Data;
             if (temp.length > 0) {
                 $scope.dataTable = temp;
+            } else {
+                $scope.dataTable = [];
             }
             
         }, function (err) {
             //toastr.error("Xảy ra lỗi trong quá trình thực thi.");
+            $scope.dataTable = [];
             console.log(err);
         });
 

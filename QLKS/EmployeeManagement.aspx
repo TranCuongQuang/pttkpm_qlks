@@ -7,14 +7,14 @@
                 <div class="main-content">
                     <div class="main-content-inner">
                         <div class="page-content">
-                            <div class="page-header">
+                            <%--<div class="page-header">
                                 <h1>Form Elements
 				            <small>
                                 <i class="ace-icon fa fa-angle-double-right"></i>
                                 Common form elements and layouts
                             </small>
                                 </h1>
-                            </div>
+                            </div>--%>
                             <!-- /.page-header -->
 
                             <div class="row">
@@ -22,7 +22,7 @@
                                     <!-- PAGE CONTENT BEGINS -->
                                     <div class="widget-box">
                                         <div class="widget-header widget-header-small">
-                                            <h5 class="widget-title lighter">Search Form</h5>
+                                            <h5 class="widget-title lighter">QL Nhân viên</h5>
                                         </div>
                                         <div class="widget-body">
                                             <div class="widget-main">

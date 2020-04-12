@@ -56,22 +56,24 @@ namespace QLKS
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
                 var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                //string maNV = dym.MaNV;
-                //string tenNV = dym.TenNV;
+                string maNV = dym.MaNV;
+                string tenNV = dym.TenNV;
                 using (var ctx = new qlksEntities())
                 {
                     //var emp1 = ctx.tblNhanViens.ToList();
                     //.Where(st => st.MaNV == (maNV != null ? Convert.ToInt32(maNV) : 0) && st.TenNV == tenNV)
-                    var emp = ctx.tblNhanViens.AsEnumerable().Select(st => new
-                    {
-                        st.MaNV,
-                        st.TenNV,
-                        st.SDT,
-                        NgaySinh = st.NgaySinh.GetValueOrDefault().ToString("dd-MM-yyyy"),
-                        st.Email,
-                        st.DiaChi,
-                        st.ChucVu
-                    }).ToList();
+                    var emp = ctx.tblNhanViens.AsEnumerable()
+                        .Where(st => (maNV == "" || st.MaNV == Convert.ToInt32(maNV)) && (tenNV == "" || st.TenNV == tenNV))
+                        .Select(st => new
+                        {
+                            st.MaNV,
+                            st.TenNV,
+                            st.SDT,
+                            NgaySinh = st.NgaySinh.GetValueOrDefault().ToString("dd-MM-yyyy"),
+                            st.Email,
+                            st.DiaChi,
+                            st.ChucVu
+                        }).ToList();
                     response.Data = emp;
                 }
                 return response;
