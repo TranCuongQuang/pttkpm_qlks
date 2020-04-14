@@ -26,3 +26,6 @@ QLKS/QLKS.csproj
 QLKS/QLKS.csproj.user
 QLKS/bin
 QLKS/obj
+QLKS/Web.config
+QLKS/Web.Debug.config
+QLKS/Web.Release.config
