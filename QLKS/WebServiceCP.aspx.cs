@@ -27,17 +27,17 @@ namespace QLKS
                     break;
 
                 case "CreateEmp":
-                    Response.Write(JsonConvert.SerializeObject(Create()));
+                    Response.Write(JsonConvert.SerializeObject(CreateEmp()));
                     Response.End();
                     break;
 
                 case "UpdateEmp":
-                    Response.Write(JsonConvert.SerializeObject(Update()));
+                    Response.Write(JsonConvert.SerializeObject(UpdateEmp()));
                     Response.End();
                     break;
 
                 case "DeleteEmp":
-                    Response.Write(JsonConvert.SerializeObject(Delete()));
+                    Response.Write(JsonConvert.SerializeObject(DeleteEmp()));
                     Response.End();
                     break;
 
@@ -121,7 +121,7 @@ namespace QLKS
             }
         }
 
-        private AjaxReponseModel<dynamic> Create()
+        private AjaxReponseModel<dynamic> CreateEmp()
         {
             var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
             try
@@ -155,7 +155,7 @@ namespace QLKS
             }
         }
 
-        private AjaxReponseModel<dynamic> Update()
+        private AjaxReponseModel<dynamic> UpdateEmp()
         {
             var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
             try
@@ -189,7 +189,7 @@ namespace QLKS
             }
         }
 
-        private AjaxReponseModel<dynamic> Delete()
+        private AjaxReponseModel<dynamic> DeleteEmp()
         {
             var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
             try
