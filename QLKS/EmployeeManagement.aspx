@@ -6,18 +6,24 @@
             <div class="panel-heading">
                 Tìm kiếm
             </div>
-            <div class="panel-body">
-                <div class="col-md-4 form-group">
-                    <input type="text" id="EmployeeID" placeholder="Mã nhân viên" class="form-control" />
+            <div class="panel-body form-horizontal">
+                <div class="form-group col-sm-6">
+                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Mã nhân viên</label>
+                    <div class="col-md-8">
+                        <input type="text" id="EmployeeID" placeholder="Mã nhân viên" class="form-control" />
+                    </div>
                 </div>
-                <div class="col-md-4 form-group">
-                    <input type="text" id="EmployeeName" placeholder="Tên nhân viên" class="form-control" />
+                <div class="form-group col-sm-6">
+                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Tên nhân viên</label>
+                    <div class="col-md-8">
+                        <input type="text" id="EmployeeName" placeholder="Tên nhân viên" class="form-control" />
+                    </div>
                 </div>
                 <div class="col-md-12 form-button">
                     <button class="btn btn-info" type="button" ng-click="searchEmp()">
                         <i class="ace-icon fa fa-search"></i>Tìm kiếm
                     </button>
-                    <button class="btn btn-primary" type="button" ng-click="showModal()">
+                    <button class="btn btn-primary modal123" type="button" data-id="Create" ng-click="showModal()">
                         <i class="ace-icon fa fa-plus"></i>Thêm mới
                     </button>
                 </div>

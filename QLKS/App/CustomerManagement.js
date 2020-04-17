@@ -4,6 +4,13 @@ app.controller('CustomerManagementCtrl', function ($scope, $http, $timeout, $win
     $scope.dataTable = [];
     var requiredList = document.getElementsByClassName('input-required');
 
+    $scope.dtOptions = {
+        "bStateSave": true,
+        "aLengthMenu": [[15, 50, 100, -1], [15, 50, 100, 'All']],
+        "bSort": true,
+        "language": window.datatableLanguage
+    };
+
     angular.element(document).ready(function () {
         $scope.searchCustomer();
     });
@@ -224,4 +231,7 @@ app.controller('CustomerManagementCtrl', function ($scope, $http, $timeout, $win
         return flag;
     }
 
+    $scope.showModal = function () {
+        $("#modal-table").modal();
+    }
 })
