@@ -6,7 +6,11 @@
     "infoEmpty": "Đang xem 0 đến 0 trong tổng số 0 mục",
     "infoFiltered": "(được lọc từ _MAX_ dòng)",
     "processing": "Đang tải dữ liệu.",
-    "search": "Tìm kiếm"
+    "search": "Tìm kiếm",
+    "paginate": {
+        "previous": "❮",
+        "next": "❯"
+    }
 };
 
 var ckeditorDefaultConfig = {
