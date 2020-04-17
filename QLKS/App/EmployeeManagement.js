@@ -1,7 +1,6 @@
 ﻿var app = angular.module('QLKS', ['ui.select2', 'ui.bootstrap', 'datatables']);
 app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $window) {
-    $scope.txtUserName = "";
-    $scope.txtPassWord = "";
+    
     $scope.dataTable = [];
     var requiredList = document.getElementsByClassName('input-required');
 

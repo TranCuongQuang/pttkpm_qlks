@@ -27,19 +27,19 @@
                                         <div class="widget-body">
                                             <div class="widget-main">
                                                 <div class="form-horizontal" role="form">
-                                                    <div class="form-group col-sm-4">
-                                                        <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Mã nhân viên </label>
+                                                    <div class="form-group col-sm-6">
+                                                        <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Mã khách hàng</label>
 
                                                         <div class="col-sm-8">
-                                                            <input type="text" id="EmployeeID" placeholder="Mã nhân viên" class="form-control" />
+                                                            <input type="text" id="CustomerID" placeholder="Mã khách hàng" class="form-control" />
                                                         </div>
                                                     </div>
 
-                                                    <div class="form-group col-sm-4">
-                                                        <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Tên nhân viên </label>
+                                                    <div class="form-group col-sm-6">
+                                                        <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Tên khách hàng</label>
 
                                                         <div class="col-sm-8">
-                                                            <input type="text" id="EmployeeName" placeholder="Tên nhân viên" class="form-control" />
+                                                            <input type="text" id="CustomerName" placeholder="Tên khách hàng" class="form-control" />
                                                         </div>
                                                     </div>
                                                     <br />
@@ -48,7 +48,7 @@
 
                                                     <div class="clearfix form-actions">
                                                         <div class="col-md-offset-3 col-md-12">
-                                                            <button class="btn btn-info" type="button" ng-click="searchEmp()">
+                                                            <button class="btn btn-info" type="button" ng-click="searchCustomer()">
                                                                 <i class="ace-icon fa fa-check bigger-110"></i>
                                                                 Tìm kiếm
                                                             </button>
@@ -74,7 +74,7 @@
                                                             <div class="clearfix">
                                                                 <div class="pull-right tableTools-container"></div>
                                                             </div>
-                                                            <div class="table-header">Danh sách nhân viên</div>
+                                                            <div class="table-header">Danh sách khách hàng</div>
 
                                                             <!-- div.table-responsive -->
 
@@ -83,94 +83,40 @@
                                                                 <table id="dynamic-table" class="table table-striped table-bordered table-hover">
                                                                     <thead>
                                                                         <tr >
-                                                                            <%--<th class="center">
-                                                                                <label class="pos-rel">
-                                                                                    <input type="checkbox" class="ace" />
-                                                                                    <span class="lbl"></span>
-                                                                                </label>
-                                                                            </th>--%>
                                                                             <th>Mã NV</th>
                                                                             <th>Tên NV</th>
                                                                             <th>SĐT</th>
                                                                             <th>Ngày sinh</th>
                                                                             <th>Email</th>
                                                                             <th>Địa chỉ</th>
-                                                                            <th>Chức vụ</th>
-                                                                            <%--<th>
-                                                                                <i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
-                                                                                Update
-                                                                            </th>--%>
-                                                                            <%--<th class="hidden-480">Status</th>--%>
-
                                                                             <th></th>
                                                                         </tr>
                                                                     </thead>
 
                                                                     <tbody>
                                                                         <tr ng-repeat="x in dataTable">
-                                                                            <%--<td class="center">
-                                                                                <label class="pos-rel">
-                                                                                    <input type="checkbox" class="ace" />
-                                                                                    <span class="lbl"></span>
-                                                                                </label>
-                                                                            </td>--%>
-
-                                                                            <td>{{x.MaNV}}</td>
-                                                                            <th>{{x.TenNV}}</th>
+                                                                            <td>{{x.MaKH}}</td>
+                                                                            <th>{{x.TenKH}}</th>
                                                                             <th>{{x.SDT}}</th>
                                                                             <th>{{x.NgaySinh}}</th>
                                                                             <th>{{x.Email}}</th>
                                                                             <th>{{x.DiaChi}}</th>
-                                                                            <th>{{x.ChucVu}}</th>
 
                                                                             <td>
                                                                                 <div class="hidden-sm hidden-xs action-buttons">
-                                                                                    <a class="modal123 blue" href="#modal-table" role="button" data-toggle="modal" data-id="Info" data-value="{{x.MaNV}}" style="text-decoration: none; color: antiquewhite;">
+                                                                                    <a class="modal123 blue" href="#modal-table" role="button" data-toggle="modal" data-id="Info" data-value="{{x.MaKH}}" style="text-decoration: none; color: antiquewhite;">
                                                                                         <i class="ace-icon fa fa-search-plus bigger-130"></i>
                                                                                     </a>
 
-                                                                                    <a class="modal123 green" href="#modal-table" role="button" data-toggle="modal" data-id="Update" data-value="{{x.MaNV}}" style="text-decoration: none; color: antiquewhite;">
+                                                                                    <a class="modal123 green" href="#modal-table" role="button" data-toggle="modal" data-id="Update" data-value="{{x.MaKH}}" style="text-decoration: none; color: antiquewhite;">
                                                                                         <i class="ace-icon fa fa-pencil bigger-130"></i>
                                                                                     </a>
 
-                                                                                    <a class="red" href="#" id="DeleteEmp" data-value="{{x.MaNV}}">
+                                                                                    <a class="red" href="#" id="DeleteCustomer" data-value="{{x.MaKH}}">
                                                                                         <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                                                                     </a>
                                                                                 </div>
 
-                                                                                <%--<div class="hidden-md hidden-lg">
-                                                                                    <div class="inline pos-rel">
-                                                                                        <button class="btn btn-minier btn-yellow dropdown-toggle" data-toggle="dropdown" data-position="auto">
-                                                                                            <i class="ace-icon fa fa-caret-down icon-only bigger-120"></i>
-                                                                                        </button>
-
-                                                                                        <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
-                                                                                            <li>
-                                                                                                <a href="#" class="tooltip-info" data-rel="tooltip" title="View">
-                                                                                                    <span class="blue">
-                                                                                                        <i class="ace-icon fa fa-search-plus bigger-120"></i>
-                                                                                                    </span>
-                                                                                                </a>
-                                                                                            </li>
-
-                                                                                            <li>
-                                                                                                <a href="#" class="tooltip-success" data-rel="tooltip" title="Edit">
-                                                                                                    <span class="green">
-                                                                                                        <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-                                                                                                    </span>
-                                                                                                </a>
-                                                                                            </li>
-
-                                                                                            <li>
-                                                                                                <a href="#" class="tooltip-error" data-rel="tooltip" title="Delete">
-                                                                                                    <span class="red">
-                                                                                                        <i class="ace-icon fa fa-trash-o bigger-120"></i>
-                                                                                                    </span>
-                                                                                                </a>
-                                                                                            </li>
-                                                                                        </ul>
-                                                                                    </div>
-                                                                                </div>--%>
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>
@@ -216,17 +162,17 @@
                                     <div class="widget-main">
                                         <div class="form-horizontal" role="form" style="height:200px;">
                                             <div class="form-group col-sm-6" id="manv">
-                                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Mã nhân viên </label>
+                                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Mã khách hàng</label>
 
                                                 <div class="col-sm-8">
-                                                    <input type="text" id="txtMEmployeeID" placeholder="Mã nhân viên" class="form-control" readonly="readonly"/>
+                                                    <input type="text" id="txtMCustomerID" placeholder="Mã khách hàng" class="form-control" readonly="readonly"/>
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-6">
-                                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Tên nhân viên </label>
+                                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Tên khách hàng</label>
 
                                                 <div class="col-sm-8">
-                                                    <input type="text" id="txtMEmployeeName" placeholder="Tên nhân viên" class="form-control input-required" />
+                                                    <input type="text" id="txtMCustomerName" placeholder="Tên khách hàng" class="form-control input-required" />
                                                 </div>
                                             </div>
                                             <div class="form-group col-sm-6">
@@ -265,20 +211,7 @@
 													</div>
                                                 </div>
                                             </div>
-                                            <div class="form-group col-sm-6">
-                                                <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Chức vụ</label>
-
-                                                <div class="col-sm-8">
-                                                    <%--<input type="text" id="txtMRole" placeholder="Chức vụ" class="form-control" />--%>
-                                                    <select class="chosen-select form-control input-required" id="txtMRole" data-placeholder="Chức vụ">
-														<option value="">  </option>
-														<option value="QL">Quản Lý</option>
-														<option value="NV">Nhân Viên</option>
-													</select>
-                                                </div>
-                                            </div>
                                             <br />
-
                                             <div class="hr hr-18 dotted hr-double"></div>
                                         </div>
                                     </div>
@@ -293,11 +226,11 @@
                             <i class="ace-icon fa fa-times"></i>
                             Close
                         </button>
-                        <button type='button' id="insert" class="btn btn-sm btn-success pull-right" ng-click="InsertEmp()">
+                        <button type='button' id="insert" class="btn btn-sm btn-success pull-right" ng-click="InsertCustomer()">
                             <i class="ace-icon fa fa-save"></i>
                             Save
                         </button>
-                        <button type='button' id="update" class="btn btn-sm btn-success pull-right" ng-click="UpdateEmp()">
+                        <button type='button' id="update" class="btn btn-sm btn-success pull-right" ng-click="UpdateCustomer()">
                             <i class="ace-icon fa fa-save"></i>
                             Save
                         </button>
