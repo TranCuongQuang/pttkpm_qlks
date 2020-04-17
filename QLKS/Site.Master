@@ -99,7 +99,7 @@
     <script src="Scripts/assets/js/angular-filter.min.js"></script>
     <script src="Scripts/assets/js/angular-datatables.min.js"></script>
     <script src="Scripts/assets/js/ui-bootstrap-tpls-2.5.0.min.js"></script>
-
+    <script src="Scripts/MasterJs.js"></script>
     <script type="text/javascript">
         jQuery(function ($) {
             //datepicker plugin
