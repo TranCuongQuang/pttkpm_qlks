@@ -4,7 +4,7 @@
     <div ng-app="QLKS" ng-controller="BookingRoomCtrl">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Tìm kiếm
+                Đặt phòng
             </div>
             <div class="panel-body">
                 <div class="col-md-4 form-group">

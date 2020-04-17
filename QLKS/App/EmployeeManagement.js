@@ -263,6 +263,11 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
     }
 
     $scope.showModal = function () {
+        //a
         $("#modal-table").modal();
+        // â/
+        //aa/
+        //
+        //
     }
 })
