@@ -17,7 +17,7 @@
                     <button class="btn btn-info" type="button" ng-click="searchEmp()">
                         <i class="ace-icon fa fa-search"></i>Tìm kiếm
                     </button>
-                    <button class="btn" type="button" ng-click="showModal()">
+                    <button class="btn btn-primary" type="button" ng-click="showModal()">
                         <i class="ace-icon fa fa-plus"></i>Thêm mới
                     </button>
                 </div>
