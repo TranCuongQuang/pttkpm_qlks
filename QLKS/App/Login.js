@@ -30,7 +30,7 @@ app.controller('LoginCtrl', function ($scope, $http, $timeout, $window) {
                 if (response.data.Status == -1) {
                     toastr.warning(response.data.Message);
                 } else {
-                    window.location.href = "/Default.aspx";
+                    window.location.href = "/BookingRoom.aspx";
                 }
             }, function (err) {
                 toastr.error("Xảy ra lỗi trong quá trình thực thi.");

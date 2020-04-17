@@ -13,7 +13,7 @@ namespace QLKS
                 lblUserLogin.InnerText = user.TenNV;
                 var html = "";
 
-                html += "<li class='active'><a href='EmployeeManagement.aspx'><i class='menu-icon fa fa-tachometer'></i><span class='menu-text'>Đặt phòng</span></a><b class='arrow'></b></li>" +
+                html += "<li class='active'><a href='BookingRoom.aspx'><i class='menu-icon fa fa-tachometer'></i><span class='menu-text'>Đặt phòng</span></a><b class='arrow'></b></li>" +
                         "<li class=''><a href='EmployeeManagement.aspx'><i class='menu-icon fa fa-tachometer'></i><span class='menu-text'>Trả phòng</span></a><b class='arrow'></b></li>";
 
                 if (user.Quyen == "QuanLy")

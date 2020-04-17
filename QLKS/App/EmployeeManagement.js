@@ -4,6 +4,13 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
     $scope.dataTable = [];
     var requiredList = document.getElementsByClassName('input-required');
 
+    $scope.dtOptions = {
+        "bStateSave": true,
+        "aLengthMenu": [[15, 50, 100, -1], [15, 50, 100, 'All']],
+        "bSort": true,
+        "language": window.datatableLanguage
+    };
+
     angular.element(document).ready(function () {
         $scope.searchEmp();
     });
@@ -58,15 +65,12 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
             } else {
                 $scope.dataTable = [];
             }
-            
         }, function (err) {
             //toastr.error("Xảy ra lỗi trong quá trình thực thi.");
             $scope.dataTable = [];
             console.log(err);
         });
 
-        
-        
         //$http({
         //    url: `/WebServiceCP.aspx?action=GetEmpList`,
         //    method: "POST",
@@ -94,7 +98,6 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
         //        console.log(err);
         //    }
         //});
-
     }
 
     $scope.getEmpByID = function (ID) {
@@ -114,7 +117,6 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
             if (temp.length > 0) {
                 setValueModal(temp[0]);
             }
-
         }, function (err) {
             //toastr.error("Xảy ra lỗi trong quá trình thực thi.");
             console.log(err);
@@ -255,8 +257,11 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
                 }
             }
         }
-        
+
         return flag;
     }
 
+    $scope.showModal = function () {
+        $("#modal-table").modal();
+    }
 })
