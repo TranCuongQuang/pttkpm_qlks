@@ -1,8 +1,8 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CustomerManagement.aspx.cs" Inherits="QLKS.CustomerManagement" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RoomManagement.aspx.cs" Inherits="QLKS.RoomManagement" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <%--<body class="no-skin">--%>
-        <div ng-app="QLKS" ng-controller="CustomerManagementCtrl">
+        <div ng-app="QLKS" ng-controller="RoomManagementCtrl">
 
             <div class="panel panel-primary">
             <div class="panel-heading">
