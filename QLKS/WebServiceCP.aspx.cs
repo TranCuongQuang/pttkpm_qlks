@@ -67,11 +67,40 @@ namespace QLKS
                     Response.Write(JsonConvert.SerializeObject(DeleteCustomer()));
                     Response.End();
                     break;
+
+                //Phong
+                case "GetRoomList":
+                    Response.Write(JsonConvert.SerializeObject(GetRoomList()));
+                    Response.End();
+                    break;
+
+                case "GetRoomByID":
+                    Response.Write(JsonConvert.SerializeObject(GetRoomByID()));
+                    Response.End();
+                    break;
+
+                case "CreateRoom":
+                    Response.Write(JsonConvert.SerializeObject(CreateRoom()));
+                    Response.End();
+                    break;
+
+                case "UpdateRoom":
+                    Response.Write(JsonConvert.SerializeObject(UpdateRoom()));
+                    Response.End();
+                    break;
+
+                case "DeleteRoom":
+                    Response.Write(JsonConvert.SerializeObject(DeleteRoom()));
+                    Response.End();
+                    break;
+
                 default:
                     Response.End();
                     break;
             }
         }
+
+        #region Nhân viên
 
         //[WebMethod(EnableSession = true)]
         //[ScriptMethod]
@@ -154,7 +183,7 @@ namespace QLKS
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
                 var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                
+
                 using (var db = new qlksEntities())
                 {
                     tblNhanVien nv = new tblNhanVien();
@@ -242,6 +271,10 @@ namespace QLKS
             {
             }
         }
+
+        #endregion Nhân viên
+
+        #region Khách hàng
 
         private AjaxReponseModel<dynamic> GetCustomerList()
         {
@@ -404,5 +437,167 @@ namespace QLKS
             {
             }
         }
+
+        #endregion Khách hàng
+
+        #region Phòng
+
+        private AjaxReponseModel<dynamic> GetRoomList()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            try
+            {
+                var data = new StreamReader(Request.InputStream).ReadToEnd();
+                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                string maPhong = dym.MaPhong;
+                string tenPhong = dym.TenPhong;
+                string trangThai = dym.TrangThai;
+                using (var ctx = new qlksEntities())
+                {
+                    var emp = ctx.tblPhongs.AsEnumerable()
+                        .Where(st => (maPhong == "" || st.MaPhong == Convert.ToInt32(maPhong)) && (tenPhong == "" || st.TenPhong == tenPhong) && (trangThai == "" || st.TrangThai == trangThai.Equals("1")))
+                        .Select(st => new
+                        {
+                            st.MaPhong,
+                            st.TenPhong,
+                            st.DonGia,
+                            StrTrangThai = st.TrangThai == true ? "Đã đặt phòng" : "Trống",
+                            TrangThai = Convert.ToInt32(st.TrangThai)
+                        }).ToList();
+                    response.Data = emp;
+                }
+                return response;
+            }
+            catch (Exception e)
+            {
+                return response;
+            }
+            finally
+            {
+            }
+        }
+
+        private AjaxReponseModel<dynamic> GetRoomByID()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            try
+            {
+                var data = new StreamReader(Request.InputStream).ReadToEnd();
+                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                int maPhong = Convert.ToInt32(dym.MaPhong);
+                using (var ctx = new qlksEntities())
+                {
+                    var emp = ctx.tblPhongs.AsEnumerable().Select(st => new
+                    {
+                        st.MaPhong,
+                        st.TenPhong,
+                        st.DonGia,
+                        StrTrangThai = st.TrangThai == true ? "Đã đặt phòng" : "Trống",
+                        TrangThai = Convert.ToInt32(st.TrangThai)
+                    }).Where(st => st.MaPhong == maPhong).ToList();
+                    response.Data = emp;
+                }
+                return response;
+            }
+            catch (Exception e)
+            {
+                return response;
+            }
+            finally
+            {
+            }
+        }
+
+        private AjaxReponseModel<dynamic> CreateRoom()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            try
+            {
+                var data = new StreamReader(Request.InputStream).ReadToEnd();
+                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+
+                using (var db = new qlksEntities())
+                {
+                    tblPhong p = new tblPhong();
+                    p.TenPhong = String.IsNullOrEmpty(dym.TenPhong.ToString()) ? String.Empty : dym.TenPhong.ToString().Trim();
+                    p.DonGia = dym.DonGia;
+                    p.TrangThai = dym.TrangThai;
+
+                    db.tblPhongs.Add(p);
+                    db.SaveChanges();
+                    response.Message = "SUCCESS";
+                };
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Message = "ERROR";
+                return response;
+            }
+            finally
+            {
+            }
+        }
+
+        private AjaxReponseModel<dynamic> UpdateRoom()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            try
+            {
+                var data = new StreamReader(Request.InputStream).ReadToEnd();
+                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                int maPhong = Convert.ToInt32(dym.MaPhong);
+                using (var db = new qlksEntities())
+                {
+                    tblPhong p = db.tblPhongs.SingleOrDefault(w => w.MaPhong == maPhong);
+                    p.TenPhong = String.IsNullOrEmpty(dym.TenPhong.ToString()) ? String.Empty : dym.TenPhong.ToString().Trim();
+                    p.DonGia = dym.DonGia;
+                    p.TrangThai = dym.TrangThai;
+
+                    db.SaveChanges();
+                    response.Message = "SUCCESS";
+                };
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Message = "ERROR";
+                return response;
+            }
+            finally
+            {
+            }
+        }
+
+        private AjaxReponseModel<dynamic> DeleteRoom()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            try
+            {
+                var data = new StreamReader(Request.InputStream).ReadToEnd();
+                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                int maPhong = Convert.ToInt32(dym.MaPhong);
+                using (var db = new qlksEntities())
+                {
+                    tblPhong p = db.tblPhongs.SingleOrDefault(w => w.MaPhong == maPhong);
+                    db.tblPhongs.Remove(p);
+                    db.SaveChanges();
+                    response.Message = "SUCCESS";
+                };
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Message = "ERROR";
+                return response;
+            }
+            finally
+            {
+            }
+        }
+
+        #endregion Phòng
     }
 }

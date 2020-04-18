@@ -165,28 +165,30 @@ app.controller('CustomerManagementCtrl', function ($scope, $http, $timeout, $win
     }
 
     $scope.DeleteCustomer = function (maKH) {
-        var params = {
-            MaKH: maKH
-        }
-        $http({
-            url: `/WebServiceCP.aspx?action=DeleteCustomer`,
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            },
-            data: params
-        }).then(function (response) {
-            console.log("response:", response);
-            if (response.data.Message === "SUCCESS") {
-                $scope.searchCustomer();
-                toastr.success("Xoá thành công !");
-            } else {
-                toastr.error("Xoá thất bại !");
+        if (confirm("Bạn có chắc muốn xoá dữ liệu ???")) {
+            var params = {
+                MaKH: maKH
             }
-        }, function (err) {
-            toastr.error("Xảy ra lỗi trong quá trình thực thi.");
-            console.log(err);
-        });
+            $http({
+                url: `/WebServiceCP.aspx?action=DeleteCustomer`,
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                data: params
+            }).then(function (response) {
+                console.log("response:", response);
+                if (response.data.Message === "SUCCESS") {
+                    $scope.searchCustomer();
+                    toastr.success("Xoá thành công !");
+                } else {
+                    toastr.error("Xoá thất bại !");
+                }
+            }, function (err) {
+                toastr.error("Xảy ra lỗi trong quá trình thực thi.");
+                console.log(err);
+            });
+        }
     }
 
     setValueModal = function (e) {
