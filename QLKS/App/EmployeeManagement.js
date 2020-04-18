@@ -16,7 +16,6 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
     });
 
     $(document).on("click", ".modal123", function (e) {
-        debugger
         e.preventDefault();
         var _self = $(this);
         var myBookId = _self.data('id');
@@ -194,28 +193,30 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
     }
 
     $scope.DeleteEmp = function (maNV) {
-        var params = {
-            MaNV: maNV
-        }
-        $http({
-            url: `/WebServiceCP.aspx?action=DeleteEmp`,
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            },
-            data: params
-        }).then(function (response) {
-            console.log("response:", response);
-            if (response.data.Message === "SUCCESS") {
-                $scope.searchEmp();
-                toastr.success("Xoá thành công !");
-            } else {
-                toastr.error("Xoá thất bại !");
+        if (confirm("Bạn có chắc muốn xoá dữ liệu ???")) {
+            var params = {
+                MaNV: maNV
             }
-        }, function (err) {
-            toastr.error("Xảy ra lỗi trong quá trình thực thi.");
-            console.log(err);
-        });
+            $http({
+                url: `/WebServiceCP.aspx?action=DeleteEmp`,
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                data: params
+            }).then(function (response) {
+                console.log("response:", response);
+                if (response.data.Message === "SUCCESS") {
+                    $scope.searchEmp();
+                    toastr.success("Xoá thành công !");
+                } else {
+                    toastr.error("Xoá thất bại !");
+                }
+            }, function (err) {
+                toastr.error("Xảy ra lỗi trong quá trình thực thi.");
+                console.log(err);
+            });
+        }
     }
 
     setValueModal = function (e) {

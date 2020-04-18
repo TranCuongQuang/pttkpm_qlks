@@ -12,7 +12,7 @@ app.controller('RoomManagementCtrl', function ($scope, $http, $timeout, $window)
     };
 
     angular.element(document).ready(function () {
-        $scope.searchCustomer();
+        $scope.searchRoom();
     });
 
     $(document).on("click", ".modal123", function (e) {
@@ -28,31 +28,32 @@ app.controller('RoomManagementCtrl', function ($scope, $http, $timeout, $window)
             $("#titleheader").text("Cập nhật");
             $("#insert").hide();
             $("#update").show();
-            var maKH = _self.data('value');
-            $scope.getCustomerByID(maKH);
+            var maPhong = _self.data('value');
+            $scope.getRoomByID(maPhong);
         } else {
             $("#titleheader").text("Thông tin");
             $("#insert").hide();
             $("#update").hide();
-            var maKH = _self.data('value');
-            $scope.getCustomerByID(maKH);
+            var maPhong = _self.data('value');
+            $scope.getRoomByID(maPhong);
         }
     });
 
-    $(document).on("click", "#DeleteCustomer", function (e) {
+    $(document).on("click", "#DeleteRoom", function (e) {
         e.preventDefault();
         var _self = $(this);
-        var maKH = _self.data('value');
-        $scope.DeleteCustomer(maKH);
+        var maPhong = _self.data('value');
+        $scope.DeleteRoom(maPhong);
     });
 
-    $scope.searchCustomer = function () {
+    $scope.searchRoom = function () {
         var params = {
-            MaKH: $("#CustomerID").val(),
-            TenKH: $("#CustomerName").val()
+            MaPhong: $("#RoomID").val(),
+            TenPhong: $("#RoomName").val(),
+            TrangThai: $("#Status").val()
         }
         $http({
-            url: `/WebServiceCP.aspx?action=GetCustomerList`,
+            url: `/WebServiceCP.aspx?action=GetRoomList`,
             method: "POST",
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
@@ -73,12 +74,12 @@ app.controller('RoomManagementCtrl', function ($scope, $http, $timeout, $window)
         });
     }
 
-    $scope.getCustomerByID = function (ID) {
+    $scope.getRoomByID = function (ID) {
         var params = {
-            MaKH: ID
+            MaPhong: ID
         }
         $http({
-            url: `/WebServiceCP.aspx?action=GetCustomerByID`,
+            url: `/WebServiceCP.aspx?action=GetRoomByID`,
             method: "POST",
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
@@ -97,21 +98,19 @@ app.controller('RoomManagementCtrl', function ($scope, $http, $timeout, $window)
         });
     }
 
-    $scope.InsertCustomer = function () {
+    $scope.InsertRoom = function () {
         var checkRequired = validForm();
         if (!checkRequired) {
             toastr.warning("Vui lòng điền đầy đủ thông tin !");
             return false;
         }
         var params = {
-            TenKH: $("#txtMCustomerName").val(),
-            SDT: $("#txtMSDT").val(),
-            Email: $("#txtMEmail").val(),
-            DiaChi: $("#txtMAddress").val(),
-            NgaySinh: $("#txtMBirthday").val()
+            TenPhong: $("#txtMRoomName").val(),
+            DonGia: $("#txtMAmount").val(),
+            TrangThai: parseInt($("#txtMStatus").val())
         }
         $http({
-            url: `/WebServiceCP.aspx?action=CreateCustomer`,
+            url: `/WebServiceCP.aspx?action=CreateRoom`,
             method: "POST",
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
@@ -119,7 +118,7 @@ app.controller('RoomManagementCtrl', function ($scope, $http, $timeout, $window)
             data: params
         }).then(function (response) {
             if (response.data.Message === "SUCCESS") {
-                $scope.searchCustomer();
+                $scope.searchRoom();
                 toastr.success("Lưu thành công !");
             } else {
                 toastr.error("Lưu thất bại !");
@@ -130,22 +129,20 @@ app.controller('RoomManagementCtrl', function ($scope, $http, $timeout, $window)
         });
     }
 
-    $scope.UpdateCustomer = function () {
+    $scope.UpdateRoom = function () {
         var checkRequired = validForm();
         if (!checkRequired) {
             toastr.warning("Vui lòng điền đầy đủ thông tin !");
             return false;
         }
         var params = {
-            MaKH: $("#txtMCustomerID").val().trim(),
-            TenKH: $("#txtMCustomerName").val().trim(),
-            SDT: $("#txtMSDT").val().trim(),
-            Email: $("#txtMEmail").val().trim(),
-            DiaChi: $("#txtMAddress").val().trim(),
-            NgaySinh: moment($("#txtMBirthday").val(), "DD-MM-YYYY").format("YYYY-MM-DD")
+            MaPhong: $("#txtMRoomID").val(),
+            TenPhong: $("#txtMRoomName").val(),
+            DonGia: $("#txtMAmount").val(),
+            TrangThai: parseInt($("#txtMStatus").val())
         }
         $http({
-            url: `/WebServiceCP.aspx?action=UpdateCustomer`,
+            url: `/WebServiceCP.aspx?action=UpdateRoom`,
             method: "POST",
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
@@ -153,7 +150,7 @@ app.controller('RoomManagementCtrl', function ($scope, $http, $timeout, $window)
             data: params
         }).then(function (response) {
             if (response.data.Message === "SUCCESS") {
-                $scope.searchCustomer();
+                $scope.searchRoom();
                 toastr.success("Lưu thành công !");
             } else {
                 toastr.error("Lưu thất bại !");
@@ -164,46 +161,44 @@ app.controller('RoomManagementCtrl', function ($scope, $http, $timeout, $window)
         });
     }
 
-    $scope.DeleteCustomer = function (maKH) {
-        var params = {
-            MaKH: maKH
-        }
-        $http({
-            url: `/WebServiceCP.aspx?action=DeleteCustomer`,
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            },
-            data: params
-        }).then(function (response) {
-            console.log("response:", response);
-            if (response.data.Message === "SUCCESS") {
-                $scope.searchCustomer();
-                toastr.success("Xoá thành công !");
-            } else {
-                toastr.error("Xoá thất bại !");
+    $scope.DeleteRoom = function (maPhong) {
+        if (confirm("Bạn có chắc muốn xoá dữ liệu ???")) {
+            var params = {
+                MaPhong: maPhong
             }
-        }, function (err) {
-            toastr.error("Xảy ra lỗi trong quá trình thực thi.");
-            console.log(err);
-        });
+            $http({
+                url: `/WebServiceCP.aspx?action=DeleteRoom`,
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                data: params
+            }).then(function (response) {
+                console.log("response:", response);
+                if (response.data.Message === "SUCCESS") {
+                    $scope.searchRoom();
+                    toastr.success("Xoá thành công !");
+                } else {
+                    toastr.error("Xoá thất bại !");
+                }
+            }, function (err) {
+                toastr.error("Xảy ra lỗi trong quá trình thực thi.");
+                console.log(err);
+            });
+        }
     }
 
     setValueModal = function (e) {
-        $("#txtMCustomerID").val(e.MaKH);
-        $("#txtMCustomerName").val(e.TenKH);
-        $("#txtMSDT").val(e.SDT);
-        $("#txtMEmail").val(e.Email);
-        $("#txtMAddress").val(e.DiaChi);
-        $("#txtMBirthday").val(e.NgaySinh);
+        $("#txtMRoomID").val(e.MaPhong);
+        $("#txtMRoomName").val(e.TenPhong);
+        $("#txtMAmount").val(e.DonGia);
+        $("#txtMStatus").val(e.TrangThai);
     }
     clearValueModal = function () {
-        $("#txtMCustomerID").val("");
-        $("#txtMCustomerName").val("");
-        $("#txtMSDT").val("");
-        $("#txtMEmail").val("");
-        $("#txtMAddress").val("");
-        $("#txtMBirthday").val("");
+        $("#txtMRoomID").val("");
+        $("#txtMRoomName").val("");
+        $("#txtMAmount").val("");
+        $("#txtMStatus").val("");
     }
 
     //valid
