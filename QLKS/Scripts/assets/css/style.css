@@ -31,7 +31,7 @@
 .btn {
     font-size: 14px;
     border: 0;
-    height: 30px;
+    height: 34px;
 }
 
 .table-qlks table thead tr {
@@ -53,3 +53,11 @@
     .table-qlks .dataTables_wrapper .row:last-child {
         border: 0 !important;
     }
+
+.booking:hover {
+    cursor: pointer;
+}
+
+.modal-body{
+    overflow:hidden;
+}
