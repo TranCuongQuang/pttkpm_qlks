@@ -125,6 +125,7 @@
                                         <th>Mã SP</th>
                                         <th>Tên SP</th>
                                         <th>Đơn giá</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -132,10 +133,15 @@
                                         <td>1</td>
                                         <td>1</td>
                                         <td>1</td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-danger" title="Xóa khỏi danh sách">
+                                                <i class="ace-icon fa fa-trash-o"></i>
+                                            </button>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2">Tổng tiền</td>
-                                        <td>10</td>
+                                        <td colspan="2" class="text-center">Tổng tiền</td>
+                                        <td colspan="2" class="text-center">10</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -147,6 +153,7 @@
                                         <th>Mã DV</th>
                                         <th>Tên DV</th>
                                         <th>Đơn giá</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -154,10 +161,15 @@
                                         <td>1</td>
                                         <td>1</td>
                                         <td>1</td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-danger" title="Xóa khỏi danh sách">
+                                                <i class="ace-icon fa fa-trash-o"></i>
+                                            </button>
+                                        </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2">Tổng tiền</td>
-                                        <td>10</td>
+                                        <td colspan="2" class="text-center">Tổng tiền</td>
+                                        <td colspan="2" class="text-center">10</td>
                                     </tr>
                                 </tbody>
                             </table>
