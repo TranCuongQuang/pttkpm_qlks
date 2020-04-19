@@ -95,7 +95,7 @@
 
                     <div class="modal-body no-padding">
                         <div class="widget-main">
-                            <div class="form-horizontal" role="form" style="height:200px;">
+                            <div class="form-horizontal" role="form" style="height:auto;">
                                 <div class="form-group col-sm-6" id="manv">
                                     <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Mã khách hàng</label>
 
