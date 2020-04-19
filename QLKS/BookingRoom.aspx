@@ -33,14 +33,13 @@
                     <div class="modal-body">
                         <div class="form-group col-md-6">
                             <label class="control-label">Mã phòng</label>
-                            <input type="text" placeholder="Mã phòng" class="form-control" readonly="readonly" />
+                            <input type="text" placeholder="Mã phòng" class="form-control" readonly="readonly" ng-model="txtRoomId" />
                         </div>
                         <div class="form-group col-md-5">
                             <label class="control-label">Khách hàng</label>
-                            <select class="chosen-select form-control" data-placeholder="Chức vụ">
-                                <option value=""></option>
-                                <option value="QL">Quản Lý</option>
-                                <option value="NV">Nhân Viên</option>
+                            <select class="chosen-select form-control" id="ddlCustomer" ng-model="ddlCustomer" ui-select2 style="width: 100%">
+                                <option value="">Chọn khách hàng</option>
+                                <option ng-repeat="item in CustomerList" value="{{item.MaKH}}">{{item.TenKH}}</option>
                             </select>
                         </div>
                         <div class="form-group col-md-1">
@@ -51,7 +50,7 @@
                         <div class="form-group col-md-6">
                             <label class="control-label">Từ ngày</label>
                             <div class="input-group">
-                                <input class="form-control date-picker" type="text" data-date-format="dd-mm-yyyy" />
+                                <input class="form-control date-picker" type="text" data-date-format="dd-mm-yyyy" ng-model="txtFromDate" />
                                 <span class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </span>
@@ -60,7 +59,7 @@
                         <div class="form-group col-md-6">
                             <label class="control-label">Đến ngày</label>
                             <div class="input-group">
-                                <input class="form-control date-picker" type="text" data-date-format="dd-mm-yyyy" />
+                                <input class="form-control date-picker" type="text" data-date-format="dd-mm-yyyy" ng-model="txtToDate" />
                                 <span class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </span>
@@ -68,18 +67,17 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label class="control-label">Đơn giá</label>
-                            <input type="text" placeholder="Đơn giá" class="form-control" readonly="readonly" />
+                            <input type="text" placeholder="Đơn giá" class="form-control" readonly="readonly" ng-model="txtUnitPrice" />
                         </div>
                         <div class="form-group col-md-6">
                             <label class="control-label">Thành tiền</label>
-                            <input type="text" placeholder="Thành tiền" class="form-control" readonly="readonly" />
+                            <input type="text" placeholder="Thành tiền" class="form-control" readonly="readonly" ng-model="txtTotalMoney" />
                         </div>
                         <div class="form-group col-md-5">
                             <label class="control-label">Sản phẩm</label>
-                            <select class="chosen-select form-control" data-placeholder="Chức vụ">
-                                <option value=""></option>
-                                <option value="QL">Quản Lý</option>
-                                <option value="NV">Nhân Viên</option>
+                            <select class="chosen-select form-control" ng-model="ddlProduct" ui-select2 style="width: 100%">
+                                <option value="">Chọn sản phẩm</option>
+                                <option ng-repeat="item in CustomerList" value="{{item.MaKH}}">{{item.TenKH}}</option>
                             </select>
                         </div>
                         <div class="form-group col-md-1">
@@ -89,10 +87,9 @@
                         </div>
                         <div class="form-group col-md-5">
                             <label class="control-label">Dịch vụ</label>
-                            <select class="chosen-select form-control" data-placeholder="Chức vụ">
-                                <option value=""></option>
-                                <option value="QL">Quản Lý</option>
-                                <option value="NV">Nhân Viên</option>
+                            <select class="chosen-select form-control" ng-model="ddlService" ui-select2 style="width: 100%">
+                                <option value="">Chọn dịch vụ</option>
+                                <option ng-repeat="item in CustomerList" value="{{item.MaKH}}">{{item.TenKH}}</option>
                             </select>
                         </div>
                         <div class="form-group col-md-1">
