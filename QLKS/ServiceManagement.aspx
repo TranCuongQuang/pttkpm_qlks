@@ -1,38 +1,28 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="RoomManagement.aspx.cs" Inherits="QLKS.RoomManagement" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ServiceManagement.aspx.cs" Inherits="QLKS.ServiceManagement" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <%--<body class="no-skin">--%>
-        <div ng-app="QLKS" ng-controller="RoomManagementCtrl">
+        <div ng-app="QLKS" ng-controller="ServiceManagementCtrl">
 
             <div class="panel panel-primary">
             <div class="panel-heading">
                 Tìm kiếm
             </div>
             <div class="panel-body form-horizontal">
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Mã phòng</label>
+                <div class="form-group col-sm-6">
+                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Mã dịch vụ</label>
                     <div class="col-md-8">
-                        <input type="text" id="RoomID" placeholder="Mã phòng" class="form-control" />
+                        <input type="text" id="ServiceID" placeholder="Mã dịch vụ" class="form-control" />
                     </div>
                 </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Tên phòng</label>
+                <div class="form-group col-sm-6">
+                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Tên dịch vụ</label>
                     <div class="col-md-8">
-                        <input type="text" id="RoomName" placeholder="Tên phòng" class="form-control" />
-                    </div>
-                </div>
-                <div class="form-group col-sm-4">
-                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Trạng thái</label>
-                    <div class="col-sm-8">
-                        <select class="chosen-select form-control" id="Status" data-placeholder="Trạng thái">
-                            <option value=""> </option>
-                            <option value="0">Trống</option>
-                            <option value="1">Đã đặt phòng</option>
-                        </select>
+                        <input type="text" id="ServiceName" placeholder="Tên dịch vụ" class="form-control" />
                     </div>
                 </div>
                 <div class="col-md-12 form-button">
-                    <button class="btn btn-info" type="button" ng-click="searchRoom()">
+                    <button class="btn btn-info" type="button" ng-click="searchService()">
                         <i class="ace-icon fa fa-search"></i>Tìm kiếm
                     </button>
                     <button class="btn btn-primary modal123" type="button" data-id="Create" ng-click="showModal()">
@@ -44,38 +34,36 @@
 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Danh sách phòng
+                Danh sách dịch vụ
             </div>
             <div class="panel-body table-qlks">
                 <table id="dynamic-table" datatable="ng" dt-options="dtOptions" class="table table-bordered">
                     <thead>
                         <tr >
-                            <th>Mã phòng</th>
-                            <th>Tên phòng</th>
+                            <th>Mã dịch vụ</th>
+                            <th>Tên dịch vụ</th>
                             <th>Đơn giá</th>
-                            <th>Trạng thái</th>
                             <th></th>
                         </tr>
                     </thead>
 
                     <tbody>
                         <tr ng-repeat="x in dataTable">
-                            <td>{{x.MaPhong}}</td>
-                            <th>{{x.TenPhong}}</th>
+                            <td>{{x.MaDV}}</td>
+                            <th>{{x.TenDV}}</th>
                             <th>{{x.DonGia}}</th>
-                            <th>{{x.StrTrangThai}}</th>
 
                             <td>
                                 <div class="hidden-sm hidden-xs action-buttons">
-                                    <a class="modal123 blue" href="#modal-table" role="button" data-toggle="modal" data-id="Info" data-value="{{x.MaPhong}}" style="text-decoration: none; color: antiquewhite;">
+                                    <a class="modal123 blue" href="#modal-table" role="button" data-toggle="modal" data-id="Info" data-value="{{x.MaDV}}" style="text-decoration: none; color: antiquewhite;">
                                         <i class="ace-icon fa fa-search-plus bigger-130"></i>
                                     </a>
 
-                                    <a class="modal123 green" href="#modal-table" role="button" data-toggle="modal" data-id="Update" data-value="{{x.MaPhong}}" style="text-decoration: none; color: antiquewhite;">
+                                    <a class="modal123 green" href="#modal-table" role="button" data-toggle="modal" data-id="Update" data-value="{{x.MaDV}}" style="text-decoration: none; color: antiquewhite;">
                                         <i class="ace-icon fa fa-pencil bigger-130"></i>
                                     </a>
 
-                                    <a class="red" href="#" id="DeleteRoom" data-value="{{x.MaPhong}}">
+                                    <a class="red" href="#" id="DeleteService" data-value="{{x.MaDV}}">
                                         <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                     </a>
                                 </div>
@@ -103,17 +91,17 @@
                         <div class="widget-main">
                             <div class="form-horizontal" role="form" style="height:auto;">
                                 <div class="form-group col-sm-6" id="manv">
-                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Mã phòng</label>
+                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Mã dịch vụ</label>
 
                                     <div class="col-sm-8">
-                                        <input type="text" id="txtMRoomID" placeholder="Mã phòng" class="form-control" readonly="readonly"/>
+                                        <input type="text" id="txtMServiceID" placeholder="Mã dịch vụ" class="form-control" readonly="readonly"/>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
-                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Tên phòng</label>
+                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Tên dịch vụ</label>
 
                                     <div class="col-sm-8">
-                                        <input type="text" id="txtMRoomName" placeholder="Tên phòng" class="form-control input-required" />
+                                        <input type="text" id="txtMServiceName" placeholder="Tên dịch vụ" class="form-control input-required" />
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
@@ -121,17 +109,6 @@
 
                                     <div class="col-sm-8">
                                         <input type="text" id="txtMAmount" placeholder="Đơn giá" class="form-control input-required" />
-                                    </div>
-                                </div>
-                                <br />
-                                <div class="form-group col-sm-6">
-                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Trạng thái</label>
-
-                                    <div class="col-sm-8">
-                                        <select class="chosen-select form-control input-required" id="txtMStatus" data-placeholder="Trạng thái">
-                                            <option value="0">Trống</option>
-                                            <option value="1">Đã đặt phòng</option>
-                                        </select>
                                     </div>
                                 </div>
                                 <br />
@@ -146,11 +123,11 @@
                         <i class="ace-icon fa fa-times"></i>
                         Close
                     </button>
-                    <button type='button' id="insert" class="btn btn-sm btn-success pull-right" ng-click="InsertRoom()">
+                    <button type='button' id="insert" class="btn btn-sm btn-success pull-right" ng-click="InsertService()">
                         <i class="ace-icon fa fa-save"></i>
                         Save
                     </button>
-                    <button type='button' id="update" class="btn btn-sm btn-success pull-right" ng-click="UpdateRoom()">
+                    <button type='button' id="update" class="btn btn-sm btn-success pull-right" ng-click="UpdateService()">
                         <i class="ace-icon fa fa-save"></i>
                         Save
                     </button>
@@ -163,6 +140,6 @@
     <%--</body>--%>
 
     <!-- inline scripts related to this page -->
-    <script src="App/RoomManagement.js"></script>
+    <script src="App/ServiceManagement.js"></script>
     
 </asp:Content>

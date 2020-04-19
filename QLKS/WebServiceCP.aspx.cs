@@ -94,6 +94,32 @@ namespace QLKS
                     Response.End();
                     break;
 
+                //Dịch vụ
+                case "GetServiceList":
+                    Response.Write(JsonConvert.SerializeObject(GetServiceList()));
+                    Response.End();
+                    break;
+
+                case "GetServiceByID":
+                    Response.Write(JsonConvert.SerializeObject(GetServiceByID()));
+                    Response.End();
+                    break;
+
+                case "CreateService":
+                    Response.Write(JsonConvert.SerializeObject(CreateService()));
+                    Response.End();
+                    break;
+
+                case "UpdateService":
+                    Response.Write(JsonConvert.SerializeObject(UpdateService()));
+                    Response.End();
+                    break;
+
+                case "DeleteService":
+                    Response.Write(JsonConvert.SerializeObject(DeleteService()));
+                    Response.End();
+                    break;
+
                 default:
                     Response.End();
                     break;
@@ -599,5 +625,158 @@ namespace QLKS
         }
 
         #endregion Phòng
+
+        #region Dịch vụ
+
+        private AjaxReponseModel<dynamic> GetServiceList()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            try
+            {
+                var data = new StreamReader(Request.InputStream).ReadToEnd();
+                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                string maDV = dym.MaDV;
+                string tenDV = dym.TenDV;
+                using (var ctx = new qlksEntities())
+                {
+                    var emp = ctx.tblDichVus.AsEnumerable()
+                        .Where(st => (maDV == "" || st.MaDV == Convert.ToInt32(maDV)) && (tenDV == "" || st.TenDV == tenDV))
+                        .Select(st => new
+                        {
+                            st.MaDV,
+                            st.TenDV,
+                            st.DonGia
+                        }).ToList();
+                    response.Data = emp;
+                }
+                return response;
+            }
+            catch (Exception e)
+            {
+                return response;
+            }
+            finally
+            {
+            }
+        }
+
+        private AjaxReponseModel<dynamic> GetServiceByID()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            try
+            {
+                var data = new StreamReader(Request.InputStream).ReadToEnd();
+                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                int maDV = Convert.ToInt32(dym.MaDV);
+                using (var ctx = new qlksEntities())
+                {
+                    var emp = ctx.tblDichVus.AsEnumerable().Select(st => new
+                    {
+                        st.MaDV,
+                        st.TenDV,
+                        st.DonGia
+                    }).Where(st => st.MaDV == maDV).ToList();
+                    response.Data = emp;
+                }
+                return response;
+            }
+            catch (Exception e)
+            {
+                return response;
+            }
+            finally
+            {
+            }
+        }
+
+        private AjaxReponseModel<dynamic> CreateService()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            try
+            {
+                var data = new StreamReader(Request.InputStream).ReadToEnd();
+                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+
+                using (var db = new qlksEntities())
+                {
+                    tblDichVu dv = new tblDichVu();
+                    dv.TenDV = String.IsNullOrEmpty(dym.TenDV.ToString()) ? String.Empty : dym.TenDV.ToString().Trim();
+                    dv.DonGia = dym.DonGia;
+
+                    db.tblDichVus.Add(dv);
+                    db.SaveChanges();
+                    response.Message = "SUCCESS";
+                };
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Message = "ERROR";
+                return response;
+            }
+            finally
+            {
+            }
+        }
+
+        private AjaxReponseModel<dynamic> UpdateService()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            try
+            {
+                var data = new StreamReader(Request.InputStream).ReadToEnd();
+                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                int maDV = Convert.ToInt32(dym.MaDV);
+                using (var db = new qlksEntities())
+                {
+                    tblDichVu dv = db.tblDichVus.SingleOrDefault(w => w.MaDV == maDV);
+                    dv.TenDV = String.IsNullOrEmpty(dym.TenDV.ToString()) ? String.Empty : dym.TenDV.ToString().Trim();
+                    dv.DonGia = dym.DonGia;
+
+                    db.SaveChanges();
+                    response.Message = "SUCCESS";
+                };
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Message = "ERROR";
+                return response;
+            }
+            finally
+            {
+            }
+        }
+
+        private AjaxReponseModel<dynamic> DeleteService()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            try
+            {
+                var data = new StreamReader(Request.InputStream).ReadToEnd();
+                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                int maDV = Convert.ToInt32(dym.MaDV);
+                using (var db = new qlksEntities())
+                {
+                    tblDichVu dv = db.tblDichVus.SingleOrDefault(w => w.MaDV == maDV);
+                    db.tblDichVus.Remove(dv);
+                    db.SaveChanges();
+                    response.Message = "SUCCESS";
+                };
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Message = "ERROR";
+                return response;
+            }
+            finally
+            {
+            }
+        }
+
+        #endregion Dịch vụ
     }
 }
