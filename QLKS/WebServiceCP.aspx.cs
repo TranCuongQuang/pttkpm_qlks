@@ -487,7 +487,7 @@ namespace QLKS
                             st.MaPhong,
                             st.TenPhong,
                             st.DonGia,
-                            StrTrangThai = st.TrangThai == true ? "Đã đặt phòng" : "Trống",
+                            StrTrangThai = st.TrangThai == true ? "Đã đặt" : "Trống",
                             TrangThai = Convert.ToInt32(st.TrangThai)
                         }).ToList();
                     response.Data = emp;
@@ -518,7 +518,7 @@ namespace QLKS
                         st.MaPhong,
                         st.TenPhong,
                         st.DonGia,
-                        StrTrangThai = st.TrangThai == true ? "Đã đặt phòng" : "Trống",
+                        StrTrangThai = st.TrangThai == true ? "Đã đặt" : "Trống",
                         TrangThai = Convert.ToInt32(st.TrangThai)
                     }).Where(st => st.MaPhong == maPhong).ToList();
                     response.Data = emp;

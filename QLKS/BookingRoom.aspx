@@ -7,8 +7,7 @@
                 Đặt phòng
             </div>
             <div class="panel-body">
-                <div ng-repeat="item in RoomList" class="infobox infobox-small infobox-dark booking" ng-class="{infobox-green: item.TrangThai == 0, infobox-grey: item.TrangThai == 1}">
-                    ng-click="showModal(item)">
+                <div class="infobox infobox-small infobox-dark booking " ng-class="{'infobox-green': item.TrangThai == 0, 'infobox-grey': item.TrangThai == 1}" ng-click="showModal(item)" ng-repeat="item in RoomList">
                     <div class="infobox-chart">
                         <span class="ace-icon fa fa-home" style="font-size: 30px; vertical-align: middle;"></span>
                     </div>
