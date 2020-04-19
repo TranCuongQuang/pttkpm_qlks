@@ -7,31 +7,14 @@
                 Đặt phòng
             </div>
             <div class="panel-body">
-                <div class="infobox infobox-green infobox-small infobox-dark booking" ng-click="showModal()">
+                <div ng-repeat="item in RoomList" class="infobox infobox-small infobox-dark booking" ng-class="{infobox-green: item.TrangThai == 0, infobox-grey: item.TrangThai == 1}">
+                    ng-click="showModal(item)">
                     <div class="infobox-chart">
                         <span class="ace-icon fa fa-home" style="font-size: 30px; vertical-align: middle;"></span>
                     </div>
                     <div class="infobox-data">
-                        <div class="infobox-content">Phòng 1</div>
-                        <div class="infobox-content">Trống</div>
-                    </div>
-                </div>
-                <div class="infobox infobox-green infobox-small infobox-dark booking">
-                    <div class="infobox-chart">
-                        <span class="ace-icon fa fa-home" style="font-size: 30px; vertical-align: middle;"></span>
-                    </div>
-                    <div class="infobox-data">
-                        <div class="infobox-content">Phòng 2</div>
-                        <div class="infobox-content">Trống</div>
-                    </div>
-                </div>
-                <div class="infobox infobox-grey infobox-small infobox-dark booking">
-                    <div class="infobox-chart">
-                        <span class="ace-icon fa fa-home" style="font-size: 30px; vertical-align: middle;"></span>
-                    </div>
-                    <div class="infobox-data">
-                        <div class="infobox-content">Phòng 3</div>
-                        <div class="infobox-content">Đầy</div>
+                        <div class="infobox-content">{{item.TenPhong}}</div>
+                        <div class="infobox-content">{{item.StrTrangThai}}</div>
                     </div>
                 </div>
             </div>
