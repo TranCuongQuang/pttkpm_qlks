@@ -89,7 +89,7 @@
                             <label class="control-label">Dịch vụ</label>
                             <select class="chosen-select form-control" ng-model="ddlService" ui-select2 style="width: 100%">
                                 <option value="">Chọn dịch vụ</option>
-                                <option ng-repeat="item in CustomerList" value="{{item.MaKH}}">{{item.TenKH}}</option>
+                                <option ng-repeat="item in ServiceList" value="{{item.MaDV}}">{{item.TenDV}}</option>
                             </select>
                         </div>
                         <div class="form-group col-md-1">

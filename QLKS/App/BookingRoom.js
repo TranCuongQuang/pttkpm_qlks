@@ -2,6 +2,7 @@
 app.controller('BookingRoomCtrl', function ($scope, $http, $timeout, $window) {
     $scope.RoomList = [];
     $scope.CustomerList = [];
+    $scope.ServiceList = [];
     $scope.txtRoomId = "";
     $scope.ddlCustomer = {};
     $scope.ddlService = "";
@@ -14,6 +15,7 @@ app.controller('BookingRoomCtrl', function ($scope, $http, $timeout, $window) {
     angular.element(document).ready(function () {
         $scope.GetRoom();
         $scope.GetCustomer();
+        $scope.GetService();
     });
 
     $scope.showModal = function (item) {
@@ -70,6 +72,27 @@ app.controller('BookingRoomCtrl', function ($scope, $http, $timeout, $window) {
             console.log("GetCustomer", response);
         }, function (err) {
             $scope.CustomerList = [];
+            console.log(err);
+        });
+    }
+
+    $scope.GetService = function () {
+        var params = {
+            MaDV: "",
+            TenDV: ""
+        }
+        $http({
+            url: `/WebServiceCP.aspx?action=GetServiceList`,
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            data: params
+        }).then(function (response) {
+            var temp = response.data.Data;
+            $scope.ServiceList = temp;
+        }, function (err) {
+            $scope.ServiceList = [];
             console.log(err);
         });
     }
