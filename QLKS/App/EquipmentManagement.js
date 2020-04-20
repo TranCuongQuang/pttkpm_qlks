@@ -49,7 +49,8 @@ app.controller('EquipmentManagementCtrl', function ($scope, $http, $timeout, $wi
     $scope.searchEquipment = function () {
         var params = {
             MaTB: $("#EquipmentID").val(),
-            TenTB: $("#EquipmentName").val()
+            TenTB: $("#EquipmentName").val(),
+            TinhTrang: $("#Note").val()
         }
         $http({
             url: `/WebServiceCP.aspx?action=GetEquipmentList`,
@@ -105,7 +106,7 @@ app.controller('EquipmentManagementCtrl', function ($scope, $http, $timeout, $wi
         }
         var params = {
             TenTB: $("#txtMEquipmentName").val(),
-            TinhTrang: $("#txtMNote").val()
+            TinhTrang: parseInt($("#txtMNote").val())
         }
         $http({
             url: `/WebServiceCP.aspx?action=CreateEquipment`,
@@ -136,7 +137,7 @@ app.controller('EquipmentManagementCtrl', function ($scope, $http, $timeout, $wi
         var params = {
             MaTB: $("#txtMEquipmentID").val(),
             TenTB: $("#txtMEquipmentName").val(),
-            TinhTrang: $("#txtMNote").val()
+            TinhTrang: parseInt($("#txtMNote").val())
         }
         $http({
             url: `/WebServiceCP.aspx?action=UpdateEquipment`,
