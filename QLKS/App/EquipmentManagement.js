@@ -1,5 +1,5 @@
 ﻿var app = angular.module('QLKS', ['ui.select2', 'ui.bootstrap', 'datatables']);
-app.controller('ProductManagementCtrl', function ($scope, $http, $timeout, $window) {
+app.controller('EquipmentManagementCtrl', function ($scope, $http, $timeout, $window) {
 
     $scope.dataTable = [];
     var requiredList = document.getElementsByClassName('input-required');
@@ -12,7 +12,7 @@ app.controller('ProductManagementCtrl', function ($scope, $http, $timeout, $wind
     };
 
     angular.element(document).ready(function () {
-        $scope.searchProduct();
+        $scope.searchEquipment();
     });
 
     $(document).on("click", ".modal123", function (e) {
@@ -28,31 +28,31 @@ app.controller('ProductManagementCtrl', function ($scope, $http, $timeout, $wind
             $("#titleheader").text("Cập nhật");
             $("#insert").hide();
             $("#update").show();
-            var maSP = _self.data('value');
-            $scope.getProductByID(maSP);
+            var maTB = _self.data('value');
+            $scope.getEquipmentByID(maTB);
         } else {
             $("#titleheader").text("Thông tin");
             $("#insert").hide();
             $("#update").hide();
-            var maSP = _self.data('value');
-            $scope.getProductByID(maSP);
+            var maTB = _self.data('value');
+            $scope.getEquipmentByID(maTB);
         }
     });
 
-    $(document).on("click", "#DeleteProduct", function (e) {
+    $(document).on("click", "#DeleteEquipment", function (e) {
         e.preventDefault();
         var _self = $(this);
-        var maSP = _self.data('value');
-        $scope.DeleteProduct(maSP);
+        var maTB = _self.data('value');
+        $scope.DeleteEquipment(maTB);
     });
 
-    $scope.searchProduct = function () {
+    $scope.searchEquipment = function () {
         var params = {
-            MaSP: $("#ProductID").val(),
-            TenSP: $("#ProductName").val()
+            MaTB: $("#EquipmentID").val(),
+            TenTB: $("#EquipmentName").val()
         }
         $http({
-            url: `/WebServiceCP.aspx?action=GetProductList`,
+            url: `/WebServiceCP.aspx?action=GetEquipmentList`,
             method: "POST",
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
@@ -73,12 +73,12 @@ app.controller('ProductManagementCtrl', function ($scope, $http, $timeout, $wind
         });
     }
 
-    $scope.getProductByID = function (ID) {
+    $scope.getEquipmentByID = function (ID) {
         var params = {
-            MaSP: ID
+            MaTB: ID
         }
         $http({
-            url: `/WebServiceCP.aspx?action=GetProductByID`,
+            url: `/WebServiceCP.aspx?action=GetEquipmentByID`,
             method: "POST",
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
@@ -97,18 +97,18 @@ app.controller('ProductManagementCtrl', function ($scope, $http, $timeout, $wind
         });
     }
 
-    $scope.InsertProduct = function () {
+    $scope.InsertEquipment = function () {
         var checkRequired = validForm();
         if (!checkRequired) {
             toastr.warning("Vui lòng điền đầy đủ thông tin !");
             return false;
         }
         var params = {
-            TenSP: $("#txtMProductName").val(),
-            DonGia: $("#txtMAmount").val()
+            TenTB: $("#txtMEquipmentName").val(),
+            TinhTrang: $("#txtMNote").val()
         }
         $http({
-            url: `/WebServiceCP.aspx?action=CreateProduct`,
+            url: `/WebServiceCP.aspx?action=CreateEquipment`,
             method: "POST",
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
@@ -116,7 +116,7 @@ app.controller('ProductManagementCtrl', function ($scope, $http, $timeout, $wind
             data: params
         }).then(function (response) {
             if (response.data.Message === "SUCCESS") {
-                $scope.searchProduct();
+                $scope.searchEquipment();
                 toastr.success("Lưu thành công !");
             } else {
                 toastr.error("Lưu thất bại !");
@@ -127,19 +127,19 @@ app.controller('ProductManagementCtrl', function ($scope, $http, $timeout, $wind
         });
     }
 
-    $scope.UpdateProduct = function () {
+    $scope.UpdateEquipment = function () {
         var checkRequired = validForm();
         if (!checkRequired) {
             toastr.warning("Vui lòng điền đầy đủ thông tin !");
             return false;
         }
         var params = {
-            MaSP: $("#txtMProductID").val(),
-            TenSP: $("#txtMProductName").val(),
-            DonGia: $("#txtMAmount").val()
+            MaTB: $("#txtMEquipmentID").val(),
+            TenTB: $("#txtMEquipmentName").val(),
+            TinhTrang: $("#txtMNote").val()
         }
         $http({
-            url: `/WebServiceCP.aspx?action=UpdateProduct`,
+            url: `/WebServiceCP.aspx?action=UpdateEquipment`,
             method: "POST",
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
@@ -147,7 +147,7 @@ app.controller('ProductManagementCtrl', function ($scope, $http, $timeout, $wind
             data: params
         }).then(function (response) {
             if (response.data.Message === "SUCCESS") {
-                $scope.searchProduct();
+                $scope.searchEquipment();
                 toastr.success("Lưu thành công !");
             } else {
                 toastr.error("Lưu thất bại !");
@@ -158,13 +158,13 @@ app.controller('ProductManagementCtrl', function ($scope, $http, $timeout, $wind
         });
     }
 
-    $scope.DeleteProduct = function (maSP) {
+    $scope.DeleteEquipment = function (maTB) {
         if (confirm("Bạn có chắc muốn xoá dữ liệu ???")) {
             var params = {
-                MaSP: maSP
+                MaTB: maTB
             }
             $http({
-                url: `/WebServiceCP.aspx?action=DeleteProduct`,
+                url: `/WebServiceCP.aspx?action=DeleteEquipment`,
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8'
@@ -173,7 +173,7 @@ app.controller('ProductManagementCtrl', function ($scope, $http, $timeout, $wind
             }).then(function (response) {
                 console.log("response:", response);
                 if (response.data.Message === "SUCCESS") {
-                    $scope.searchProduct();
+                    $scope.searchEquipment();
                     toastr.success("Xoá thành công !");
                 } else {
                     toastr.error("Xoá thất bại !");
@@ -186,14 +186,14 @@ app.controller('ProductManagementCtrl', function ($scope, $http, $timeout, $wind
     }
 
     setValueModal = function (e) {
-        $("#txtMProductID").val(e.MaSP);
-        $("#txtMProductName").val(e.TenSP);
-        $("#txtMAmount").val(e.DonGia);
+        $("#txtMEquipmentID").val(e.MaThietBi);
+        $("#txtMEquipmentName").val(e.TenThietBi);
+        $("#txtMNote").val(e.TinhTrang);
     }
     clearValueModal = function () {
-        $("#txtMProductID").val("");
-        $("#txtMProductName").val("");
-        $("#txtMAmount").val("");
+        $("#txtMEquipmentID").val("");
+        $("#txtMEquipmentName").val("");
+        $("#txtMNote").val("");
     }
 
     //valid

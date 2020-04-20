@@ -1,8 +1,8 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="ProductManagement.aspx.cs" Inherits="QLKS.ProductManagement" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="EquipmentManagement.aspx.cs" Inherits="QLKS.EquipmentManagement" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="server">
     <%--<body class="no-skin">--%>
-        <div ng-app="QLKS" ng-controller="ProductManagementCtrl">
+        <div ng-app="QLKS" ng-controller="EquipmentManagementCtrl">
 
             <div class="panel panel-primary">
             <div class="panel-heading">
@@ -10,19 +10,19 @@
             </div>
             <div class="panel-body form-horizontal">
                 <div class="form-group col-sm-6">
-                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Mã sản phẩm</label>
+                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Mã thiết bị</label>
                     <div class="col-md-8">
-                        <input type="text" id="ProductID" placeholder="Mã sản phẩm" class="form-control" />
+                        <input type="text" id="EquipmentID" placeholder="Mã thiết bị" class="form-control" />
                     </div>
                 </div>
                 <div class="form-group col-sm-6">
-                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Tên sản phẩm</label>
+                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Tên thiết bị</label>
                     <div class="col-md-8">
-                        <input type="text" id="ProductName" placeholder="Tên sản phẩm" class="form-control" />
+                        <input type="text" id="EquipmentName" placeholder="Tên thiết bị" class="form-control" />
                     </div>
                 </div>
                 <div class="col-md-12 form-button">
-                    <button class="btn btn-info" type="button" ng-click="searchProduct()">
+                    <button class="btn btn-info" type="button" ng-click="searchEquipment()">
                         <i class="ace-icon fa fa-search"></i>Tìm kiếm
                     </button>
                     <button class="btn btn-primary modal123" type="button" data-id="Create" ng-click="showModal()">
@@ -40,30 +40,30 @@
                 <table id="dynamic-table" datatable="ng" dt-options="dtOptions" class="table table-bordered">
                     <thead>
                         <tr >
-                            <th>Mã sản phẩm</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Đơn giá</th>
+                            <th>Mã thiết bị</th>
+                            <th>Tên thiết bị</th>
+                            <th>Tình trạng</th>
                             <th></th>
                         </tr>
                     </thead>
 
                     <tbody>
                         <tr ng-repeat="x in dataTable">
-                            <td>{{x.MaSP}}</td>
-                            <th>{{x.TenSP}}</th>
-                            <th>{{x.DonGia}}</th>
+                            <td>{{x.MaThietBi}}</td>
+                            <th>{{x.TenThietBi}}</th>
+                            <th>{{x.TinhTrang}}</th>
 
                             <td>
                                 <div class="hidden-sm hidden-xs action-buttons">
-                                    <a class="modal123 blue" href="#modal-table" role="button" data-toggle="modal" data-id="Info" data-value="{{x.MaSP}}" style="text-decoration: none; color: antiquewhite;">
+                                    <a class="modal123 blue" href="#modal-table" role="button" data-toggle="modal" data-id="Info" data-value="{{x.MaThietBi}}" style="text-decoration: none; color: antiquewhite;">
                                         <i class="ace-icon fa fa-search-plus bigger-130"></i>
                                     </a>
 
-                                    <a class="modal123 green" href="#modal-table" role="button" data-toggle="modal" data-id="Update" data-value="{{x.MaSP}}" style="text-decoration: none; color: antiquewhite;">
+                                    <a class="modal123 green" href="#modal-table" role="button" data-toggle="modal" data-id="Update" data-value="{{x.MaThietBi}}" style="text-decoration: none; color: antiquewhite;">
                                         <i class="ace-icon fa fa-pencil bigger-130"></i>
                                     </a>
 
-                                    <a class="red" href="#" id="DeleteProduct" data-value="{{x.MaSP}}">
+                                    <a class="red" href="#" id="DeleteEquipment" data-value="{{x.MaThietBi}}">
                                         <i class="ace-icon fa fa-trash-o bigger-130"></i>
                                     </a>
                                 </div>
@@ -91,24 +91,24 @@
                         <div class="widget-main">
                             <div class="form-horizontal" role="form" style="height:auto;">
                                 <div class="form-group col-sm-6" id="manv">
-                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Mã sản phẩm</label>
+                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Mã thiết bị</label>
 
                                     <div class="col-sm-8">
-                                        <input type="text" id="txtMProductID" placeholder="Mã sản phẩm" class="form-control" readonly="readonly"/>
+                                        <input type="text" id="txtMEquipmentID" placeholder="Mã thiết bị" class="form-control" readonly="readonly"/>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
-                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Tên sản phẩm</label>
+                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Tên thiết bị</label>
 
                                     <div class="col-sm-8">
-                                        <input type="text" id="txtMProductName" placeholder="Tên sản phẩm" class="form-control input-required" />
+                                        <input type="text" id="txtMEquipmentName" placeholder="Tên thiết bị" class="form-control input-required" />
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
-                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Đơn giá</label>
+                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Tình trạng</label>
 
                                     <div class="col-sm-8">
-                                        <input type="text" id="txtMAmount" placeholder="Đơn giá" class="form-control input-required" />
+                                        <input type="text" id="txtMNote" placeholder="Đơn giá" class="form-control input-required" />
                                     </div>
                                 </div>
                                 <br />
@@ -123,11 +123,11 @@
                         <i class="ace-icon fa fa-times"></i>
                         Close
                     </button>
-                    <button type='button' id="insert" class="btn btn-sm btn-success pull-right" ng-click="InsertProduct()">
+                    <button type='button' id="insert" class="btn btn-sm btn-success pull-right" ng-click="InsertEquipment()">
                         <i class="ace-icon fa fa-save"></i>
                         Save
                     </button>
-                    <button type='button' id="update" class="btn btn-sm btn-success pull-right" ng-click="UpdateProduct()">
+                    <button type='button' id="update" class="btn btn-sm btn-success pull-right" ng-click="UpdateEquipment()">
                         <i class="ace-icon fa fa-save"></i>
                         Save
                     </button>
@@ -140,6 +140,6 @@
     <%--</body>--%>
 
     <!-- inline scripts related to this page -->
-    <script src="App/ProductManagement.js"></script>
+    <script src="App/EquipmentManagement.js"></script>
     
 </asp:Content>

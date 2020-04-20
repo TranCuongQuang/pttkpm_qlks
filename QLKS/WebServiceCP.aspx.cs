@@ -120,6 +120,58 @@ namespace QLKS
                     Response.End();
                     break;
 
+                //Sản phẩm
+                case "GetProductList":
+                    Response.Write(JsonConvert.SerializeObject(GetProductList()));
+                    Response.End();
+                    break;
+
+                case "GetProductByID":
+                    Response.Write(JsonConvert.SerializeObject(GetProductByID()));
+                    Response.End();
+                    break;
+
+                case "CreateProduct":
+                    Response.Write(JsonConvert.SerializeObject(CreateProduct()));
+                    Response.End();
+                    break;
+
+                case "UpdateProduct":
+                    Response.Write(JsonConvert.SerializeObject(UpdateProduct()));
+                    Response.End();
+                    break;
+
+                case "DeleteProduct":
+                    Response.Write(JsonConvert.SerializeObject(DeleteProduct()));
+                    Response.End();
+                    break;
+
+                //Trang thiết bị
+                case "GetEquipmentList":
+                    Response.Write(JsonConvert.SerializeObject(GetEquipmentList()));
+                    Response.End();
+                    break;
+
+                case "GetEquipmentByID":
+                    Response.Write(JsonConvert.SerializeObject(GetEquipmentByID()));
+                    Response.End();
+                    break;
+
+                case "CreateEquipment":
+                    Response.Write(JsonConvert.SerializeObject(CreateEquipment()));
+                    Response.End();
+                    break;
+
+                case "UpdateEquipment":
+                    Response.Write(JsonConvert.SerializeObject(UpdateEquipment()));
+                    Response.End();
+                    break;
+
+                case "DeleteEquipment":
+                    Response.Write(JsonConvert.SerializeObject(DeleteEquipment()));
+                    Response.End();
+                    break;
+
                 default:
                     Response.End();
                     break;
@@ -778,5 +830,311 @@ namespace QLKS
         }
 
         #endregion Dịch vụ
+
+        #region Sản phẩm
+
+        private AjaxReponseModel<dynamic> GetProductList()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            try
+            {
+                var data = new StreamReader(Request.InputStream).ReadToEnd();
+                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                string maSP = dym.MaSP;
+                string tenSP = dym.TenSP;
+                using (var ctx = new qlksEntities())
+                {
+                    var emp = ctx.tblSanPhams.AsEnumerable()
+                        .Where(st => (maSP == "" || st.MaSP == Convert.ToInt32(maSP)) && (tenSP == "" || st.TenSP == tenSP))
+                        .Select(st => new
+                        {
+                            st.MaSP,
+                            st.TenSP,
+                            st.DonGia
+                        }).ToList();
+                    response.Data = emp;
+                }
+                return response;
+            }
+            catch (Exception e)
+            {
+                return response;
+            }
+            finally
+            {
+            }
+        }
+
+        private AjaxReponseModel<dynamic> GetProductByID()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            try
+            {
+                var data = new StreamReader(Request.InputStream).ReadToEnd();
+                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                int maSP = Convert.ToInt32(dym.MaSP);
+                using (var ctx = new qlksEntities())
+                {
+                    var emp = ctx.tblSanPhams.AsEnumerable().Select(st => new
+                    {
+                        st.MaSP,
+                        st.TenSP,
+                        st.DonGia
+                    }).Where(st => st.MaSP == maSP).ToList();
+                    response.Data = emp;
+                }
+                return response;
+            }
+            catch (Exception e)
+            {
+                return response;
+            }
+            finally
+            {
+            }
+        }
+
+        private AjaxReponseModel<dynamic> CreateProduct()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            try
+            {
+                var data = new StreamReader(Request.InputStream).ReadToEnd();
+                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+
+                using (var db = new qlksEntities())
+                {
+                    tblSanPham sp = new tblSanPham();
+                    sp.TenSP = String.IsNullOrEmpty(dym.TenSP.ToString()) ? String.Empty : dym.TenSP.ToString().Trim();
+                    sp.DonGia = dym.DonGia;
+
+                    db.tblSanPhams.Add(sp);
+                    db.SaveChanges();
+                    response.Message = "SUCCESS";
+                };
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Message = "ERROR";
+                return response;
+            }
+            finally
+            {
+            }
+        }
+
+        private AjaxReponseModel<dynamic> UpdateProduct()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            try
+            {
+                var data = new StreamReader(Request.InputStream).ReadToEnd();
+                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                int maSP = Convert.ToInt32(dym.MaSP);
+                using (var db = new qlksEntities())
+                {
+                    tblSanPham sp = db.tblSanPhams.SingleOrDefault(w => w.MaSP == maSP);
+                    sp.TenSP = String.IsNullOrEmpty(dym.TenSP.ToString()) ? String.Empty : dym.TenSP.ToString().Trim();
+                    sp.DonGia = dym.DonGia;
+
+                    db.SaveChanges();
+                    response.Message = "SUCCESS";
+                };
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Message = "ERROR";
+                return response;
+            }
+            finally
+            {
+            }
+        }
+
+        private AjaxReponseModel<dynamic> DeleteProduct()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            try
+            {
+                var data = new StreamReader(Request.InputStream).ReadToEnd();
+                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                int maSP = Convert.ToInt32(dym.MaSP);
+                using (var db = new qlksEntities())
+                {
+                    tblSanPham sp = db.tblSanPhams.SingleOrDefault(w => w.MaSP == maSP);
+                    db.tblSanPhams.Remove(sp);
+                    db.SaveChanges();
+                    response.Message = "SUCCESS";
+                };
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Message = "ERROR";
+                return response;
+            }
+            finally
+            {
+            }
+        }
+
+        #endregion Sản phẩm
+
+        #region Trang thiết bị
+
+        private AjaxReponseModel<dynamic> GetEquipmentList()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            try
+            {
+                var data = new StreamReader(Request.InputStream).ReadToEnd();
+                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                string maTB = dym.MaTB;
+                string tenTB = dym.TenTB;
+                using (var ctx = new qlksEntities())
+                {
+                    var emp = ctx.tblTrangThietBis.AsEnumerable()
+                        .Where(st => (maTB == "" || st.MaThietBi == Convert.ToInt32(maTB)) && (tenTB == "" || st.TenThietBi == tenTB))
+                        .Select(st => new
+                        {
+                            st.MaThietBi,
+                            st.TenThietBi,
+                            st.TinhTrang
+                        }).ToList();
+                    response.Data = emp;
+                }
+                return response;
+            }
+            catch (Exception e)
+            {
+                return response;
+            }
+            finally
+            {
+            }
+        }
+
+        private AjaxReponseModel<dynamic> GetEquipmentByID()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            try
+            {
+                var data = new StreamReader(Request.InputStream).ReadToEnd();
+                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                int maTB = Convert.ToInt32(dym.MaTB);
+                using (var ctx = new qlksEntities())
+                {
+                    var emp = ctx.tblTrangThietBis.AsEnumerable().Select(st => new
+                    {
+                        st.MaThietBi,
+                        st.TenThietBi,
+                        st.TinhTrang
+                    }).Where(st => st.MaThietBi == maTB).ToList();
+                    response.Data = emp;
+                }
+                return response;
+            }
+            catch (Exception e)
+            {
+                return response;
+            }
+            finally
+            {
+            }
+        }
+
+        private AjaxReponseModel<dynamic> CreateEquipment()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            try
+            {
+                var data = new StreamReader(Request.InputStream).ReadToEnd();
+                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+
+                using (var db = new qlksEntities())
+                {
+                    tblTrangThietBi tb = new tblTrangThietBi();
+                    tb.TenThietBi = String.IsNullOrEmpty(dym.TenTB.ToString()) ? String.Empty : dym.TenTB.ToString().Trim();
+                    tb.TinhTrang = dym.TinhTrang;
+
+                    db.tblTrangThietBis.Add(tb);
+                    db.SaveChanges();
+                    response.Message = "SUCCESS";
+                };
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Message = "ERROR";
+                return response;
+            }
+            finally
+            {
+            }
+        }
+
+        private AjaxReponseModel<dynamic> UpdateEquipment()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            try
+            {
+                var data = new StreamReader(Request.InputStream).ReadToEnd();
+                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                int maTB = Convert.ToInt32(dym.MaTB);
+                using (var db = new qlksEntities())
+                {
+                    tblTrangThietBi sp = db.tblTrangThietBis.SingleOrDefault(w => w.MaThietBi == maTB);
+                    sp.TenThietBi = String.IsNullOrEmpty(dym.TenTB.ToString()) ? String.Empty : dym.TenTB.ToString().Trim();
+                    sp.TinhTrang = dym.TinhTrang;
+
+                    db.SaveChanges();
+                    response.Message = "SUCCESS";
+                };
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Message = "ERROR";
+                return response;
+            }
+            finally
+            {
+            }
+        }
+
+        private AjaxReponseModel<dynamic> DeleteEquipment()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            try
+            {
+                var data = new StreamReader(Request.InputStream).ReadToEnd();
+                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                int maTB = Convert.ToInt32(dym.MaTB);
+                using (var db = new qlksEntities())
+                {
+                    tblTrangThietBi sp = db.tblTrangThietBis.SingleOrDefault(w => w.MaThietBi == maTB);
+                    db.tblTrangThietBis.Remove(sp);
+                    db.SaveChanges();
+                    response.Message = "SUCCESS";
+                };
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Message = "ERROR";
+                return response;
+            }
+            finally
+            {
+            }
+        }
+
+        #endregion Trang thiết bị
     }
 }
