@@ -9,16 +9,26 @@
                 Tìm kiếm
             </div>
             <div class="panel-body form-horizontal">
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-4">
                     <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Mã thiết bị</label>
                     <div class="col-md-8">
                         <input type="text" id="EquipmentID" placeholder="Mã thiết bị" class="form-control" />
                     </div>
                 </div>
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-4">
                     <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Tên thiết bị</label>
                     <div class="col-md-8">
                         <input type="text" id="EquipmentName" placeholder="Tên thiết bị" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group col-sm-4">
+                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Tình trạng</label>
+                    <div class="col-sm-8">
+                        <select class="chosen-select form-control input-required" id="Note" data-placeholder="Tình trạng">
+                            <option value=""> </option>
+                            <option value="1">Sử dụng</option>
+                            <option value="0">Đã hư</option>
+                        </select>
                     </div>
                 </div>
                 <div class="col-md-12 form-button">
@@ -51,7 +61,7 @@
                         <tr ng-repeat="x in dataTable">
                             <td>{{x.MaThietBi}}</td>
                             <th>{{x.TenThietBi}}</th>
-                            <th>{{x.TinhTrang}}</th>
+                            <th>{{x.StrTinhTrang}}</th>
 
                             <td>
                                 <div class="hidden-sm hidden-xs action-buttons">
@@ -108,7 +118,10 @@
                                     <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Tình trạng</label>
 
                                     <div class="col-sm-8">
-                                        <input type="text" id="txtMNote" placeholder="Đơn giá" class="form-control input-required" />
+                                        <select class="chosen-select form-control input-required" id="txtMNote" data-placeholder="Tình trạng">
+                                            <option value="1">Sử dụng</option>
+                                            <option value="0">Đã hư</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <br />

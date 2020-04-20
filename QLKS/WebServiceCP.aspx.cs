@@ -995,15 +995,17 @@ namespace QLKS
                 var dym = JsonConvert.DeserializeObject<dynamic>(data);
                 string maTB = dym.MaTB;
                 string tenTB = dym.TenTB;
+                string tinhTrang = dym.TinhTrang;
                 using (var ctx = new qlksEntities())
                 {
                     var emp = ctx.tblTrangThietBis.AsEnumerable()
-                        .Where(st => (maTB == "" || st.MaThietBi == Convert.ToInt32(maTB)) && (tenTB == "" || st.TenThietBi == tenTB))
+                        .Where(st => (maTB == "" || st.MaThietBi == Convert.ToInt32(maTB)) && (tenTB == "" || st.TenThietBi == tenTB) && (tinhTrang == "" || st.TinhTrang == tinhTrang.Equals("1")))
                         .Select(st => new
                         {
                             st.MaThietBi,
                             st.TenThietBi,
-                            st.TinhTrang
+                            StrTinhTrang = st.TinhTrang == true ? "Sử dụng" : "Đã hư",
+                            TinhTrang = Convert.ToInt32(st.TinhTrang)
                         }).ToList();
                     response.Data = emp;
                 }
@@ -1032,7 +1034,8 @@ namespace QLKS
                     {
                         st.MaThietBi,
                         st.TenThietBi,
-                        st.TinhTrang
+                        StrTinhTrang = st.TinhTrang == true ? "Sử dụng" : "Đã hư",
+                        TinhTrang = Convert.ToInt32(st.TinhTrang)
                     }).Where(st => st.MaThietBi == maTB).ToList();
                     response.Data = emp;
                 }

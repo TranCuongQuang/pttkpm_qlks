@@ -101,7 +101,7 @@
           </Key>
           <Property Name="MaThietBi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TenThietBi" Type="nvarchar" MaxLength="255" />
-          <Property Name="TinhTrang" Type="varchar" MaxLength="50" />
+          <Property Name="TinhTrang" Type="bit" />
         </EntityType>
         <EntityType Name="tblTrangThietBiPhong">
           <Key>
@@ -282,7 +282,6 @@
           <EntitySet Name="tblSanPhams" EntityType="qlksModel.tblSanPham" />
           <EntitySet Name="tblSanPhamPhongs" EntityType="qlksModel.tblSanPhamPhong" />
           <EntitySet Name="tblTaiKhoans" EntityType="qlksModel.tblTaiKhoan" />
-          <EntitySet Name="tblTrangThietBis" EntityType="qlksModel.tblTrangThietBi" />
           <EntitySet Name="tblTrangThietBiPhongs" EntityType="qlksModel.tblTrangThietBiPhong" />
           <AssociationSet Name="FK_tblDichVuPhong_tblPhieuDatPhong" Association="qlksModel.FK_tblDichVuPhong_tblPhieuDatPhong">
             <End Role="tblPhieuDatPhong" EntitySet="tblPhieuDatPhongs" />
@@ -312,10 +311,6 @@
             <End Role="tblSanPham" EntitySet="tblSanPhams" />
             <End Role="tblSanPhamPhong" EntitySet="tblSanPhamPhongs" />
           </AssociationSet>
-          <AssociationSet Name="FK_tblTrangThietBiPhong_tblTrangThietBi" Association="qlksModel.FK_tblTrangThietBiPhong_tblTrangThietBi">
-            <End Role="tblTrangThietBi" EntitySet="tblTrangThietBis" />
-            <End Role="tblTrangThietBiPhong" EntitySet="tblTrangThietBiPhongs" />
-          </AssociationSet>
           <EntitySet Name="tblDichVus" EntityType="qlksModel.tblDichVu" />
           <AssociationSet Name="FK_tblDichVuPhong_tblDichVu" Association="qlksModel.FK_tblDichVuPhong_tblDichVu">
             <End Role="tblDichVu" EntitySet="tblDichVus" />
@@ -324,6 +319,11 @@
           <FunctionImport Name="GetUser" ReturnType="Collection(qlksModel.GetUser_Result)">
             <Parameter Name="User" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="tblTrangThietBis" EntityType="qlksModel.tblTrangThietBi" />
+          <AssociationSet Name="FK_tblTrangThietBiPhong_tblTrangThietBi" Association="qlksModel.FK_tblTrangThietBiPhong_tblTrangThietBi">
+            <End Role="tblTrangThietBi" EntitySet="tblTrangThietBis" />
+            <End Role="tblTrangThietBiPhong" EntitySet="tblTrangThietBiPhongs" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="tblDichVuPhong">
           <Key>
@@ -421,15 +421,6 @@
           <Property Name="MatKhau" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Quyen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="tblTrangThietBi">
-          <Key>
-            <PropertyRef Name="MaThietBi" />
-          </Key>
-          <Property Name="MaThietBi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TenThietBi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="TinhTrang" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="tblTrangThietBiPhongs" Relationship="qlksModel.FK_tblTrangThietBiPhong_tblTrangThietBi" FromRole="tblTrangThietBi" ToRole="tblTrangThietBiPhong" />
-        </EntityType>
         <EntityType Name="tblTrangThietBiPhong">
           <Key>
             <PropertyRef Name="MaTTBP" />
@@ -525,18 +516,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tblTrangThietBiPhong_tblTrangThietBi">
-          <End Type="qlksModel.tblTrangThietBi" Role="tblTrangThietBi" Multiplicity="0..1" />
-          <End Type="qlksModel.tblTrangThietBiPhong" Role="tblTrangThietBiPhong" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tblTrangThietBi">
-              <PropertyRef Name="MaThietBi" />
-            </Principal>
-            <Dependent Role="tblTrangThietBiPhong">
-              <PropertyRef Name="MaThietBi" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="tblDichVu">
           <Key>
             <PropertyRef Name="MaDV" />
@@ -565,6 +544,27 @@
           <Property Type="String" Name="MatKhau" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="Quyen" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <EntityType Name="tblTrangThietBi">
+          <Key>
+            <PropertyRef Name="MaThietBi" />
+          </Key>
+          <Property Name="MaThietBi" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenThietBi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TinhTrang" Type="Boolean" />
+          <NavigationProperty Name="tblTrangThietBiPhongs" Relationship="qlksModel.FK_tblTrangThietBiPhong_tblTrangThietBi" FromRole="tblTrangThietBi" ToRole="tblTrangThietBiPhong" />
+        </EntityType>
+        <Association Name="FK_tblTrangThietBiPhong_tblTrangThietBi">
+          <End Type="qlksModel.tblTrangThietBi" Role="tblTrangThietBi" Multiplicity="0..1" />
+          <End Type="qlksModel.tblTrangThietBiPhong" Role="tblTrangThietBiPhong" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTrangThietBi">
+              <PropertyRef Name="MaThietBi" />
+            </Principal>
+            <Dependent Role="tblTrangThietBiPhong">
+              <PropertyRef Name="MaThietBi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -661,15 +661,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblTrangThietBis">
-            <EntityTypeMapping TypeName="qlksModel.tblTrangThietBi">
-              <MappingFragment StoreEntitySet="tblTrangThietBi">
-                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
-                <ScalarProperty Name="TenThietBi" ColumnName="TenThietBi" />
-                <ScalarProperty Name="MaThietBi" ColumnName="MaThietBi" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="tblTrangThietBiPhongs">
             <EntityTypeMapping TypeName="qlksModel.tblTrangThietBiPhong">
               <MappingFragment StoreEntitySet="tblTrangThietBiPhong">
@@ -686,6 +677,15 @@
                 <ScalarProperty Name="DonGia" ColumnName="DonGia" />
                 <ScalarProperty Name="TenDV" ColumnName="TenDV" />
                 <ScalarProperty Name="MaDV" ColumnName="MaDV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblTrangThietBis">
+            <EntityTypeMapping TypeName="qlksModel.tblTrangThietBi">
+              <MappingFragment StoreEntitySet="tblTrangThietBi">
+                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
+                <ScalarProperty Name="TenThietBi" ColumnName="TenThietBi" />
+                <ScalarProperty Name="MaThietBi" ColumnName="MaThietBi" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
