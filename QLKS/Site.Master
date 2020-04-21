@@ -84,7 +84,7 @@
     <!-- ace scripts -->
     <script src="Scripts/assets/js/ace-elements.min.js"></script>
     <script src="Scripts/assets/js/ace.min.js"></script>
-
+    <script src="Scripts/assets/js/lodash.min.js"></script>
     <%--Angular--%>
     <%--<script src="Scripts/assets/js/angular.min.js"></script>
     <script src="Scripts/assets/js/angular-select2.js"></script>

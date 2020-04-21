@@ -50,7 +50,7 @@
                         <div class="form-group col-md-6">
                             <label class="control-label">Từ ngày</label>
                             <div class="input-group">
-                                <input class="form-control date-picker" type="text" data-date-format="dd-mm-yyyy" ng-model="txtFromDate" />
+                                <input class="form-control date-picker" type="text" data-date-format="dd-mm-yyyy" ng-model="txtFromDate" ng-change="ChangeFromDate()" />
                                 <span class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </span>
@@ -59,7 +59,7 @@
                         <div class="form-group col-md-6">
                             <label class="control-label">Đến ngày</label>
                             <div class="input-group">
-                                <input class="form-control date-picker" type="text" data-date-format="dd-mm-yyyy" ng-model="txtToDate" />
+                                <input class="form-control date-picker" type="text" data-date-format="dd-mm-yyyy" ng-model="txtToDate" ng-change="ChangeToDate()" />
                                 <span class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </span>
@@ -77,11 +77,11 @@
                             <label class="control-label">Sản phẩm</label>
                             <select class="chosen-select form-control" ng-model="ddlProduct" ui-select2 style="width: 100%">
                                 <option value="">Chọn sản phẩm</option>
-                                <option ng-repeat="item in CustomerList" value="{{item.MaKH}}">{{item.TenKH}}</option>
+                                <option ng-repeat="item in ProductList" value="{{item.MaSP}}">{{item.TenSP}}</option>
                             </select>
                         </div>
                         <div class="form-group col-md-1">
-                            <button type='button' class="btn btn-sm btn-primary pull-right" style="margin-top: 25px">
+                            <button type='button' class="btn btn-sm btn-primary pull-right" style="margin-top: 25px" ng-click="ChooseProduct()">
                                 <i class="ace-icon fa fa-plus"></i>Chọn
                             </button>
                         </div>
@@ -89,7 +89,7 @@
                             <label class="control-label">Dịch vụ</label>
                             <select class="chosen-select form-control" ng-model="ddlService" ui-select2 style="width: 100%">
                                 <option value="">Chọn dịch vụ</option>
-                                <option ng-repeat="item in CustomerList" value="{{item.MaKH}}">{{item.TenKH}}</option>
+                                <option ng-repeat="item in ServiceList" value="{{item.MaDV}}">{{item.TenDV}}</option>
                             </select>
                         </div>
                         <div class="form-group col-md-1">
@@ -108,7 +108,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr ng-repeat="item in ChooseProductList">
                                         <td>1</td>
                                         <td>1</td>
                                         <td>1</td>
