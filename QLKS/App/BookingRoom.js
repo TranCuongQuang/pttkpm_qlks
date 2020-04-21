@@ -5,6 +5,7 @@ app.controller('BookingRoomCtrl', function ($scope, $http, $timeout, $window) {
     $scope.ServiceList = [];
     $scope.ProductList = [];
     $scope.ChooseProductList = [];
+    $scope.ChooseServiceList = [];
     $scope.txtRoomId = "";
     $scope.ddlCustomer = {};
     $scope.ddlService = {};
@@ -13,6 +14,10 @@ app.controller('BookingRoomCtrl', function ($scope, $http, $timeout, $window) {
     $scope.txtToDate = moment().format("DD/MM/YYYY");
     $scope.txtUnitPrice = 0;
     $scope.txtTotalMoney = 0;
+    $scope.txtQuantityService = 1;
+    $scope.txtQuantityProduct = 1;
+    $scope.lblTotalMoneyProduct = 0;
+    $scope.lblTotalMoneyService = 0;
 
     angular.element(document).ready(function () {
         $scope.GetRoom();
@@ -20,6 +25,17 @@ app.controller('BookingRoomCtrl', function ($scope, $http, $timeout, $window) {
         $scope.GetService();
         $scope.GetProduct();
     });
+
+    $scope.safeApply = function (fn) {
+        var phase = this.$root.$$phase;
+        if (phase == '$apply' || phase == '$digest') {
+            if (fn && (typeof (fn) === 'function')) {
+                fn();
+            }
+        } else {
+            this.$apply(fn);
+        }
+    };
 
     $scope.showModal = function (item) {
         //console.log("item", item);
@@ -157,11 +173,120 @@ app.controller('BookingRoomCtrl', function ($scope, $http, $timeout, $window) {
     }
 
     $scope.ChooseProduct = function () {
-        var item = _.find($scope.ProductList, { MaSP: ($scope.ddlProduct != "" && $scope.ddlProduct ? parseInt($scope.ddlProduct) :0 )});
-        //$scope.ChooseProductList.push(item);
+        if (!$scope.ddlProduct || $scope.ddlProduct == "") {
+            toastr.warning("Vui lòng chọn sản phẩm.");
+            return;
+        }
 
-        //console.log("ChooseProduct", $scope.ddlProduct, item, $scope.ChooseProductList);
+        if ($scope.txtQuantityProduct < 1) {
+            toastr.warning("Số lượng phải lớn hơn 0.");
+            return;
+        }
 
-        
+        var itemExist = _.find($scope.ChooseProductList, { MaSP: parseInt($scope.ddlProduct) });
+        if (itemExist) {
+            toastr.warning("Sản phẩm đã được chọn.");
+            return;
+        }
+
+        var item = _.find($scope.ProductList, { MaSP: parseInt($scope.ddlProduct) });
+        item.SoLuong = $scope.txtQuantityProduct;
+        item.ThanhTien = item.SoLuong * item.DonGia;
+        $scope.ChooseProductList.push(item);
+        $scope.ddlProduct = "";
+        $scope.SumMoneyProduct();
+        //console.log("ChooseProduct", $scope.ChooseProductList);
     }
+
+    $scope.RemoveChooseProduct = function (item) {
+        var evens = _.remove($scope.ChooseProductList, function (n) {
+            return n.MaSP == item.MaSP;
+        });
+        $scope.SumMoneyProduct();
+        //console.log("RemoveChooseProduct", evens);
+    }
+
+    $scope.SumMoneyProduct = function () {
+        var money = _.sumBy($scope.ChooseProductList, function (o) { return o.SoLuong * o.DonGia; });
+        $scope.lblTotalMoneyProduct = money;
+        //console.log("SumMoneyProduct", money);
+    }
+
+    $scope.ChooseService = function () {
+        if (!$scope.ddlService || $scope.ddlService == "") {
+            toastr.warning("Vui lòng chọn dịch vụ.");
+            return;
+        }
+
+        if ($scope.txtQuantityService < 1) {
+            toastr.warning("Số lượng phải lớn hơn 0.");
+            return;
+        }
+
+        var itemExist = _.find($scope.ChooseServiceList, { MaDV: parseInt($scope.ddlService) });
+        if (itemExist) {
+            toastr.warning("Dịch vụ đã được chọn.");
+            return;
+        }
+
+        var item = _.find($scope.ServiceList, { MaDV: parseInt($scope.ddlService) });
+        item.SoLuong = $scope.txtQuantityService;
+        item.ThanhTien = item.SoLuong * item.DonGia;
+        $scope.ChooseServiceList.push(item);
+        $scope.ddlService = "";
+        $scope.SumMoneyService();
+        //console.log("ChooseService", $scope.ChooseServiceList, $scope.ddlService);
+    }
+
+    $scope.RemoveChooseService = function (item) {
+        var evens = _.remove($scope.ChooseServiceList, function (n) {
+            return n.MaDV == item.MaDV;
+        });
+        $scope.SumMoneyService();
+        //console.log("RemoveChooseService", evens);
+    }
+
+    $scope.SumMoneyService = function () {
+        var money = _.sumBy($scope.ChooseServiceList, function (o) { return o.SoLuong * o.DonGia; });
+        $scope.lblTotalMoneyService = money;
+        //console.log("SumMoneyService", money);
+    }
+
+   
+    $scope.SaveBookingRoom = function () {
+        if (!$scope.ddlCustomer || $scope.ddlCustomer == "") {
+            toastr.warning("Vui lòng chọn khách hàng.");
+            return;
+        }
+
+        var params = {
+            MaKH: $scope.ddlCustomer,
+            MaPhong: $scope.txtRoomId,
+            NgayBD: moment($scope.txtFromDate, "DD/MM/YYYY").format("YYYY-MM-DD"),
+            NgayKT: moment($scope.txtToDate, "DD/MM/YYYY").format("YYYY-MM-DD"),
+            TongTien: $scope.txtUnitPrice,
+            DonGia: $scope.txtTotalMoney,
+            DichVuPhong: $scope.ChooseServiceList,
+            SanPhamPhong: $scope.ChooseProductList,
+        }
+        $http({
+            url: `/WebServiceCTQ.aspx?action=SaveBookingRoom`,
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            data: params
+        }).then(function (response) {
+            console.log("SaveBookingRoom", response);
+            if (response.data.Status == 0) {
+                toastr.success(response.data.Message);
+                $scope.GetRoom();
+            } else {
+                toastr.warning(response.data.Message);
+            }
+        }, function (err) {
+            console.log(err);
+        });
+    }
+
 })

@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'D:\HCDH\HK3\PTTKPM\QLKS\pttkpm_qlks\QLKS\qlks.edmx'. 
+﻿// T4 code generation is enabled for model 'E:\LienThong\HoanChinh\HK3\PhanTichThietKePM\DA\project\pttkpm_qlks\QLKS\qlks.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

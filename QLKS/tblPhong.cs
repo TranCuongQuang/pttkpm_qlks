@@ -17,8 +17,8 @@ namespace QLKS
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblPhong()
         {
-            this.tblPhieuDatPhongs = new HashSet<tblPhieuDatPhong>();
             this.tblTrangThietBiPhongs = new HashSet<tblTrangThietBiPhong>();
+            this.tblPhieuDatPhongs = new HashSet<tblPhieuDatPhong>();
         }
     
         public int MaPhong { get; set; }
@@ -27,8 +27,8 @@ namespace QLKS
         public Nullable<decimal> DonGia { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblPhieuDatPhong> tblPhieuDatPhongs { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblTrangThietBiPhong> tblTrangThietBiPhongs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblPhieuDatPhong> tblPhieuDatPhongs { get; set; }
     }
 }

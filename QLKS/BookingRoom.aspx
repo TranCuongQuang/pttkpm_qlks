@@ -73,27 +73,35 @@
                             <label class="control-label">Thành tiền</label>
                             <input type="text" placeholder="Thành tiền" class="form-control" readonly="readonly" ng-model="txtTotalMoney" />
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-4">
                             <label class="control-label">Sản phẩm</label>
                             <select class="chosen-select form-control" ng-model="ddlProduct" ui-select2 style="width: 100%">
                                 <option value="">Chọn sản phẩm</option>
                                 <option ng-repeat="item in ProductList" value="{{item.MaSP}}">{{item.TenSP}}</option>
                             </select>
                         </div>
+                        <div class="form-group col-md-1 no-margin no-padding-left">
+                            <label class="control-label">SL</label>
+                            <input type="number" class="form-control" ng-model="txtQuantityProduct" />
+                        </div>
                         <div class="form-group col-md-1">
                             <button type='button' class="btn btn-sm btn-primary pull-right" style="margin-top: 25px" ng-click="ChooseProduct()">
                                 <i class="ace-icon fa fa-plus"></i>Chọn
                             </button>
                         </div>
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-4">
                             <label class="control-label">Dịch vụ</label>
-                            <select class="chosen-select form-control" ng-model="ddlService" ui-select2 style="width: 100%">
+                            <select class="chosen-select form-control" id="ddlService" ng-model="ddlService" ui-select2 style="width: 100%">
                                 <option value="">Chọn dịch vụ</option>
                                 <option ng-repeat="item in ServiceList" value="{{item.MaDV}}">{{item.TenDV}}</option>
                             </select>
                         </div>
+                        <div class="form-group col-md-1 no-margin no-padding-left">
+                            <label class="control-label">SL</label>
+                            <input type="number" class="form-control" ng-model="txtQuantityService" />
+                        </div>
                         <div class="form-group col-md-1">
-                            <button type='button' class="btn btn-sm btn-primary pull-right" style="margin-top: 25px">
+                            <button type='button' class="btn btn-sm btn-primary pull-right" style="margin-top: 25px" ng-click="ChooseService()">
                                 <i class="ace-icon fa fa-plus"></i>Chọn
                             </button>
                         </div>
@@ -103,24 +111,26 @@
                                     <tr>
                                         <th>Mã SP</th>
                                         <th>Tên SP</th>
+                                        <th>Số lượng</th>
                                         <th>Đơn giá</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr ng-repeat="item in ChooseProductList">
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>1</td>
+                                        <td>{{item.MaSP}}</td>
+                                        <td>{{item.TenSP}}</td>
+                                        <td>{{item.SoLuong}}</td>
+                                        <td>{{item.DonGia}}</td>
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-danger" title="Xóa khỏi danh sách">
+                                            <button type="button" class="btn btn-danger" title="Xóa khỏi danh sách" ng-click="RemoveChooseProduct(item)">
                                                 <i class="ace-icon fa fa-trash-o"></i>
                                             </button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2" class="text-center">Tổng tiền</td>
-                                        <td colspan="2" class="text-center">10</td>
+                                        <td colspan="3" class="text-center">Tổng tiền</td>
+                                        <td colspan="2" class="text-center">{{lblTotalMoneyProduct}}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -131,31 +141,33 @@
                                     <tr>
                                         <th>Mã DV</th>
                                         <th>Tên DV</th>
+                                        <th>Số lượng</th>
                                         <th>Đơn giá</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>1</td>
+                                    <tr ng-repeat="item in ChooseServiceList">
+                                        <td>{{item.MaDV}}</td>
+                                        <td>{{item.TenDV}}</td>
+                                        <td>{{item.SoLuong}}</td>
+                                        <td>{{item.DonGia}}</td>
                                         <td class="text-center">
-                                            <button type="button" class="btn btn-danger" title="Xóa khỏi danh sách">
+                                            <button type="button" class="btn btn-danger" title="Xóa khỏi danh sách" ng-click="RemoveChooseService(item)">
                                                 <i class="ace-icon fa fa-trash-o"></i>
                                             </button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2" class="text-center">Tổng tiền</td>
-                                        <td colspan="2" class="text-center">10</td>
+                                        <td colspan="3" class="text-center">Tổng tiền</td>
+                                        <td colspan="2" class="text-center">{{lblTotalMoneyService}}</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type='button' class="btn btn-sm btn-primary pull-right" ng-click="UpdateEmp()">
+                        <button type='button' class="btn btn-sm btn-primary pull-right" ng-click="SaveBookingRoom()">
                             <i class="ace-icon fa fa-save"></i>Đặt phòng
                         </button>
                     </div>

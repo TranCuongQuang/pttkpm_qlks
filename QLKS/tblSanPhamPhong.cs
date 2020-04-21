@@ -19,6 +19,7 @@ namespace QLKS
         public Nullable<int> MaSP { get; set; }
         public Nullable<int> SoLuong { get; set; }
         public Nullable<decimal> ThanhTien { get; set; }
+        public Nullable<decimal> DonGia { get; set; }
     
         public virtual tblPhieuDatPhong tblPhieuDatPhong { get; set; }
         public virtual tblSanPham tblSanPham { get; set; }

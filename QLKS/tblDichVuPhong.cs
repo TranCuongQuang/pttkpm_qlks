@@ -19,8 +19,9 @@ namespace QLKS
         public Nullable<int> MaDV { get; set; }
         public Nullable<int> SoLuong { get; set; }
         public Nullable<decimal> DonGia { get; set; }
+        public Nullable<decimal> ThanhTien { get; set; }
     
-        public virtual tblPhieuDatPhong tblPhieuDatPhong { get; set; }
         public virtual tblDichVu tblDichVu { get; set; }
+        public virtual tblPhieuDatPhong tblPhieuDatPhong { get; set; }
     }
 }
