@@ -172,6 +172,32 @@ namespace QLKS
                     Response.End();
                     break;
 
+                //Trang thiết bị phòng
+                case "GetEquipmentRoomList":
+                    Response.Write(JsonConvert.SerializeObject(GetEquipmentRoomList()));
+                    Response.End();
+                    break;
+
+                case "GetEquipmentRoomByID":
+                    Response.Write(JsonConvert.SerializeObject(GetEquipmentRoomByID()));
+                    Response.End();
+                    break;
+
+                case "CreateEquipmentRoom":
+                    Response.Write(JsonConvert.SerializeObject(CreateEquipmentRoom()));
+                    Response.End();
+                    break;
+
+                case "UpdateEquipmentRoom":
+                    Response.Write(JsonConvert.SerializeObject(UpdateEquipmentRoom()));
+                    Response.End();
+                    break;
+
+                case "DeleteEquipmentRoom":
+                    Response.Write(JsonConvert.SerializeObject(DeleteEquipmentRoom()));
+                    Response.End();
+                    break;
+
                 default:
                     Response.End();
                     break;
@@ -1139,5 +1165,161 @@ namespace QLKS
         }
 
         #endregion Trang thiết bị
+
+        #region Trang thiết bị phòng
+
+        private AjaxReponseModel<dynamic> GetEquipmentRoomList()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            try
+            {
+                var data = new StreamReader(Request.InputStream).ReadToEnd();
+                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                string maTB = dym.MaTB;
+                string tenTB = dym.TenTB;
+                string tinhTrang = dym.TinhTrang;
+                using (var ctx = new qlksEntities())
+                {
+                    var emp = ctx.tblTrangThietBis.AsEnumerable()
+                        .Where(st => (maTB == "" || st.MaThietBi == Convert.ToInt32(maTB)) && (tenTB == "" || st.TenThietBi == tenTB) && (tinhTrang == "" || st.TinhTrang == tinhTrang.Equals("1")))
+                        .Select(st => new
+                        {
+                            st.MaThietBi,
+                            st.TenThietBi,
+                            StrTinhTrang = st.TinhTrang == true ? "Sử dụng" : "Đã hư",
+                            TinhTrang = Convert.ToInt32(st.TinhTrang)
+                        }).ToList();
+                    response.Data = emp;
+                }
+                return response;
+            }
+            catch (Exception e)
+            {
+                return response;
+            }
+            finally
+            {
+            }
+        }
+
+        private AjaxReponseModel<dynamic> GetEquipmentRoomByID()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            try
+            {
+                var data = new StreamReader(Request.InputStream).ReadToEnd();
+                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                int maTB = Convert.ToInt32(dym.MaTB);
+                using (var ctx = new qlksEntities())
+                {
+                    var emp = ctx.tblTrangThietBis.AsEnumerable().Select(st => new
+                    {
+                        st.MaThietBi,
+                        st.TenThietBi,
+                        StrTinhTrang = st.TinhTrang == true ? "Sử dụng" : "Đã hư",
+                        TinhTrang = Convert.ToInt32(st.TinhTrang)
+                    }).Where(st => st.MaThietBi == maTB).ToList();
+                    response.Data = emp;
+                }
+                return response;
+            }
+            catch (Exception e)
+            {
+                return response;
+            }
+            finally
+            {
+            }
+        }
+
+        private AjaxReponseModel<dynamic> CreateEquipmentRoom()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            try
+            {
+                var data = new StreamReader(Request.InputStream).ReadToEnd();
+                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+
+                using (var db = new qlksEntities())
+                {
+                    tblTrangThietBi tb = new tblTrangThietBi();
+                    tb.TenThietBi = String.IsNullOrEmpty(dym.TenTB.ToString()) ? String.Empty : dym.TenTB.ToString().Trim();
+                    tb.TinhTrang = dym.TinhTrang;
+
+                    db.tblTrangThietBis.Add(tb);
+                    db.SaveChanges();
+                    response.Message = "SUCCESS";
+                };
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Message = "ERROR";
+                return response;
+            }
+            finally
+            {
+            }
+        }
+
+        private AjaxReponseModel<dynamic> UpdateEquipmentRoom()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            try
+            {
+                var data = new StreamReader(Request.InputStream).ReadToEnd();
+                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                int maTB = Convert.ToInt32(dym.MaTB);
+                using (var db = new qlksEntities())
+                {
+                    tblTrangThietBi sp = db.tblTrangThietBis.SingleOrDefault(w => w.MaThietBi == maTB);
+                    sp.TenThietBi = String.IsNullOrEmpty(dym.TenTB.ToString()) ? String.Empty : dym.TenTB.ToString().Trim();
+                    sp.TinhTrang = dym.TinhTrang;
+
+                    db.SaveChanges();
+                    response.Message = "SUCCESS";
+                };
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Message = "ERROR";
+                return response;
+            }
+            finally
+            {
+            }
+        }
+
+        private AjaxReponseModel<dynamic> DeleteEquipmentRoom()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            try
+            {
+                var data = new StreamReader(Request.InputStream).ReadToEnd();
+                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                int maTB = Convert.ToInt32(dym.MaTB);
+                using (var db = new qlksEntities())
+                {
+                    tblTrangThietBi sp = db.tblTrangThietBis.SingleOrDefault(w => w.MaThietBi == maTB);
+                    db.tblTrangThietBis.Remove(sp);
+                    db.SaveChanges();
+                    response.Message = "SUCCESS";
+                };
+
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Message = "ERROR";
+                return response;
+            }
+            finally
+            {
+            }
+        }
+
+        #endregion Trang thiết bị phòng
     }
 }
