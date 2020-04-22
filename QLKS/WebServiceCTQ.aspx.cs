@@ -289,7 +289,7 @@ namespace QLKS
 
             using (var db = new qlksEntities())
             {
-                var list = db.tblPhieuDatPhongs.Where(w => w.TrangThai != true && w.MaPhong == roomId && w.MaKH == customerId && (phone == "" || w.tblKhachHang.SDT == phone)).Select(s => new
+                var list = db.tblPhieuDatPhongs.Where(w => w.MaPhong == roomId && w.MaKH == customerId && (phone == "" || w.tblKhachHang.SDT == phone)).Select(s => new
                 {
                     s.MaPhieuDP,
                     s.MaPhong,
@@ -299,6 +299,7 @@ namespace QLKS
                     s.NgayKT,
                     s.DonGia,
                     s.TongTien,
+                    TrangThai = s.TrangThai == null ? false : true,
                     s.tblKhachHang.TenKH,
                     s.tblKhachHang.SDT,
                     DichVuPhong = s.tblDichVuPhongs.Select(s1 => new
