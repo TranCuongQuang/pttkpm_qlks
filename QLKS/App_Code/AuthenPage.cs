@@ -22,11 +22,11 @@ namespace QLKS.App_Code
             }
         }
 
-        public tblTaiKhoan user_account
+        public tblNhanVien user_account
         {
             get
             {
-                return Session["UserLogin"] as tblTaiKhoan;
+                return Session["UserLogin"] as tblNhanVien;
             }
             set
             {

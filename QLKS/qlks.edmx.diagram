@@ -6,10 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="7aee3f756da846afb731d5f3b03ca9dd" Name="Diagram1">
         <EntityTypeShape EntityType="qlksModel.tblKhachHang" Width="1.5" PointX="3.75" PointY="0.75" />
-        <EntityTypeShape EntityType="qlksModel.tblNhanVien" Width="1.5" PointX="3.75" PointY="7.875" />
         <EntityTypeShape EntityType="qlksModel.tblPhong" Width="1.5" PointX="0.75" PointY="4.5" />
         <EntityTypeShape EntityType="qlksModel.tblSanPham" Width="1.5" PointX="9" PointY="1.75" />
-        <EntityTypeShape EntityType="qlksModel.tblTaiKhoan" Width="1.5" PointX="0.75" PointY="8" />
         <EntityTypeShape EntityType="qlksModel.tblTrangThietBiPhong" Width="1.5" PointX="3" PointY="4.5" />
         <AssociationConnector Association="qlksModel.FK_tblTrangThietBiPhong_tblPhong" />
         <EntityTypeShape EntityType="qlksModel.tblDichVu" Width="1.5" PointX="6.375" PointY="8.875" />
@@ -22,9 +20,10 @@
         <EntityTypeShape EntityType="qlksModel.tblPhieuDatPhong" Width="1.5" PointX="6" PointY="3.75" />
         <AssociationConnector Association="qlksModel.FK_tblDichVuPhong_tblPhieuDatPhong" />
         <AssociationConnector Association="qlksModel.FK_tblPhieuDatPhong_tblKhachHang" />
-        <AssociationConnector Association="qlksModel.FK_tblPhieuDatPhong_tblNhanVien" />
         <AssociationConnector Association="qlksModel.FK_tblPhieuDatPhong_tblPhong" />
         <AssociationConnector Association="qlksModel.FK_tblSanPhamPhong_tblPhieuDatPhong" />
+        <EntityTypeShape EntityType="qlksModel.tblNhanVien" Width="1.5" PointX="0.75" PointY="8" />
+        <AssociationConnector Association="qlksModel.FK_tblPhieuDatPhong_tblNhanVien" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

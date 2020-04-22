@@ -27,6 +27,8 @@ namespace QLKS
         public string DiaChi { get; set; }
         public string Email { get; set; }
         public string ChucVu { get; set; }
+        public string TenDangNhap { get; set; }
+        public string MatKhau { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblPhieuDatPhong> tblPhieuDatPhongs { get; set; }

@@ -63,7 +63,7 @@ namespace QLKS
 
             using (var db = new qlksEntities())
             {
-                var user = db.tblTaiKhoans.SingleOrDefault(w => w.MatKhau == passWord && w.TenDangNhap == userName);
+                var user = db.tblNhanViens.SingleOrDefault(w => w.MatKhau == passWord && w.TenDangNhap == userName);
 
                 if (user != null)
                 {
@@ -85,7 +85,7 @@ namespace QLKS
             var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
             var data = new StreamReader(Request.InputStream).ReadToEnd();
             var dym = JsonConvert.DeserializeObject<BookingRoomModel>(data);
-            tblTaiKhoan userLogin = Session["UserLogin"] as tblTaiKhoan;
+            tblNhanVien userLogin = Session["UserLogin"] as tblNhanVien;
 
             try
             {
@@ -95,7 +95,7 @@ namespace QLKS
                     {
                         MaKH = dym.MaKH,
                         MaPhong = dym.MaPhong,
-                        MaNV = 4,
+                        MaNV = userLogin.MaNV,
                         NgayBD = dym.NgayBD,
                         NgayKT = dym.NgayKT,
                         TongTien = dym.TongTien,
