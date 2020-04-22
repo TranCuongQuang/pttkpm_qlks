@@ -210,9 +210,9 @@
                             <input type="text" placeholder="Thanh toán" class="form-control" readonly="readonly" ng-model="txtAllTotalMoney" />
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <div class="modal-footer form-button">
                          <button type='button' class="btn btn-sm btn-primary pull-right" ng-click="PaymentBookingRoom()">
-                            <i class="ace-icon fa fa-glyphicon-check"></i>Trả phòng
+                            <i class="ace-icon fa fa-external-link"></i>Trả phòng
                         </button>
                         <button type='button' class="btn btn-sm btn-primary pull-right" ng-click="UpdateBookingRoom()">
                             <i class="ace-icon fa fa-save"></i>Lưu
