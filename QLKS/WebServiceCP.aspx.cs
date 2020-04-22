@@ -252,8 +252,8 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                int maNV = Convert.ToInt32(dym.MaNV);
+                var dym = JsonConvert.DeserializeObject<Employee>(data);
+                int maNV = dym.MaNV;
                 using (var ctx = new qlksEntities())
                 {
                     //var emp1 = ctx.tblNhanViens.ToList();
@@ -286,7 +286,7 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                var dym = JsonConvert.DeserializeObject<Employee>(data);
 
                 using (var db = new qlksEntities())
                 {
@@ -320,8 +320,8 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                int maNV = Convert.ToInt32(dym.MaNV);
+                var dym = JsonConvert.DeserializeObject<Employee>(data);
+                int maNV = dym.MaNV;
                 using (var db = new qlksEntities())
                 {
                     tblNhanVien nv = db.tblNhanViens.SingleOrDefault(w => w.MaNV == maNV);
@@ -354,8 +354,8 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                int maNV = Convert.ToInt32(dym.MaNV);
+                var dym = JsonConvert.DeserializeObject<Employee>(data);
+                int maNV = dym.MaNV;
                 using (var db = new qlksEntities())
                 {
                     tblNhanVien nv = db.tblNhanViens.SingleOrDefault(w => w.MaNV == maNV);
@@ -421,8 +421,8 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                int maKH = Convert.ToInt32(dym.MaKH);
+                var dym = JsonConvert.DeserializeObject<Customer>(data);
+                int maKH = dym.MaKH;
                 using (var ctx = new qlksEntities())
                 {
                     //var emp1 = ctx.tblNhanViens.ToList();
@@ -454,7 +454,7 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                var dym = JsonConvert.DeserializeObject<Customer>(data);
 
                 using (var db = new qlksEntities())
                 {
@@ -488,8 +488,8 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                int maKH = Convert.ToInt32(dym.MaKH);
+                var dym = JsonConvert.DeserializeObject<Customer>(data);
+                int maKH = dym.MaKH;
                 using (var db = new qlksEntities())
                 {
                     tblKhachHang kh = db.tblKhachHangs.SingleOrDefault(w => w.MaKH == maKH);
@@ -521,14 +521,22 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                int maKH = Convert.ToInt32(dym.MaKH);
+                var dym = JsonConvert.DeserializeObject<Customer>(data);
+                int maKH = dym.MaKH;
                 using (var db = new qlksEntities())
                 {
                     tblKhachHang kh = db.tblKhachHangs.SingleOrDefault(w => w.MaKH == maKH);
-                    db.tblKhachHangs.Remove(kh);
-                    db.SaveChanges();
-                    response.Message = "SUCCESS";
+                    tblPhieuDatPhong pdp = db.tblPhieuDatPhongs.SingleOrDefault(w => w.MaKH == maKH);
+                    if(pdp.MaPhieuDP > 0)
+                    {
+                        response.Message = "PDP_EXIST";
+                    }
+                    else
+                    {
+                        db.tblKhachHangs.Remove(kh);
+                        db.SaveChanges();
+                        response.Message = "SUCCESS";
+                    }
                 };
 
                 return response;
@@ -588,8 +596,8 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                int maPhong = Convert.ToInt32(dym.MaPhong);
+                var dym = JsonConvert.DeserializeObject<Room>(data);
+                int maPhong = dym.MaPhong;
                 using (var ctx = new qlksEntities())
                 {
                     var emp = ctx.tblPhongs.AsEnumerable().Select(st => new
@@ -619,7 +627,7 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                var dym = JsonConvert.DeserializeObject<Room>(data);
 
                 using (var db = new qlksEntities())
                 {
@@ -650,8 +658,8 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                int maPhong = Convert.ToInt32(dym.MaPhong);
+                var dym = JsonConvert.DeserializeObject<Room>(data);
+                int maPhong = dym.MaPhong;
                 using (var db = new qlksEntities())
                 {
                     tblPhong p = db.tblPhongs.SingleOrDefault(w => w.MaPhong == maPhong);
@@ -681,8 +689,8 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                int maPhong = Convert.ToInt32(dym.MaPhong);
+                var dym = JsonConvert.DeserializeObject<Room>(data);
+                int maPhong = dym.MaPhong;
                 using (var db = new qlksEntities())
                 {
                     tblPhong p = db.tblPhongs.SingleOrDefault(w => w.MaPhong == maPhong);
@@ -745,8 +753,8 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                int maDV = Convert.ToInt32(dym.MaDV);
+                var dym = JsonConvert.DeserializeObject<Service>(data);
+                int maDV = dym.MaDV;
                 using (var ctx = new qlksEntities())
                 {
                     var emp = ctx.tblDichVus.AsEnumerable().Select(st => new
@@ -774,7 +782,7 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                var dym = JsonConvert.DeserializeObject<Service>(data);
 
                 using (var db = new qlksEntities())
                 {
@@ -804,8 +812,8 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                int maDV = Convert.ToInt32(dym.MaDV);
+                var dym = JsonConvert.DeserializeObject<Service>(data);
+                int maDV = dym.MaDV;
                 using (var db = new qlksEntities())
                 {
                     tblDichVu dv = db.tblDichVus.SingleOrDefault(w => w.MaDV == maDV);
@@ -834,8 +842,8 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                int maDV = Convert.ToInt32(dym.MaDV);
+                var dym = JsonConvert.DeserializeObject<Service>(data);
+                int maDV = dym.MaDV;
                 using (var db = new qlksEntities())
                 {
                     tblDichVu dv = db.tblDichVus.SingleOrDefault(w => w.MaDV == maDV);
@@ -898,8 +906,8 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                int maSP = Convert.ToInt32(dym.MaSP);
+                var dym = JsonConvert.DeserializeObject<Product>(data);
+                int maSP = dym.MaSP;
                 using (var ctx = new qlksEntities())
                 {
                     var emp = ctx.tblSanPhams.AsEnumerable().Select(st => new
@@ -927,7 +935,7 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                var dym = JsonConvert.DeserializeObject<Product>(data);
 
                 using (var db = new qlksEntities())
                 {
@@ -957,8 +965,8 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                int maSP = Convert.ToInt32(dym.MaSP);
+                var dym = JsonConvert.DeserializeObject<Product>(data);
+                int maSP = dym.MaSP;
                 using (var db = new qlksEntities())
                 {
                     tblSanPham sp = db.tblSanPhams.SingleOrDefault(w => w.MaSP == maSP);
@@ -987,8 +995,8 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                int maSP = Convert.ToInt32(dym.MaSP);
+                var dym = JsonConvert.DeserializeObject<Product>(data);
+                int maSP = dym.MaSP;
                 using (var db = new qlksEntities())
                 {
                     tblSanPham sp = db.tblSanPhams.SingleOrDefault(w => w.MaSP == maSP);
@@ -1053,8 +1061,8 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                int maTB = Convert.ToInt32(dym.MaTB);
+                var dym = JsonConvert.DeserializeObject<Equiment>(data);
+                int maTB = dym.MaTB;
                 using (var ctx = new qlksEntities())
                 {
                     var emp = ctx.tblTrangThietBis.AsEnumerable().Select(st => new
@@ -1083,7 +1091,7 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                var dym = JsonConvert.DeserializeObject<Equiment>(data);
 
                 using (var db = new qlksEntities())
                 {
@@ -1113,8 +1121,8 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                int maTB = Convert.ToInt32(dym.MaTB);
+                var dym = JsonConvert.DeserializeObject<Equiment>(data);
+                int maTB = dym.MaTB;
                 using (var db = new qlksEntities())
                 {
                     tblTrangThietBi sp = db.tblTrangThietBis.SingleOrDefault(w => w.MaThietBi == maTB);
@@ -1143,8 +1151,8 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                int maTB = Convert.ToInt32(dym.MaTB);
+                var dym = JsonConvert.DeserializeObject<Equiment>(data);
+                int maTB = dym.MaTB;
                 using (var db = new qlksEntities())
                 {
                     tblTrangThietBi sp = db.tblTrangThietBis.SingleOrDefault(w => w.MaThietBi == maTB);
@@ -1176,19 +1184,19 @@ namespace QLKS
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
                 var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                string maTTBP = dym.MaTTBP;
                 string maTB = dym.MaTB;
-                string tenTB = dym.TenTB;
-                string tinhTrang = dym.TinhTrang;
+                string maPhong = dym.MaPhong;
                 using (var ctx = new qlksEntities())
                 {
-                    var emp = ctx.tblTrangThietBis.AsEnumerable()
-                        .Where(st => (maTB == "" || st.MaThietBi == Convert.ToInt32(maTB)) && (tenTB == "" || st.TenThietBi == tenTB) && (tinhTrang == "" || st.TinhTrang == tinhTrang.Equals("1")))
+                    var emp = ctx.tblTrangThietBiPhongs.AsEnumerable()
+                        .Where(st => (maTTBP == "" || st.MaTTBP == Convert.ToInt32(maTTBP)) && (maTB == "" || st.MaThietBi == Convert.ToInt32(maTB)) && (maPhong== "" || st.MaPhong == Convert.ToInt32(maPhong)))
                         .Select(st => new
                         {
+                            st.MaTTBP,
                             st.MaThietBi,
-                            st.TenThietBi,
-                            StrTinhTrang = st.TinhTrang == true ? "Sử dụng" : "Đã hư",
-                            TinhTrang = Convert.ToInt32(st.TinhTrang)
+                            st.MaPhong,
+                            st.SoLuong
                         }).ToList();
                     response.Data = emp;
                 }
@@ -1210,16 +1218,16 @@ namespace QLKS
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
                 var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                int maTB = Convert.ToInt32(dym.MaTB);
+                int maTTBP = Convert.ToInt32(dym.MaTTBP);
                 using (var ctx = new qlksEntities())
                 {
-                    var emp = ctx.tblTrangThietBis.AsEnumerable().Select(st => new
+                    var emp = ctx.tblTrangThietBiPhongs.AsEnumerable().Select(st => new
                     {
+                        st.MaTTBP,
                         st.MaThietBi,
-                        st.TenThietBi,
-                        StrTinhTrang = st.TinhTrang == true ? "Sử dụng" : "Đã hư",
-                        TinhTrang = Convert.ToInt32(st.TinhTrang)
-                    }).Where(st => st.MaThietBi == maTB).ToList();
+                        st.MaPhong,
+                        st.SoLuong
+                    }).Where(st => st.MaTTBP == maTTBP).ToList();
                     response.Data = emp;
                 }
                 return response;
@@ -1239,15 +1247,17 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
+                var dym = JsonConvert.DeserializeObject<EquimentRoom>(data);
 
                 using (var db = new qlksEntities())
                 {
-                    tblTrangThietBi tb = new tblTrangThietBi();
-                    tb.TenThietBi = String.IsNullOrEmpty(dym.TenTB.ToString()) ? String.Empty : dym.TenTB.ToString().Trim();
-                    tb.TinhTrang = dym.TinhTrang;
+                    tblTrangThietBiPhong tb = new tblTrangThietBiPhong();
+                    //tb.MaTTBP = dym.MaTTBP;
+                    tb.MaThietBi = dym.MaThietBi;
+                    tb.MaPhong = dym.MaPhong;
+                    tb.SoLuong = dym.SoLuong;
 
-                    db.tblTrangThietBis.Add(tb);
+                    db.tblTrangThietBiPhongs.Add(tb);
                     db.SaveChanges();
                     response.Message = "SUCCESS";
                 };
@@ -1269,13 +1279,15 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                int maTB = Convert.ToInt32(dym.MaTB);
+                var dym = JsonConvert.DeserializeObject<EquimentRoom>(data);
+                int maTTBP = dym.MaTTBP;
                 using (var db = new qlksEntities())
                 {
-                    tblTrangThietBi sp = db.tblTrangThietBis.SingleOrDefault(w => w.MaThietBi == maTB);
-                    sp.TenThietBi = String.IsNullOrEmpty(dym.TenTB.ToString()) ? String.Empty : dym.TenTB.ToString().Trim();
-                    sp.TinhTrang = dym.TinhTrang;
+                    tblTrangThietBiPhong tb = db.tblTrangThietBiPhongs.SingleOrDefault(w => w.MaTTBP == maTTBP);
+                    //tb.MaTTBP = dym.MaTTBP;
+                    tb.MaThietBi = dym.MaThietBi;
+                    tb.MaPhong = dym.MaPhong;
+                    tb.SoLuong = dym.SoLuong;
 
                     db.SaveChanges();
                     response.Message = "SUCCESS";
@@ -1299,12 +1311,12 @@ namespace QLKS
             try
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                int maTB = Convert.ToInt32(dym.MaTB);
+                var dym = JsonConvert.DeserializeObject<EquimentRoom>(data);
+                int maTTBP = dym.MaTTBP;
                 using (var db = new qlksEntities())
                 {
-                    tblTrangThietBi sp = db.tblTrangThietBis.SingleOrDefault(w => w.MaThietBi == maTB);
-                    db.tblTrangThietBis.Remove(sp);
+                    tblTrangThietBiPhong sp = db.tblTrangThietBiPhongs.SingleOrDefault(w => w.MaTTBP == maTTBP);
+                    db.tblTrangThietBiPhongs.Remove(sp);
                     db.SaveChanges();
                     response.Message = "SUCCESS";
                 };

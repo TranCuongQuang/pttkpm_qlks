@@ -181,6 +181,8 @@ app.controller('CustomerManagementCtrl', function ($scope, $http, $timeout, $win
                 if (response.data.Message === "SUCCESS") {
                     $scope.searchCustomer();
                     toastr.success("Xoá thành công !");
+                } else if (response.data.Message === "PDP_EXIST") {
+                    toastr.warning("Khách hàng đã từng đặt phòng !");
                 } else {
                     toastr.error("Xoá thất bại !");
                 }

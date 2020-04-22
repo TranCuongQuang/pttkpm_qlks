@@ -24,7 +24,7 @@
                 <div class="form-group col-sm-4">
                     <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Tình trạng</label>
                     <div class="col-sm-8">
-                        <select class="chosen-select form-control input-required" id="Note" data-placeholder="Tình trạng">
+                        <select class="chosen-select form-control" id="Note" data-placeholder="Tình trạng">
                             <option value=""> </option>
                             <option value="1">Sử dụng</option>
                             <option value="0">Đã hư</option>
