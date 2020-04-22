@@ -1,23 +1,34 @@
 ﻿var app = angular.module('QLKS', ['ui.select2', 'ui.bootstrap', 'datatables', 'angular.filter']);
-app.controller('BookingRoomCtrl', function ($scope, $http, $timeout, $window) {
+app.controller('BookingRoomManagerCtrl', function ($scope, $http, $timeout, $window) {
     $scope.RoomList = [];
     $scope.CustomerList = [];
-    $scope.ServiceList = [];
-    $scope.ProductList = [];
+    $scope.BookingRoomList = [];
     $scope.ChooseProductList = [];
     $scope.ChooseServiceList = [];
-    $scope.txtRoomId = "";
     $scope.ddlCustomer = "";
+    $scope.ddlRoom = "";
     $scope.ddlService = "";
     $scope.ddlProduct = "";
-    $scope.txtFromDate = moment().format("DD/MM/YYYY");
-    $scope.txtToDate = moment().format("DD/MM/YYYY");
+    $scope.txtPhone = "";
+    $scope.txtRoomId = "";
+    $scope.txtCustomer = "";
+    $scope.txtFromDate = "";
+    $scope.txtToDate = "";
     $scope.txtUnitPrice = 0;
     $scope.txtTotalMoney = 0;
     $scope.txtQuantityService = 1;
     $scope.txtQuantityProduct = 1;
     $scope.lblTotalMoneyProduct = 0;
     $scope.lblTotalMoneyService = 0;
+    $scope.ChooseBookingRoom = {};
+    $scope.txtAllTotalMoney = 0;
+
+    $scope.dtOptions = {
+        "bStateSave": true,
+        "aLengthMenu": [[15, 50, 100, -1], [15, 50, 100, 'All']],
+        "bSort": true,
+        "language": window.datatableLanguage
+    };
 
     angular.element(document).ready(function () {
         $scope.GetRoom();
@@ -26,55 +37,11 @@ app.controller('BookingRoomCtrl', function ($scope, $http, $timeout, $window) {
         $scope.GetProduct();
     });
 
-    $scope.ClearData = function () {
-        $scope.ChooseProductList = [];
-        $scope.ChooseServiceList = [];
-        $scope.txtRoomId = "";
-        $scope.ddlCustomer = "";
-        $scope.ddlService = "";
-        $scope.ddlProduct = "";
-        $scope.txtFromDate = moment().format("DD/MM/YYYY");
-        $scope.txtToDate = moment().format("DD/MM/YYYY");
-        $scope.txtUnitPrice = 0;
-        $scope.txtTotalMoney = 0;
-        $scope.txtQuantityService = 1;
-        $scope.txtQuantityProduct = 1;
-        $scope.lblTotalMoneyProduct = 0;
-        $scope.lblTotalMoneyService = 0;
-    }
-
-    $scope.safeApply = function (fn) {
-        var phase = this.$root.$$phase;
-        if (phase == '$apply' || phase == '$digest') {
-            if (fn && (typeof (fn) === 'function')) {
-                fn();
-            }
-        } else {
-            this.$apply(fn);
-        }
-    };
-
-    $scope.showModal = function (item) {
-        //console.log("item", item);
-        $scope.ClearData();
-        if (item.TrangThai == 0) {
-            $scope.ItemRoom = item;
-            $scope.txtRoomId = item.MaPhong;
-            $scope.txtUnitPrice = item.DonGia;
-            var days = moment($scope.txtToDate, "DD/MM/YYYY").diff(moment($scope.txtFromDate, "DD/MM/YYYY"), "days") + 1;
-            $scope.txtTotalMoney = days * item.DonGia;
-
-            $("#modalBooking").modal();
-        } else {
-            toastr.warning("Phòng đã đặt không thể đặt nữa. Xin vui lòng chọn phòng trống.");
-        }
-    }
-
     $scope.GetRoom = function () {
         var params = {
             MaPhong: "",
             TenPhong: "",
-            TrangThai: ""
+            TrangThai: "1"
         }
         $http({
             url: `/WebServiceCP.aspx?action=GetRoomList`,
@@ -159,34 +126,76 @@ app.controller('BookingRoomCtrl', function ($scope, $http, $timeout, $window) {
         });
     }
 
-    $scope.ChangeToDate = function () {
-        if (!$scope.txtToDate || $scope.txtToDate == "") {
-            toastr.warning("Không được bỏ trống ngày đến.");
+    $scope.GetBookingRoom = function () {
+        var roomId = $scope.ddlRoom;
+        var customerId = $scope.ddlCustomer;
+        var phone = $scope.txtPhone;
+
+        if (!roomId || roomId == "") {
+            toastr.warning("Vui lòng chọn phòng.");
             return;
         }
 
-        if (moment($scope.txtToDate, "DD/MM/YYYY").isBefore(moment($scope.txtFromDate, "DD/MM/YYYY").format("YYYY-MM-DD"))) {
-            toastr.warning("Đến ngày phải lớn hơn từ ngày.");
+        if (!customerId || customerId == "") {
+            toastr.warning("Vui lòng chọn khách hàng.");
             return;
         }
 
-        var days = moment($scope.txtToDate, "DD/MM/YYYY").diff(moment($scope.txtFromDate, "DD/MM/YYYY"), "days") + 1;
-        $scope.txtTotalMoney = days * $scope.txtUnitPrice;
+        $http({
+            url: `/WebServiceCTQ.aspx?action=GetBookingRoom&RoomId=${roomId}&CustomerId=${customerId}&Phone=${phone}`,
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            data: {}
+        }).then(function (response) {
+            var temp = response.data.Data;
+            console.log("GetBookingRoom", response);
+            $scope.BookingRoomList = temp;
+            if (temp.length == 0) {
+                toastr.warning("Không tìm thấy danh sách phòng đã đặt.")
+            }
+        }, function (err) {
+            $scope.BookingRoomList = [];
+            console.log(err);
+        });
     }
 
-    $scope.ChangeFromDate = function () {
-        if (!$scope.txtFromDate || $scope.txtFromDate == "") {
-            toastr.warning("Không được bỏ trống ngày đến.");
-            return;
-        }
+    $scope.ClearData = function () {
+        $scope.ChooseProductList = [];
+        $scope.ChooseServiceList = [];
+        $scope.ddlService = "";
+        $scope.ddlProduct = "";
+        $scope.txtRoomId = "";
+        $scope.txtCustomer = "";
+        $scope.txtFromDate = "";
+        $scope.txtToDate = "";
+        $scope.txtUnitPrice = 0;
+        $scope.txtTotalMoney = 0;
+        $scope.txtQuantityService = 1;
+        $scope.txtQuantityProduct = 1;
+        $scope.lblTotalMoneyProduct = 0;
+        $scope.lblTotalMoneyService = 0;
+        $scope.ChooseBookingRoom = {};
+    }
 
-        if (moment($scope.txtToDate, "DD/MM/YYYY").isBefore(moment($scope.txtFromDate, "DD/MM/YYYY").format("YYYY-MM-DD"))) {
-            toastr.warning("Từ ngày phải nhỏ hơn đến ngày.");
-            return;
-        }
+    $scope.EditBookingRoom = function (item) {
+        console.log("EditBookingRoom", item);
 
-        var days = moment($scope.txtToDate, "DD/MM/YYYY").diff(moment($scope.txtFromDate, "DD/MM/YYYY"), "days") + 1;
-        $scope.txtTotalMoney = days * $scope.txtUnitPrice;
+        $scope.ClearData();
+        $scope.ChooseBookingRoom = item;
+        $scope.txtRoomId = item.MaPhong;
+        $scope.txtCustomer = item.TenKH;
+        $scope.txtFromDate = moment(item.NgayBD).format("DD/MM/YYYY");
+        $scope.txtToDate = moment(item.NgayKT).format("DD/MM/YYYY");
+        $scope.txtUnitPrice = item.DonGia;
+        $scope.txtTotalMoney = item.TongTien;
+        $scope.ChooseProductList = item.SanPhamPhong;
+        $scope.ChooseServiceList = item.DichVuPhong;
+        $scope.SumMoneyProduct();
+        $scope.SumMoneyService();
+
+        $("#modalBooking").modal();
     }
 
     $scope.ChooseProduct = function () {
@@ -202,7 +211,12 @@ app.controller('BookingRoomCtrl', function ($scope, $http, $timeout, $window) {
 
         var itemExist = _.find($scope.ChooseProductList, { MaSP: parseInt($scope.ddlProduct) });
         if (itemExist) {
-            toastr.warning("Sản phẩm đã được chọn.");
+            //toastr.warning("Sản phẩm đã được chọn.");
+            var item = _.find($scope.ChooseProductList, { MaSP: parseInt($scope.ddlProduct) });
+            item.SoLuong = $scope.txtQuantityProduct;
+            item.ThanhTien = item.SoLuong * item.DonGia;
+            $scope.ddlProduct = "";
+            $scope.SumMoneyProduct();
             return;
         }
 
@@ -212,7 +226,7 @@ app.controller('BookingRoomCtrl', function ($scope, $http, $timeout, $window) {
         $scope.ChooseProductList.push(item);
         $scope.ddlProduct = "";
         $scope.SumMoneyProduct();
-        //console.log("ChooseProduct", $scope.ChooseProductList);
+        console.log("ChooseProduct", $scope.ChooseProductList);
     }
 
     $scope.RemoveChooseProduct = function (item) {
@@ -226,7 +240,15 @@ app.controller('BookingRoomCtrl', function ($scope, $http, $timeout, $window) {
     $scope.SumMoneyProduct = function () {
         var money = _.sumBy($scope.ChooseProductList, function (o) { return o.SoLuong * o.DonGia; });
         $scope.lblTotalMoneyProduct = money;
+        $scope.txtAllTotalMoney = $scope.lblTotalMoneyService + $scope.lblTotalMoneyProduct + $scope.txtTotalMoney;
         //console.log("SumMoneyProduct", money);
+    }
+
+    $scope.EditChooseProduct = function (item) {
+        console.log("EditChooseProduct", item);
+
+        $scope.txtQuantityProduct = item.SoLuong;
+        $scope.ddlProduct = item.MaSP.toString();
     }
 
     $scope.ChooseService = function () {
@@ -242,7 +264,12 @@ app.controller('BookingRoomCtrl', function ($scope, $http, $timeout, $window) {
 
         var itemExist = _.find($scope.ChooseServiceList, { MaDV: parseInt($scope.ddlService) });
         if (itemExist) {
-            toastr.warning("Dịch vụ đã được chọn.");
+            //toastr.warning("Dịch vụ đã được chọn.");
+            var item = _.find($scope.ChooseServiceList, { MaDV: parseInt($scope.ddlService) });
+            item.SoLuong = $scope.txtQuantityService;
+            item.ThanhTien = item.SoLuong * item.DonGia;
+            $scope.ddlService = "";
+            $scope.SumMoneyService();
             return;
         }
 
@@ -252,7 +279,8 @@ app.controller('BookingRoomCtrl', function ($scope, $http, $timeout, $window) {
         $scope.ChooseServiceList.push(item);
         $scope.ddlService = "";
         $scope.SumMoneyService();
-        //console.log("ChooseService", $scope.ChooseServiceList, $scope.ddlService);
+
+        console.log("ChooseService", $scope.ChooseServiceList, $scope.ddlService);
     }
 
     $scope.RemoveChooseService = function (item) {
@@ -266,36 +294,60 @@ app.controller('BookingRoomCtrl', function ($scope, $http, $timeout, $window) {
     $scope.SumMoneyService = function () {
         var money = _.sumBy($scope.ChooseServiceList, function (o) { return o.SoLuong * o.DonGia; });
         $scope.lblTotalMoneyService = money;
+        $scope.txtAllTotalMoney = $scope.lblTotalMoneyService + $scope.lblTotalMoneyProduct + $scope.txtTotalMoney;
         //console.log("SumMoneyService", money);
     }
 
-    $scope.SaveBookingRoom = function () {
-        if (!$scope.ddlCustomer || $scope.ddlCustomer == "") {
-            toastr.warning("Vui lòng chọn khách hàng.");
-            return;
-        }
+    $scope.EditChooseService = function (item) {
+        console.log("EditChooseService", item);
 
+        $scope.txtQuantityService = item.SoLuong;
+        $scope.ddlService = item.MaDV.toString();
+    }
+
+    $scope.UpdateBookingRoom = function () {
         var params = {
-            MaKH: $scope.ddlCustomer,
-            MaPhong: $scope.txtRoomId,
-            NgayBD: moment($scope.txtFromDate, "DD/MM/YYYY").format("YYYY-MM-DD"),
-            NgayKT: moment($scope.txtToDate, "DD/MM/YYYY").format("YYYY-MM-DD"),
-            TongTien: $scope.txtUnitPrice,
-            DonGia: $scope.txtTotalMoney,
+            MaPhieuDP: $scope.ChooseBookingRoom.MaPhieuDP,
             DichVuPhong: $scope.ChooseServiceList,
             SanPhamPhong: $scope.ChooseProductList,
         }
         $http({
-            url: `/WebServiceCTQ.aspx?action=SaveBookingRoom`,
+            url: `/WebServiceCTQ.aspx?action=UpdateBookingRoom`,
             method: "POST",
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             },
             data: params
         }).then(function (response) {
-            console.log("SaveBookingRoom", response);
+            console.log("UpdateBookingRoom", response);
             if (response.data.Status == 0) {
                 toastr.success(response.data.Message);
+                $scope.GetBookingRoom();
+                $("#modalBooking").modal("hide");
+            } else {
+                toastr.warning(response.data.Message);
+            }
+        }, function (err) {
+            console.log(err);
+        });
+    }
+
+    $scope.PaymentBookingRoom = function () {
+        var params = {
+            MaPhieuDP: $scope.ChooseBookingRoom.MaPhieuDP
+        }
+        $http({
+            url: `/WebServiceCTQ.aspx?action=PaymentBookingRoom`,
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            data: params
+        }).then(function (response) {
+            console.log("PaymentBookingRoom", response);
+            if (response.data.Status == 0) {
+                toastr.success(response.data.Message);
+                $scope.GetBookingRoom();
                 $scope.GetRoom();
                 $("#modalBooking").modal("hide");
             } else {

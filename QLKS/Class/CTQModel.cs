@@ -4,6 +4,7 @@ namespace QLKS.Class
 {
     public class BookingRoomModel
     {
+        public int MaPhieuDP { get; set; }
         public int MaKH { get; set; }
         public int MaPhong { get; set; }
         public int MaNV { get; set; }
@@ -17,6 +18,7 @@ namespace QLKS.Class
 
     public class DichVuPhongModel
     {
+        public int? MaDVP { get; set; }
         public int MaDV { get; set; }
         public int SoLuong { get; set; }
         public decimal DonGia { get; set; }
@@ -25,6 +27,7 @@ namespace QLKS.Class
 
     public class SanPhamPhongModel
     {
+        public int? MaSPP { get; set; }
         public int MaSP { get; set; }
         public int SoLuong { get; set; }
         public decimal DonGia { get; set; }

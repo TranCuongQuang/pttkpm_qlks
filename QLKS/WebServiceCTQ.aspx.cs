@@ -30,6 +30,21 @@ namespace QLKS
                     Response.End();
                     break;
 
+                case "UpdateBookingRoom":
+                    Response.Write(JsonConvert.SerializeObject(UpdateBookingRoom()));
+                    Response.End();
+                    break;
+
+                case "PaymentBookingRoom":
+                    Response.Write(JsonConvert.SerializeObject(PaymentBookingRoom()));
+                    Response.End();
+                    break;
+
+                case "GetBookingRoom":
+                    Response.Write(JsonConvert.SerializeObject(GetBookingRoom()));
+                    Response.End();
+                    break;
+
                 default:
 
                     Response.End();
@@ -93,7 +108,7 @@ namespace QLKS
                     if (numberSave > 0)
                     {
                         var room = db.tblPhongs.FirstOrDefault(f => f.MaPhong == dym.MaPhong);
-                        if(room != null)
+                        if (room != null)
                         {
                             room.TrangThai = true;
                         }
@@ -146,6 +161,170 @@ namespace QLKS
                 response.Status = AjaxReponseStatusEnum.Fail;
                 response.Message = "Đặt phòng thất bại (Exception).";
             }
+
+            return response;
+        }
+
+        private AjaxReponseModel<dynamic> UpdateBookingRoom()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            var data = new StreamReader(Request.InputStream).ReadToEnd();
+            var dym = JsonConvert.DeserializeObject<BookingRoomModel>(data);
+
+            try
+            {
+                using (var db = new qlksEntities())
+                {
+                    var room = db.tblPhongs.FirstOrDefault(f => f.MaPhong == dym.MaPhong);
+                    if (room != null)
+                    {
+                        room.TrangThai = true;
+                    }
+
+                    foreach (var item in dym.DichVuPhong)
+                    {
+                        if (item.MaDVP != null && item.MaDVP != 0)
+                        {
+                            var dvp = db.tblDichVuPhongs.FirstOrDefault(f => f.MaPhieuDP == dym.MaPhieuDP && f.MaDVP == item.MaDVP);
+                            dvp.SoLuong = item.SoLuong;
+                            dvp.ThanhTien = item.ThanhTien;
+                        }
+                        else
+                        {
+                            tblDichVuPhong dichVuPhong = new tblDichVuPhong()
+                            {
+                                MaPhieuDP = dym.MaPhieuDP,
+                                MaDV = item.MaDV,
+                                SoLuong = item.SoLuong,
+                                DonGia = item.DonGia,
+                                ThanhTien = item.ThanhTien
+                            };
+                            db.tblDichVuPhongs.Add(dichVuPhong);
+                        }
+                    }
+
+                    foreach (var item in dym.SanPhamPhong)
+                    {
+                        if (item.MaSPP != null && item.MaSPP != 0)
+                        {
+                            var dvp = db.tblSanPhamPhongs.FirstOrDefault(f => f.MaPhieuDP == dym.MaPhieuDP && f.MaSPP == item.MaSPP);
+                            dvp.SoLuong = item.SoLuong;
+                            dvp.ThanhTien = item.ThanhTien;
+                        }
+                        else
+                        {
+                            tblSanPhamPhong dichVuPhong = new tblSanPhamPhong()
+                            {
+                                MaPhieuDP = dym.MaPhieuDP,
+                                MaSP = item.MaSP,
+                                SoLuong = item.SoLuong,
+                                DonGia = item.DonGia,
+                                ThanhTien = item.ThanhTien
+                            };
+                            db.tblSanPhamPhongs.Add(dichVuPhong);
+                        }
+                    }
+
+                    db.SaveChanges();
+
+                    response.Message = "Cập nhật thành công.";
+                };
+            }
+            catch (Exception e)
+            {
+                response.Status = AjaxReponseStatusEnum.Fail;
+                response.Message = "Cập nhật thất bại (Exception).";
+            }
+
+            return response;
+        }
+
+        private AjaxReponseModel<dynamic> PaymentBookingRoom()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            var data = new StreamReader(Request.InputStream).ReadToEnd();
+            var dym = JsonConvert.DeserializeObject<BookingRoomModel>(data);
+
+            try
+            {
+                using (var db = new qlksEntities())
+                {
+                    var pdp = db.tblPhieuDatPhongs.FirstOrDefault(f => f.MaPhieuDP == dym.MaPhieuDP);
+                    if (pdp != null)
+                    {
+                        pdp.TrangThai = true;
+
+                        var p = db.tblPhongs.FirstOrDefault(f => f.MaPhong == pdp.MaPhong);
+                        if (p != null)
+                        {
+                            p.TrangThai = false;
+                        }
+
+                        db.SaveChanges();
+
+                        response.Message = "Trả phòng thành công.";
+                    }
+                    else
+                    {
+                        response.Status = AjaxReponseStatusEnum.Fail;
+                        response.Message = "Trả phòng thất bại.";
+                    }
+                };
+            }
+            catch (Exception e)
+            {
+                response.Status = AjaxReponseStatusEnum.Fail;
+                response.Message = "Trả phòng thất bại (Exception).";
+            }
+
+            return response;
+        }
+
+        private AjaxReponseModel<dynamic> GetBookingRoom()
+        {
+            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+            var roomId = int.Parse(Request.Params["RoomId"]);
+            var customerId = int.Parse(Request.Params["CustomerId"]);
+            var phone = Request.Params["Phone"];
+
+            using (var db = new qlksEntities())
+            {
+                var list = db.tblPhieuDatPhongs.Where(w => w.TrangThai != true && w.MaPhong == roomId && w.MaKH == customerId && (phone == "" || w.tblKhachHang.SDT == phone)).Select(s => new
+                {
+                    s.MaPhieuDP,
+                    s.MaPhong,
+                    s.MaKH,
+                    s.MaNV,
+                    s.NgayBD,
+                    s.NgayKT,
+                    s.DonGia,
+                    s.TongTien,
+                    s.tblKhachHang.TenKH,
+                    s.tblKhachHang.SDT,
+                    DichVuPhong = s.tblDichVuPhongs.Select(s1 => new
+                    {
+                        s1.MaDVP,
+                        s1.MaPhieuDP,
+                        s1.MaDV,
+                        s1.tblDichVu.TenDV,
+                        s.DonGia,
+                        s1.ThanhTien,
+                        s1.SoLuong
+                    }).ToList(),
+                    SanPhamPhong = s.tblSanPhamPhongs.Select(s2 => new
+                    {
+                        s2.MaSPP,
+                        s2.MaPhieuDP,
+                        s2.MaSP,
+                        s2.tblSanPham.TenSP,
+                        s2.SoLuong,
+                        s2.DonGia,
+                        s2.ThanhTien
+                    }).ToList()
+                }).ToList();
+
+                response.Data = list;
+            };
 
             return response;
         }

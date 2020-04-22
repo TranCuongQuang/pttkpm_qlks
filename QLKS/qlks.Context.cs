@@ -36,8 +36,8 @@ namespace QLKS
         public virtual DbSet<tblDichVu> tblDichVus { get; set; }
         public virtual DbSet<tblTrangThietBi> tblTrangThietBis { get; set; }
         public virtual DbSet<tblDichVuPhong> tblDichVuPhongs { get; set; }
-        public virtual DbSet<tblPhieuDatPhong> tblPhieuDatPhongs { get; set; }
         public virtual DbSet<tblSanPhamPhong> tblSanPhamPhongs { get; set; }
+        public virtual DbSet<tblPhieuDatPhong> tblPhieuDatPhongs { get; set; }
     
         public virtual ObjectResult<GetUser_Result> GetUser(string user)
         {
