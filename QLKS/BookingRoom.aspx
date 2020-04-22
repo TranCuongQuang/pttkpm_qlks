@@ -43,7 +43,7 @@
                             </select>
                         </div>
                         <div class="form-group col-md-1">
-                            <button type='button' class="btn btn-sm btn-primary pull-right" style="margin-top: 25px">
+                            <button type='button' class="btn btn-sm btn-primary pull-right" style="margin-top: 25px" ng-click="ShowModalCustomer()">
                                 <i class="ace-icon fa fa-plus"></i>Thêm
                             </button>
                         </div>
@@ -171,6 +171,58 @@
                             <i class="ace-icon fa fa-save"></i>Đặt phòng
                         </button>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modalCustomer" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog  modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header no-padding">
+                        <div class="table-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="CloseModalCustomer()">
+                                <span class="white">&times;</span>
+                            </button>
+                            Thêm mới khách hàng
+                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group col-sm-6">
+                            <label class="control-label">Mã khách hàng</label>
+                            <input type="text" placeholder="Mã khách hàng" class="form-control" readonly="readonly" />
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label class=" control-label">Tên khách hàng</label>
+                            <input type="text" placeholder="Tên khách hàng" class="form-control input-required" ng-model="txtCustomerName"/>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label class="control-label">Số điện thoại</label>
+                            <input type="text" placeholder="Số điện thoại" class="form-control input-required" ng-model="txtPhone"/>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label class="control-label">Email</label>
+                            <input type="text" placeholder="Email" class="form-control input-required" ng-model="txtEmail" />
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label class="control-label">Địa chỉ</label>
+                            <input type="text" placeholder="Địa chỉ" class="form-control input-required" ng-model="txtAddress"/>
+                        </div>
+                        <div class="form-group col-sm-6">
+                            <label class="control-label">Ngày sinh</label>
+                            <div class="input-group">
+                                <input class="form-control date-picker input-required" type="text" data-date-format="dd-mm-yyyy" ng-model="txtBirthday" />
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type='button' class="btn btn-sm btn-primary pull-right" ng-click="InsertCustomer()">
+                        <i class="ace-icon fa fa-save"></i>Lưu
+                    </button>
                 </div>
             </div>
         </div>

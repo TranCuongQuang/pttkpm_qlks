@@ -211,7 +211,7 @@
                         </div>
                     </div>
                     <div class="modal-footer form-button">
-                         <button type='button' class="btn btn-sm btn-primary pull-right" ng-click="PaymentBookingRoom()">
+                         <button type='button' class="btn btn-sm btn-success pull-right" ng-click="PaymentBookingRoom()">
                             <i class="ace-icon fa fa-external-link"></i>Trả phòng
                         </button>
                         <button type='button' class="btn btn-sm btn-primary pull-right" ng-click="UpdateBookingRoom()">

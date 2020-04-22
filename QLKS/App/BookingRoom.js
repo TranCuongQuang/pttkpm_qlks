@@ -19,6 +19,14 @@ app.controller('BookingRoomCtrl', function ($scope, $http, $timeout, $window) {
     $scope.lblTotalMoneyProduct = 0;
     $scope.lblTotalMoneyService = 0;
 
+    // customer
+    $scope.txtCustomer = "";
+    $scope.txtPhone = "";
+    $scope.txtEmail = "";
+    $scope.txtAddress = "";
+    $scope.txtBirthday = "";
+    $scope.CustomerNew = {};
+
     angular.element(document).ready(function () {
         $scope.GetRoom();
         $scope.GetCustomer();
@@ -41,6 +49,7 @@ app.controller('BookingRoomCtrl', function ($scope, $http, $timeout, $window) {
         $scope.txtQuantityProduct = 1;
         $scope.lblTotalMoneyProduct = 0;
         $scope.lblTotalMoneyService = 0;
+        $scope.CustomerNew = {};
     }
 
     $scope.safeApply = function (fn) {
@@ -108,6 +117,14 @@ app.controller('BookingRoomCtrl', function ($scope, $http, $timeout, $window) {
         }).then(function (response) {
             var temp = response.data.Data;
             $scope.CustomerList = temp;
+
+            if ($scope.CustomerNew && $scope.CustomerNew.MaKH) {
+                setTimeout(function () {
+                    $scope.ddlCustomer = $scope.CustomerNew.MaKH.toString();
+                    $scope.safeApply($scope.ddlCustomer);
+                }, 1000);
+            }
+            console.log("$scope.CustomerNew", $scope.CustomerNew);
             console.log("GetCustomer", response);
         }, function (err) {
             $scope.CustomerList = [];
@@ -305,4 +322,83 @@ app.controller('BookingRoomCtrl', function ($scope, $http, $timeout, $window) {
             console.log(err);
         });
     }
+
+    $scope.ShowModalCustomer = function () {
+        $scope.txtCustomerName = "";
+        $scope.txtPhone = "";
+        $scope.txtEmail = "";
+        $scope.txtAddress = "";
+        $scope.txtBirthday = "";
+        $scope.CustomerNew = {};
+
+        $("#modalBooking").modal("hide");
+        $("#modalCustomer").modal();
+    }
+
+    $scope.CloseModalCustomer = function () {
+        $("#modalBooking").modal();
+    }
+
+    $scope.InsertCustomer = function () {
+        var checkRequired = validForm();
+        if (!checkRequired) {
+            toastr.warning("Vui lòng điền đầy đủ thông tin !");
+            return false;
+        }
+        var params = {
+            TenKH: $scope.txtCustomerName,
+            SDT: $scope.txtPhone,
+            Email: $scope.txtEmail,
+            DiaChi: $scope.txtAddress,
+            NgaySinh: moment($scope.txtBirthday, "DD/MM/YYYY").format("YYYY-MM-DD"),
+        }
+        $http({
+            url: `/WebServiceCP.aspx?action=CreateCustomer`,
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            data: params
+        }).then(function (response) {
+            console.log("InsertCustomer", response);
+            if (response.data.Message === "SUCCESS") {
+                $scope.CustomerNew = response.data.Data;
+                $scope.GetCustomer();
+                toastr.success("Lưu thành công !");
+                $("#modalCustomer").modal("hide");
+                $("#modalBooking").modal();
+            } else {
+                toastr.error("Lưu thất bại !");
+            }
+        }, function (err) {
+            toastr.error("Xảy ra lỗi trong quá trình thực thi.");
+            console.log(err);
+        });
+    }
+
+    //valid
+    function required(i) {
+        requiredList[i].style.borderColor = "red";
+    }
+
+    function reset_effect(i) {
+        requiredList[i].style.borderColor = "#D5D5D5";
+    }
+
+    function validForm() {
+        var flag = true;
+        if (requiredList.length > 0) {
+            for (var i = 0; i < requiredList.length; i++) {
+                if (requiredList[i].value.trim() === '') {
+                    required(i);
+                    flag = false;
+                } else {
+                    reset_effect(i);
+                }
+            }
+        }
+
+        return flag;
+    }
 })
+var requiredList = document.getElementsByClassName('input-required');

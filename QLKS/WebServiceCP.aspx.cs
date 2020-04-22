@@ -468,6 +468,7 @@ namespace QLKS
                     db.tblKhachHangs.Add(kh);
                     db.SaveChanges();
                     response.Message = "SUCCESS";
+                    response.Data = kh;
                 };
                 return response;
             }

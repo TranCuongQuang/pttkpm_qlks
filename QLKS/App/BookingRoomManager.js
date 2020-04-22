@@ -333,28 +333,30 @@ app.controller('BookingRoomManagerCtrl', function ($scope, $http, $timeout, $win
     }
 
     $scope.PaymentBookingRoom = function () {
-        var params = {
-            MaPhieuDP: $scope.ChooseBookingRoom.MaPhieuDP
-        }
-        $http({
-            url: `/WebServiceCTQ.aspx?action=PaymentBookingRoom`,
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8'
-            },
-            data: params
-        }).then(function (response) {
-            console.log("PaymentBookingRoom", response);
-            if (response.data.Status == 0) {
-                toastr.success(response.data.Message);
-                $scope.GetBookingRoom();
-                $scope.GetRoom();
-                $("#modalBooking").modal("hide");
-            } else {
-                toastr.warning(response.data.Message);
+        if (confirm("Bạn chắc chắn muốn trả phòng?")) {
+            var params = {
+                MaPhieuDP: $scope.ChooseBookingRoom.MaPhieuDP
             }
-        }, function (err) {
-            console.log(err);
-        });
+            $http({
+                url: `/WebServiceCTQ.aspx?action=PaymentBookingRoom`,
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                data: params
+            }).then(function (response) {
+                console.log("PaymentBookingRoom", response);
+                if (response.data.Status == 0) {
+                    toastr.success(response.data.Message);
+                    $scope.GetBookingRoom();
+                    $scope.GetRoom();
+                    $("#modalBooking").modal("hide");
+                } else {
+                    toastr.warning(response.data.Message);
+                }
+            }, function (err) {
+                console.log(err);
+            });
+        }
     }
 })
