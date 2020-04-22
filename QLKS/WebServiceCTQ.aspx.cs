@@ -286,10 +286,11 @@ namespace QLKS
             var roomId = int.Parse(Request.Params["RoomId"]);
             var customerId = int.Parse(Request.Params["CustomerId"]);
             var phone = Request.Params["Phone"];
+            var maPhieuDP = int.Parse(Request.Params["MaPhieuDP"]);
 
             using (var db = new qlksEntities())
             {
-                var list = db.tblPhieuDatPhongs.Where(w => w.MaPhong == roomId && w.MaKH == customerId && (phone == "" || w.tblKhachHang.SDT == phone)).Select(s => new
+                var list = db.tblPhieuDatPhongs.Where(w => (maPhieuDP == 0 || w.MaPhieuDP == maPhieuDP) && (roomId == 0 || w.MaPhong == roomId) && (customerId == 0 || w.MaKH == customerId) && (phone == "" || w.tblKhachHang.SDT == phone)).Select(s => new
                 {
                     s.MaPhieuDP,
                     s.MaPhong,
@@ -302,13 +303,14 @@ namespace QLKS
                     TrangThai = s.TrangThai == null ? false : true,
                     s.tblKhachHang.TenKH,
                     s.tblKhachHang.SDT,
+                    s.tblPhong.TenPhong,
                     DichVuPhong = s.tblDichVuPhongs.Select(s1 => new
                     {
                         s1.MaDVP,
                         s1.MaPhieuDP,
                         s1.MaDV,
                         s1.tblDichVu.TenDV,
-                        s.DonGia,
+                        s1.DonGia,
                         s1.ThanhTien,
                         s1.SoLuong
                     }).ToList(),

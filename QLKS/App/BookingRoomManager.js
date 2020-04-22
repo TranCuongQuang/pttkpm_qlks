@@ -22,6 +22,7 @@ app.controller('BookingRoomManagerCtrl', function ($scope, $http, $timeout, $win
     $scope.lblTotalMoneyService = 0;
     $scope.ChooseBookingRoom = {};
     $scope.txtAllTotalMoney = 0;
+    $scope.ShowBtnPrint = false;
 
     $scope.dtOptions = {
         "bStateSave": true,
@@ -130,6 +131,7 @@ app.controller('BookingRoomManagerCtrl', function ($scope, $http, $timeout, $win
         var roomId = $scope.ddlRoom;
         var customerId = $scope.ddlCustomer;
         var phone = $scope.txtPhone;
+        var maPhieuDP = 0;
 
         if (!roomId || roomId == "") {
             toastr.warning("Vui lòng chọn phòng.");
@@ -142,7 +144,7 @@ app.controller('BookingRoomManagerCtrl', function ($scope, $http, $timeout, $win
         }
 
         $http({
-            url: `/WebServiceCTQ.aspx?action=GetBookingRoom&RoomId=${roomId}&CustomerId=${customerId}&Phone=${phone}`,
+            url: `/WebServiceCTQ.aspx?action=GetBookingRoom&RoomId=${roomId}&CustomerId=${customerId}&Phone=${phone}&MaPhieuDP=${maPhieuDP}`,
             method: "GET",
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
@@ -177,6 +179,7 @@ app.controller('BookingRoomManagerCtrl', function ($scope, $http, $timeout, $win
         $scope.lblTotalMoneyProduct = 0;
         $scope.lblTotalMoneyService = 0;
         $scope.ChooseBookingRoom = {};
+        $scope.ShowBtnPrint = false;
     }
 
     $scope.EditBookingRoom = function (item) {
@@ -349,7 +352,8 @@ app.controller('BookingRoomManagerCtrl', function ($scope, $http, $timeout, $win
                 if (response.data.Status == 0) {
                     toastr.success(response.data.Message);
                     $scope.GetBookingRoom();
-                    $("#modalBooking").modal("hide");
+                    $scope.ShowBtnPrint = true;
+                    //$("#modalBooking").modal("hide");
                 } else {
                     toastr.warning(response.data.Message);
                 }
@@ -357,5 +361,10 @@ app.controller('BookingRoomManagerCtrl', function ($scope, $http, $timeout, $win
                 console.log(err);
             });
         }
+    }
+
+    $scope.openPrintWHDetail = function () {
+        var urlPrint = `Form_Print/PrintPaymentBookingRoom.html?preview=1&MaPhieuDP=${$scope.ChooseBookingRoom.MaPhieuDP}`;
+        openPrintPreviewHtml(urlPrint, 'In hóa đơn', 1050, 550);
     }
 })
