@@ -292,6 +292,21 @@ app.controller('BookingRoomCtrl', function ($scope, $http, $timeout, $window) {
             return;
         }
 
+        if (!$scope.txtToDate || $scope.txtToDate == "") {
+            toastr.warning("Không được bỏ trống ngày đến.");
+            return;
+        }
+
+        if (!$scope.txtFromDate || $scope.txtFromDate == "") {
+            toastr.warning("Không được bỏ trống ngày đến.");
+            return;
+        }
+
+        if (moment($scope.txtToDate, "DD/MM/YYYY").isBefore(moment($scope.txtFromDate, "DD/MM/YYYY").format("YYYY-MM-DD"))) {
+            toastr.warning("Đến ngày phải lớn hơn từ ngày.");
+            return;
+        }
+
         var params = {
             MaKH: $scope.ddlCustomer,
             MaPhong: $scope.txtRoomId,

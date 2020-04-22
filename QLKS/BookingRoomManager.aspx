@@ -47,6 +47,7 @@
                             <th>Ngày bắt đầu</th>
                             <th>Ngày kết thúc</th>
                             <th>Đơn giá</th>
+                            <th>Trạng thái</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -58,10 +59,11 @@
                             <th>{{x.NgayBD | date : 'dd/MM/yyyy'}}</th>
                             <th>{{x.NgayKT | date : 'dd/MM/yyyy'}}</th>
                             <th>{{x.DonGia}}</th>
+                            <th>{{x.TrangThai == true ? "Đã thanh toán" : "Chưa thanh toán"}}</th>
                             <td>
                                 <div class="action-buttons text-center">
-                                    <button type="button" class="btn btn-primary" title="Sửa" ng-click="EditBookingRoom(x)">
-                                        <i class="ace-icon fa fa-pencil"></i>
+                                    <button type="button" class="btn "  ng-class="{'btn-primary': x.TrangThai != true, 'btn-warning': x.TrangThai == true}" title="{{x.TrangThai == true ? 'Xem' : 'Sửa'}}" ng-click="EditBookingRoom(x)">
+                                        <i class="ace-icon fa " ng-class="{'fa-pencil': x.TrangThai != true, 'fa-eye': x.TrangThai == true}"></i>
                                     </button>
                                 </div>
                             </td>
@@ -211,10 +213,10 @@
                         </div>
                     </div>
                     <div class="modal-footer form-button">
-                         <button type='button' class="btn btn-sm btn-success pull-right" ng-click="PaymentBookingRoom()">
+                         <button type='button' class="btn btn-sm btn-success pull-right" ng-click="PaymentBookingRoom()"  ng-show="ChooseBookingRoom.TrangThai != true">
                             <i class="ace-icon fa fa-external-link"></i>Trả phòng
                         </button>
-                        <button type='button' class="btn btn-sm btn-primary pull-right" ng-click="UpdateBookingRoom()">
+                        <button type='button' class="btn btn-sm btn-primary pull-right" ng-click="UpdateBookingRoom()" ng-show="ChooseBookingRoom.TrangThai != true">
                             <i class="ace-icon fa fa-save"></i>Lưu
                         </button>
                     </div>

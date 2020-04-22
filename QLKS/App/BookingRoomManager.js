@@ -41,7 +41,7 @@ app.controller('BookingRoomManagerCtrl', function ($scope, $http, $timeout, $win
         var params = {
             MaPhong: "",
             TenPhong: "",
-            TrangThai: "1"
+            TrangThai: ""
         }
         $http({
             url: `/WebServiceCP.aspx?action=GetRoomList`,
@@ -349,7 +349,6 @@ app.controller('BookingRoomManagerCtrl', function ($scope, $http, $timeout, $win
                 if (response.data.Status == 0) {
                     toastr.success(response.data.Message);
                     $scope.GetBookingRoom();
-                    $scope.GetRoom();
                     $("#modalBooking").modal("hide");
                 } else {
                     toastr.warning(response.data.Message);
