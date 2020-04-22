@@ -209,6 +209,8 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
                 if (response.data.Message === "SUCCESS") {
                     $scope.searchEmp();
                     toastr.success("Xoá thành công !");
+                } else if (response.data.Message === "PDP_EXIST") {
+                    toastr.warning("Nhân viên đang còn làm việc !");
                 } else {
                     toastr.error("Xoá thất bại !");
                 }

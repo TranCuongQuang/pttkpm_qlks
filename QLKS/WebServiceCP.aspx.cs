@@ -359,9 +359,17 @@ namespace QLKS
                 using (var db = new qlksEntities())
                 {
                     tblNhanVien nv = db.tblNhanViens.SingleOrDefault(w => w.MaNV == maNV);
-                    db.tblNhanViens.Remove(nv);
-                    db.SaveChanges();
-                    response.Message = "SUCCESS";
+                    tblPhieuDatPhong pdp = db.tblPhieuDatPhongs.SingleOrDefault(w => w.MaNV == maNV);
+                    if (pdp.MaPhieuDP > 0)
+                    {
+                        response.Message = "PDP_EXIST";
+                    }
+                    else
+                    {
+                        db.tblNhanViens.Remove(nv);
+                        db.SaveChanges();
+                        response.Message = "SUCCESS";
+                    }
                 };
 
                 return response;
@@ -694,9 +702,17 @@ namespace QLKS
                 using (var db = new qlksEntities())
                 {
                     tblPhong p = db.tblPhongs.SingleOrDefault(w => w.MaPhong == maPhong);
-                    db.tblPhongs.Remove(p);
-                    db.SaveChanges();
-                    response.Message = "SUCCESS";
+                    tblPhieuDatPhong pdp = db.tblPhieuDatPhongs.SingleOrDefault(w => w.MaPhong == maPhong);
+                    if (pdp.MaPhieuDP > 0)
+                    {
+                        response.Message = "PDP_EXIST";
+                    }
+                    else
+                    {
+                        db.tblPhongs.Remove(p);
+                        db.SaveChanges();
+                        response.Message = "SUCCESS";
+                    }
                 };
 
                 return response;

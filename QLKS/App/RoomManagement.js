@@ -178,6 +178,8 @@ app.controller('RoomManagementCtrl', function ($scope, $http, $timeout, $window)
                 if (response.data.Message === "SUCCESS") {
                     $scope.searchRoom();
                     toastr.success("Xoá thành công !");
+                } else if (response.data.Message === "PDP_EXIST") {
+                    toastr.warning("Phòng đang được sử dụng !");
                 } else {
                     toastr.error("Xoá thất bại !");
                 }
