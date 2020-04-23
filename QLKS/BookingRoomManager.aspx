@@ -62,7 +62,7 @@
                             <th>{{x.TrangThai == true ? "Đã thanh toán" : "Chưa thanh toán"}}</th>
                             <td>
                                 <div class="action-buttons text-center">
-                                    <button type="button" class="btn "  ng-class="{'btn-primary': x.TrangThai != true, 'btn-warning': x.TrangThai == true}" title="{{x.TrangThai == true ? 'Xem' : 'Sửa'}}" ng-click="EditBookingRoom(x)">
+                                    <button type="button" class="btn " ng-class="{'btn-primary': x.TrangThai != true, 'btn-warning': x.TrangThai == true}" title="{{x.TrangThai == true ? 'Xem' : 'Sửa'}}" ng-click="EditBookingRoom(x)">
                                         <i class="ace-icon fa " ng-class="{'fa-pencil': x.TrangThai != true, 'fa-eye': x.TrangThai == true}"></i>
                                     </button>
                                 </div>
@@ -195,7 +195,7 @@
                                             <button type="button" class="btn btn-danger" title="Xóa khỏi danh sách" ng-click="RemoveChooseService(item)" ng-show="!item.MaDVP || item.MaDVP == 0">
                                                 <i class="ace-icon fa fa-trash-o"></i>
                                             </button>
-                                             <button type="button" class="btn btn-primary" title="Sửa" ng-click="EditChooseService(item)" ng-show="item.MaDVP && item.MaDVP != 0">
+                                            <button type="button" class="btn btn-primary" title="Sửa" ng-click="EditChooseService(item)" ng-show="item.MaDVP && item.MaDVP != 0">
                                                 <i class="ace-icon fa fa-pencil"></i>
                                             </button>
                                         </td>
@@ -207,17 +207,20 @@
                                 </tbody>
                             </table>
                         </div>
-                          <div class="form-group col-md-12">
+                        <div class="form-group col-md-12">
                             <label class="control-label">Thanh toán</label>
                             <input type="text" placeholder="Thanh toán" class="form-control" readonly="readonly" ng-model="txtAllTotalMoney" />
                         </div>
                     </div>
                     <div class="modal-footer form-button">
-                         <button type='button' class="btn btn-sm btn-success pull-right" ng-click="PaymentBookingRoom()"  ng-show="ChooseBookingRoom.TrangThai != true">
+                        <button type='button' class="btn btn-sm btn-success pull-right" ng-click="PaymentBookingRoom()" ng-show="ChooseBookingRoom.TrangThai != true && ShowBtnPrint != true">
                             <i class="ace-icon fa fa-external-link"></i>Trả phòng
                         </button>
-                        <button type='button' class="btn btn-sm btn-primary pull-right" ng-click="UpdateBookingRoom()" ng-show="ChooseBookingRoom.TrangThai != true">
+                        <button type='button' class="btn btn-sm btn-primary pull-right" ng-click="UpdateBookingRoom()" ng-show="ChooseBookingRoom.TrangThai != true && ShowBtnPrint != true">
                             <i class="ace-icon fa fa-save"></i>Lưu
+                        </button>
+                        <button type='button' class="btn btn-sm btn-primary pull-right" ng-click="openPrintWHDetail()" ng-show="ChooseBookingRoom.TrangThai == true || ShowBtnPrint == true">
+                            <i class="ace-icon fa fa-print"></i>In phiếu
                         </button>
                     </div>
                 </div>
