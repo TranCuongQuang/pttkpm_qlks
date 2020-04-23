@@ -176,6 +176,8 @@ app.controller('EquipmentManagementCtrl', function ($scope, $http, $timeout, $wi
                 if (response.data.Message === "SUCCESS") {
                     $scope.searchEquipment();
                     toastr.success("Xoá thành công !");
+                } else if (response.data.Message === "PDP_EXIST") {
+                    toastr.warning("Thiết bị đang được sử dụng !");
                 } else {
                     toastr.error("Xoá thất bại !");
                 }

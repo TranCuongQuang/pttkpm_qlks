@@ -175,6 +175,8 @@ app.controller('ServiceManagementCtrl', function ($scope, $http, $timeout, $wind
                 if (response.data.Message === "SUCCESS") {
                     $scope.searchService();
                     toastr.success("Xoá thành công !");
+                } else if (response.data.Message === "PDP_EXIST") {
+                    toastr.warning("Dịch vụ đang được sử dụng !");
                 } else {
                     toastr.error("Xoá thất bại !");
                 }

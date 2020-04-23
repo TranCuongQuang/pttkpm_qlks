@@ -134,7 +134,7 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
             SDT: $("#txtMSDT").val(),
             Email: $("#txtMEmail").val(),
             DiaChi: $("#txtMAddress").val(),
-            NgaySinh: $("#txtMBirthday").val(),
+            NgaySinh: moment($("#txtMBirthday").val(), "DD/MM/YYYY").format("YYYY-MM-DD")
             ChucVu: $("#txtMRole").val()
         }
         $http({
@@ -169,7 +169,7 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
             SDT: $("#txtMSDT").val().trim(),
             Email: $("#txtMEmail").val().trim(),
             DiaChi: $("#txtMAddress").val().trim(),
-            NgaySinh: moment($("#txtMBirthday").val(), "DD-MM-YYYY").format("YYYY-MM-DD"),
+            NgaySinh: moment($("#txtMBirthday").val(), "DD/MM/YYYY").format("YYYY-MM-DD")
             ChucVu: $("#txtMRole").val().trim()
         }
         $http({

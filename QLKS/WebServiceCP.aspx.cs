@@ -360,7 +360,7 @@ namespace QLKS
                 {
                     tblNhanVien nv = db.tblNhanViens.SingleOrDefault(w => w.MaNV == maNV);
                     tblPhieuDatPhong pdp = db.tblPhieuDatPhongs.SingleOrDefault(w => w.MaNV == maNV);
-                    if (pdp.MaPhieuDP > 0)
+                    if (pdp != null && pdp.MaPhieuDP > 0)
                     {
                         response.Message = "PDP_EXIST";
                     }
@@ -535,7 +535,7 @@ namespace QLKS
                 {
                     tblKhachHang kh = db.tblKhachHangs.SingleOrDefault(w => w.MaKH == maKH);
                     tblPhieuDatPhong pdp = db.tblPhieuDatPhongs.SingleOrDefault(w => w.MaKH == maKH);
-                    if(pdp.MaPhieuDP > 0)
+                    if (pdp != null && pdp.MaPhieuDP > 0)
                     {
                         response.Message = "PDP_EXIST";
                     }
@@ -703,7 +703,7 @@ namespace QLKS
                 {
                     tblPhong p = db.tblPhongs.SingleOrDefault(w => w.MaPhong == maPhong);
                     tblPhieuDatPhong pdp = db.tblPhieuDatPhongs.SingleOrDefault(w => w.MaPhong == maPhong);
-                    if (pdp.MaPhieuDP > 0)
+                    if (pdp != null && pdp.MaPhieuDP > 0)
                     {
                         response.Message = "PDP_EXIST";
                     }
@@ -863,9 +863,17 @@ namespace QLKS
                 using (var db = new qlksEntities())
                 {
                     tblDichVu dv = db.tblDichVus.SingleOrDefault(w => w.MaDV == maDV);
-                    db.tblDichVus.Remove(dv);
-                    db.SaveChanges();
-                    response.Message = "SUCCESS";
+                    tblDichVuPhong pdp = db.tblDichVuPhongs.SingleOrDefault(w => w.MaDV == maDV);
+                    if (pdp != null && pdp.MaPhieuDP > 0)
+                    {
+                        response.Message = "PDP_EXIST";
+                    }
+                    else
+                    {
+                        db.tblDichVus.Remove(dv);
+                        db.SaveChanges();
+                        response.Message = "SUCCESS";
+                    }
                 };
 
                 return response;
@@ -1016,9 +1024,17 @@ namespace QLKS
                 using (var db = new qlksEntities())
                 {
                     tblSanPham sp = db.tblSanPhams.SingleOrDefault(w => w.MaSP == maSP);
-                    db.tblSanPhams.Remove(sp);
-                    db.SaveChanges();
-                    response.Message = "SUCCESS";
+                    tblSanPhamPhong pdp = db.tblSanPhamPhongs.SingleOrDefault(w => w.MaSP == maSP);
+                    if (pdp != null && pdp.MaPhieuDP > 0)
+                    {
+                        response.Message = "PDP_EXIST";
+                    }
+                    else
+                    {
+                        db.tblSanPhams.Remove(sp);
+                        db.SaveChanges();
+                        response.Message = "SUCCESS";
+                    }
                 };
 
                 return response;
@@ -1172,9 +1188,17 @@ namespace QLKS
                 using (var db = new qlksEntities())
                 {
                     tblTrangThietBi sp = db.tblTrangThietBis.SingleOrDefault(w => w.MaThietBi == maTB);
-                    db.tblTrangThietBis.Remove(sp);
-                    db.SaveChanges();
-                    response.Message = "SUCCESS";
+                    tblTrangThietBiPhong pdp = db.tblTrangThietBiPhongs.SingleOrDefault(w => w.MaThietBi == maTB);
+                    if (pdp != null && pdp.MaPhong > 0)
+                    {
+                        response.Message = "PDP_EXIST";
+                    }
+                    else
+                    {
+                        db.tblTrangThietBis.Remove(sp);
+                        db.SaveChanges();
+                        response.Message = "SUCCESS";
+                    }
                 };
 
                 return response;

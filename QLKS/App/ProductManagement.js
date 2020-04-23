@@ -175,6 +175,8 @@ app.controller('ProductManagementCtrl', function ($scope, $http, $timeout, $wind
                 if (response.data.Message === "SUCCESS") {
                     $scope.searchProduct();
                     toastr.success("Xoá thành công !");
+                } else if (response.data.Message === "PDP_EXIST") {
+                    toastr.warning("Sản phẩm đang được sử dụng !");
                 } else {
                     toastr.error("Xoá thất bại !");
                 }

@@ -108,7 +108,7 @@ app.controller('CustomerManagementCtrl', function ($scope, $http, $timeout, $win
             SDT: $("#txtMSDT").val(),
             Email: $("#txtMEmail").val(),
             DiaChi: $("#txtMAddress").val(),
-            NgaySinh: $("#txtMBirthday").val()
+            NgaySinh: moment($("#txtMBirthday").val(), "DD/MM/YYYY").format("YYYY-MM-DD")
         }
         $http({
             url: `/WebServiceCP.aspx?action=CreateCustomer`,
@@ -142,7 +142,7 @@ app.controller('CustomerManagementCtrl', function ($scope, $http, $timeout, $win
             SDT: $("#txtMSDT").val().trim(),
             Email: $("#txtMEmail").val().trim(),
             DiaChi: $("#txtMAddress").val().trim(),
-            NgaySinh: moment($("#txtMBirthday").val(), "DD-MM-YYYY").format("YYYY-MM-DD")
+            NgaySinh: moment($("#txtMBirthday").val(), "DD/MM/YYYY").format("YYYY-MM-DD")
         }
         $http({
             url: `/WebServiceCP.aspx?action=UpdateCustomer`,
