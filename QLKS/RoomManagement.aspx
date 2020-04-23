@@ -101,38 +101,76 @@
 
                     <div class="modal-body no-padding">
                         <div class="widget-main">
-                            <div class="form-horizontal" role="form" style="height:auto;">
-                                <div class="form-group col-sm-6" id="manv">
-                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Mã phòng</label>
-
-                                    <div class="col-sm-8">
-                                        <input type="text" id="txtMRoomID" placeholder="Mã phòng" class="form-control" readonly="readonly"/>
+                            <div class="" role="form" style="height:auto;">
+                                <div class="form-group col-md-6" id="manv">
+                                    <label class="control-label" for="form-field-1-1">Mã phòng</label>
+                                    <input type="text" id="txtMRoomID" placeholder="Mã phòng" class="form-control" readonly="readonly"/>
+                                 </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" for="form-field-1-1">Tên phòng</label>
+                                    <input type="text" id="txtMRoomName" placeholder="Tên phòng" class="form-control input-required" />
+                                 </div>
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" for="form-field-1">Đơn giá</label>
+                                    <input type="text" id="txtMAmount" placeholder="Đơn giá" class="form-control input-required" />
                                     </div>
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Tên phòng</label>
-
-                                    <div class="col-sm-8">
-                                        <input type="text" id="txtMRoomName" placeholder="Tên phòng" class="form-control input-required" />
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Đơn giá</label>
-
-                                    <div class="col-sm-8">
-                                        <input type="text" id="txtMAmount" placeholder="Đơn giá" class="form-control input-required" />
-                                    </div>
-                                </div>
                                 <br />
-                                <div class="form-group col-sm-6">
-                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Trạng thái</label>
-
-                                    <div class="col-sm-8">
-                                        <select class="chosen-select form-control input-required" id="txtMStatus" data-placeholder="Trạng thái">
+                                <div class="form-group col-md-6">
+                                    <label class="control-label" for="form-field-1">Trạng thái</label>
+                                    <select class="chosen-select form-control input-required" id="txtMStatus" data-placeholder="Trạng thái">
                                             <option value="0">Trống</option>
                                             <option value="1">Đã đặt phòng</option>
                                         </select>
-                                    </div>
+                                 </div>
+                                <br />
+                                <div class="form-group col-md-6">
+                                    <label class="control-label">Trang thiết bị</label>
+                                    <select class="chosen-select form-control" ng-model="ddlEquipment" ui-select2 style="width: 100%">
+                                        <option value="">Chọn thiết bị</option>
+                                        <option ng-repeat="item in EquipmentList" value="{{item.MaThietBi}}">{{item.TenThietBi}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-2 no-margin no-padding-left">
+                                    <label class="control-label">Số Lượng</label>
+                                    <input type="number" class="form-control" ng-model="txtQuantityEquipment" />
+                                </div>
+                                <div class="form-group col-md-1">
+                                    <button type='button' class="btn btn-sm btn-primary pull-right" style="margin-top: 25px" ng-click="ChooseEquipment()">
+                                        <i class="ace-icon fa fa-plus"></i>Chọn
+                                    </button>
+                                </div>
+                                <div class="form-group col-md-12 table-qlks">
+                                    <table class="table table-bordered  no-margin-bottom">
+                                        <thead>
+                                            <tr>
+                                                <th>Mã Thiết Bị</th>
+                                                <th>Tên Thiết Bị</th>
+                                                <th>Số lượng</th>
+                                                <th>Đơn giá</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="item in ChooseEquipmentList">
+                                                <td>{{item.MaThietBi}}</td>
+                                                <td>{{item.TenThietBi}}</td>
+                                                <td>{{item.SoLuong}}</td>
+                                                <td>{{item.DonGia}}</td>
+                                                <td class="text-center">
+                                                    <button type="button" class="btn btn-danger" title="Xóa khỏi danh sách" ng-click="RemoveChooseEquipment(item)" <%--ng-show="!item.MaTTBP || item.MaTTBP == 0"--%>>
+                                                        <i class="ace-icon fa fa-trash-o"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-primary" title="Sửa" ng-click="EditChooseEquipment(item)" ng-show="item.MaTTBP && item.MaTTBP != 0">
+                                                        <i class="ace-icon fa fa-pencil"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3" class="text-center">Tổng tiền</td>
+                                                <td colspan="2" class="text-center">{{lblTotalMoneyEquipment}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <br />
                                 <div class="hr hr-18 dotted hr-double"></div>

@@ -7,10 +7,12 @@ namespace QLKS.Class
 {
     public class EquimentRoom
     {
-        public int MaTTBP { get; set; }
+        public int? MaTTBP { get; set; }
         public int? MaThietBi { get; set; }
-        public int? MaPhong { get; set; }
+        public string TenThietBi { get; set; }
+        public decimal DonGia { get; set; }
         public int SoLuong { get; set; }
+        public decimal ThanhTien { get; set; }
     }
 
     public class Equiment
@@ -41,6 +43,7 @@ namespace QLKS.Class
         public string TenPhong { get; set; }
         public bool TrangThai { get; set; }
         public decimal DonGia { get; set; }
+        public EquimentRoom[] ThietBiPhong { get; set; }
     }
 
     public class Customer

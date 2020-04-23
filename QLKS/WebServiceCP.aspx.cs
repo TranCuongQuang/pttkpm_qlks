@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using QLKS.Class;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -173,25 +174,25 @@ namespace QLKS
                     break;
 
                 //Trang thiết bị phòng
-                case "GetEquipmentRoomList":
-                    Response.Write(JsonConvert.SerializeObject(GetEquipmentRoomList()));
-                    Response.End();
-                    break;
+                //case "GetEquipmentRoomList":
+                //    Response.Write(JsonConvert.SerializeObject(GetEquipmentRoomList()));
+                //    Response.End();
+                //    break;
 
-                case "GetEquipmentRoomByID":
-                    Response.Write(JsonConvert.SerializeObject(GetEquipmentRoomByID()));
-                    Response.End();
-                    break;
+                //case "GetEquipmentRoomByID":
+                //    Response.Write(JsonConvert.SerializeObject(GetEquipmentRoomByID()));
+                //    Response.End();
+                //    break;
 
-                case "CreateEquipmentRoom":
-                    Response.Write(JsonConvert.SerializeObject(CreateEquipmentRoom()));
-                    Response.End();
-                    break;
+                //case "CreateEquipmentRoom":
+                //    Response.Write(JsonConvert.SerializeObject(CreateEquipmentRoom()));
+                //    Response.End();
+                //    break;
 
-                case "UpdateEquipmentRoom":
-                    Response.Write(JsonConvert.SerializeObject(UpdateEquipmentRoom()));
-                    Response.End();
-                    break;
+                //case "UpdateEquipmentRoom":
+                //    Response.Write(JsonConvert.SerializeObject(UpdateEquipmentRoom()));
+                //    Response.End();
+                //    break;
 
                 case "DeleteEquipmentRoom":
                     Response.Write(JsonConvert.SerializeObject(DeleteEquipmentRoom()));
@@ -591,7 +592,17 @@ namespace QLKS
                             st.TenPhong,
                             st.DonGia,
                             StrTrangThai = st.TrangThai == true ? "Đã đặt" : "Trống",
-                            TrangThai = Convert.ToInt32(st.TrangThai)
+                            TrangThai = Convert.ToInt32(st.TrangThai),
+                            ThietBiPhong = st.tblTrangThietBiPhongs.Select(s1 => new
+                            {
+                                s1.MaTTBP,
+                                s1.MaThietBi,
+                                s1.MaPhong,
+                                s1.tblTrangThietBi.TenThietBi,
+                                s1.DonGia,
+                                s1.SoLuong,
+                                s1.ThanhTien
+                            }).ToList(),
                         }).ToList();
                     response.Data = emp;
                 }
@@ -616,14 +627,24 @@ namespace QLKS
                 int maPhong = dym.MaPhong;
                 using (var ctx = new qlksEntities())
                 {
-                    var emp = ctx.tblPhongs.AsEnumerable().Select(st => new
+                    var emp = ctx.tblPhongs.AsEnumerable().Where(st => st.MaPhong == maPhong).Select(st => new
                     {
                         st.MaPhong,
                         st.TenPhong,
                         st.DonGia,
                         StrTrangThai = st.TrangThai == true ? "Đã đặt" : "Trống",
-                        TrangThai = Convert.ToInt32(st.TrangThai)
-                    }).Where(st => st.MaPhong == maPhong).ToList();
+                        TrangThai = Convert.ToInt32(st.TrangThai),
+                        ThietBiPhong = st.tblTrangThietBiPhongs.Select(s1 => new
+                        {
+                            s1.MaTTBP,
+                            s1.MaThietBi,
+                            s1.MaPhong,
+                            s1.tblTrangThietBi.TenThietBi,
+                            s1.DonGia,
+                            s1.SoLuong,
+                            s1.ThanhTien
+                        }).ToList(),
+                    }).ToList();
                     response.Data = emp;
                 }
                 return response;
@@ -653,8 +674,33 @@ namespace QLKS
                     p.TrangThai = dym.TrangThai;
 
                     db.tblPhongs.Add(p);
-                    db.SaveChanges();
-                    response.Message = "SUCCESS";
+                    var numberSave = db.SaveChanges();
+
+                    if (numberSave > 0)
+                    {
+                        List<tblTrangThietBiPhong> listTTBP = new List<tblTrangThietBiPhong>();
+                        foreach (var item in dym.ThietBiPhong)
+                        {
+                            tblTrangThietBiPhong thietBiPhong = new tblTrangThietBiPhong()
+                            {
+                                MaPhong = p.MaPhong,
+                                MaThietBi = item.MaThietBi,
+                                SoLuong = item.SoLuong,
+                                DonGia = item.DonGia,
+                                ThanhTien = item.ThanhTien
+                            };
+                            listTTBP.Add(thietBiPhong);
+                        }
+
+                        db.tblTrangThietBiPhongs.AddRange(listTTBP);
+                        db.SaveChanges();
+
+                        response.Message = "SUCCESS";
+                    }
+                    else
+                    {
+                        response.Message = "ERROR";
+                    }
                 };
                 return response;
             }
@@ -683,6 +729,27 @@ namespace QLKS
                     p.DonGia = dym.DonGia;
                     p.TrangThai = dym.TrangThai;
 
+                    foreach (var item in dym.ThietBiPhong)
+                    {
+                        if (item.MaTTBP != null && item.MaTTBP != 0)
+                        {
+                            var tbp = db.tblTrangThietBiPhongs.FirstOrDefault(f => f.MaPhong == dym.MaPhong && f.MaTTBP == item.MaTTBP);
+                            tbp.SoLuong = item.SoLuong;
+                            tbp.ThanhTien = item.ThanhTien;
+                        }
+                        else
+                        {
+                            tblTrangThietBiPhong thietBiPhong = new tblTrangThietBiPhong()
+                            {
+                                MaPhong = p.MaPhong,
+                                MaThietBi = item.MaThietBi,
+                                SoLuong = item.SoLuong,
+                                DonGia = item.DonGia,
+                                ThanhTien = item.ThanhTien
+                            };
+                            db.tblTrangThietBiPhongs.Add(thietBiPhong);
+                        }
+                    }
                     db.SaveChanges();
                     response.Message = "SUCCESS";
                 };
@@ -717,6 +784,12 @@ namespace QLKS
                     }
                     else
                     {
+                        List<tblTrangThietBiPhong> tbp = db.tblTrangThietBiPhongs.AsEnumerable()
+                        .Where(st => st.MaPhong == maPhong).ToList();
+                        if(tbp != null)
+                        {
+                            db.tblTrangThietBiPhongs.RemoveRange(tbp);
+                        }
                         db.tblPhongs.Remove(p);
                         db.SaveChanges();
                         response.Message = "SUCCESS";
@@ -1229,133 +1302,155 @@ namespace QLKS
 
         #region Trang thiết bị phòng
 
-        private AjaxReponseModel<dynamic> GetEquipmentRoomList()
-        {
-            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
-            try
-            {
-                var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                string maTTBP = dym.MaTTBP;
-                string maTB = dym.MaTB;
-                string maPhong = dym.MaPhong;
-                using (var ctx = new qlksEntities())
-                {
-                    var emp = ctx.tblTrangThietBiPhongs.AsEnumerable()
-                        .Where(st => (maTTBP == "" || st.MaTTBP == Convert.ToInt32(maTTBP)) && (maTB == "" || st.MaThietBi == Convert.ToInt32(maTB)) && (maPhong== "" || st.MaPhong == Convert.ToInt32(maPhong)))
-                        .Select(st => new
-                        {
-                            st.MaTTBP,
-                            st.MaThietBi,
-                            st.MaPhong,
-                            st.SoLuong
-                        }).ToList();
-                    response.Data = emp;
-                }
-                return response;
-            }
-            catch (Exception e)
-            {
-                return response;
-            }
-            finally
-            {
-            }
-        }
+        //private AjaxReponseModel<dynamic> GetEquipmentRoomList()
+        //{
+        //    var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+        //    try
+        //    {
+        //        var data = new StreamReader(Request.InputStream).ReadToEnd();
+        //        var dym = JsonConvert.DeserializeObject<dynamic>(data);
+        //        string maTTBP = dym.MaTTBP;
+        //        string maTB = dym.MaTB;
+        //        string maPhong = dym.MaPhong;
+        //        using (var ctx = new qlksEntities())
+        //        {
+        //            var emp = ctx.tblTrangThietBiPhongs.AsEnumerable()
+        //                .Where(st => (maTTBP == "" || st.MaTTBP == Convert.ToInt32(maTTBP)) && (maTB == "" || st.MaThietBi == Convert.ToInt32(maTB)) && (maPhong== "" || st.MaPhong == Convert.ToInt32(maPhong)))
+        //                .Select(st => new
+        //                {
+        //                    st.MaTTBP,
+        //                    st.MaThietBi,
+        //                    st.MaPhong,
+        //                    st.SoLuong
+        //                }).ToList();
+        //            response.Data = emp;
+        //        }
+        //        return response;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return response;
+        //    }
+        //    finally
+        //    {
+        //    }
+        //}
 
-        private AjaxReponseModel<dynamic> GetEquipmentRoomByID()
-        {
-            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
-            try
-            {
-                var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<dynamic>(data);
-                int maTTBP = Convert.ToInt32(dym.MaTTBP);
-                using (var ctx = new qlksEntities())
-                {
-                    var emp = ctx.tblTrangThietBiPhongs.AsEnumerable().Select(st => new
-                    {
-                        st.MaTTBP,
-                        st.MaThietBi,
-                        st.MaPhong,
-                        st.SoLuong
-                    }).Where(st => st.MaTTBP == maTTBP).ToList();
-                    response.Data = emp;
-                }
-                return response;
-            }
-            catch (Exception e)
-            {
-                return response;
-            }
-            finally
-            {
-            }
-        }
+        //private AjaxReponseModel<dynamic> GetEquipmentRoomByID()
+        //{
+        //    var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+        //    try
+        //    {
+        //        var data = new StreamReader(Request.InputStream).ReadToEnd();
+        //        var dym = JsonConvert.DeserializeObject<dynamic>(data);
+        //        int maTTBP = Convert.ToInt32(dym.MaTTBP);
+        //        using (var ctx = new qlksEntities())
+        //        {
+        //            var emp = ctx.tblTrangThietBiPhongs.AsEnumerable().Select(st => new
+        //            {
+        //                st.MaTTBP,
+        //                st.MaThietBi,
+        //                st.MaPhong,
+        //                st.SoLuong
+        //            }).Where(st => st.MaTTBP == maTTBP).ToList();
+        //            response.Data = emp;
+        //        }
+        //        return response;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return response;
+        //    }
+        //    finally
+        //    {
+        //    }
+        //}
 
-        private AjaxReponseModel<dynamic> CreateEquipmentRoom()
-        {
-            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
-            try
-            {
-                var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<EquimentRoom>(data);
+        //private AjaxReponseModel<dynamic> CreateEquipmentRoom()
+        //{
+        //    var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+        //    try
+        //    {
+        //        var data = new StreamReader(Request.InputStream).ReadToEnd();
+        //        var dym = JsonConvert.DeserializeObject<EquimentRoom>(data);
 
-                using (var db = new qlksEntities())
-                {
-                    tblTrangThietBiPhong tb = new tblTrangThietBiPhong();
-                    //tb.MaTTBP = dym.MaTTBP;
-                    tb.MaThietBi = dym.MaThietBi;
-                    tb.MaPhong = dym.MaPhong;
-                    tb.SoLuong = dym.SoLuong;
+        //        using (var db = new qlksEntities())
+        //        {
+        //            List<tblTrangThietBiPhong> listTTBP = new List<tblTrangThietBiPhong>();
+        //            foreach (var item in dym.ThietBi)
+        //            {
+        //                tblTrangThietBiPhong thietBiPhong = new tblTrangThietBiPhong()
+        //                {
+        //                    MaPhong = dym.MaPhong,
+        //                    MaThietBi = item.MaTB,
+        //                    SoLuong = item.SoLuong,
+        //                    DonGia = item.DonGia
+        //                };
+        //                listTTBP.Add(thietBiPhong);
+        //            }
 
-                    db.tblTrangThietBiPhongs.Add(tb);
-                    db.SaveChanges();
-                    response.Message = "SUCCESS";
-                };
-                return response;
-            }
-            catch (Exception e)
-            {
-                response.Message = "ERROR";
-                return response;
-            }
-            finally
-            {
-            }
-        }
+        //            db.tblTrangThietBiPhongs.AddRange(listTTBP);
+        //            db.SaveChanges();
+        //            response.Message = "SUCCESS";
+        //        };
+        //        return response;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        response.Message = "ERROR";
+        //        return response;
+        //    }
+        //    finally
+        //    {
+        //    }
+        //}
 
-        private AjaxReponseModel<dynamic> UpdateEquipmentRoom()
-        {
-            var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
-            try
-            {
-                var data = new StreamReader(Request.InputStream).ReadToEnd();
-                var dym = JsonConvert.DeserializeObject<EquimentRoom>(data);
-                int maTTBP = dym.MaTTBP;
-                using (var db = new qlksEntities())
-                {
-                    tblTrangThietBiPhong tb = db.tblTrangThietBiPhongs.SingleOrDefault(w => w.MaTTBP == maTTBP);
-                    //tb.MaTTBP = dym.MaTTBP;
-                    tb.MaThietBi = dym.MaThietBi;
-                    tb.MaPhong = dym.MaPhong;
-                    tb.SoLuong = dym.SoLuong;
+        //private AjaxReponseModel<dynamic> UpdateEquipmentRoom()
+        //{
+        //    var response = new AjaxReponseModel<dynamic>(AjaxReponseStatusEnum.Success);
+        //    try
+        //    {
+        //        var data = new StreamReader(Request.InputStream).ReadToEnd();
+        //        var dym = JsonConvert.DeserializeObject<EquimentRoom>(data);
+        //        int maTTBP = dym.MaTTBP;
+        //        using (var db = new qlksEntities())
+        //        {
+        //            tblTrangThietBiPhong tb = db.tblTrangThietBiPhongs.SingleOrDefault(w => w.MaTTBP == maTTBP);
+        //            //tb.MaTTBP = dym.MaTTBP;
+        //            tb.MaThietBi = dym.MaThietBi;
+        //            tb.MaPhong = dym.MaPhong;
+        //            tb.SoLuong = dym.SoLuong;
 
-                    db.SaveChanges();
-                    response.Message = "SUCCESS";
-                };
+        //            List<tblTrangThietBiPhong> listTTBP = new List<tblTrangThietBiPhong>();
+        //            foreach (var item in dym.ThietBi)
+        //            {
+        //                tblTrangThietBiPhong thietBiPhong = new tblTrangThietBiPhong()
+        //                {
+        //                    MaPhong = dym.MaPhong,
+        //                    MaThietBi = item.MaTB,
+        //                    SoLuong = item.SoLuong,
+        //                    DonGia = item.DonGia
+        //                };
+        //                listTTBP.Add(thietBiPhong);
+        //            }
 
-                return response;
-            }
-            catch (Exception e)
-            {
-                response.Message = "ERROR";
-                return response;
-            }
-            finally
-            {
-            }
-        }
+        //            db.tblTrangThietBiPhongs.AddRange(listTTBP);
+
+        //            db.SaveChanges();
+        //            response.Message = "SUCCESS";
+        //        };
+
+        //        return response;
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        response.Message = "ERROR";
+        //        return response;
+        //    }
+        //    finally
+        //    {
+        //    }
+        //}
 
         private AjaxReponseModel<dynamic> DeleteEquipmentRoom()
         {
@@ -1364,10 +1459,9 @@ namespace QLKS
             {
                 var data = new StreamReader(Request.InputStream).ReadToEnd();
                 var dym = JsonConvert.DeserializeObject<EquimentRoom>(data);
-                int maTTBP = dym.MaTTBP;
                 using (var db = new qlksEntities())
                 {
-                    tblTrangThietBiPhong sp = db.tblTrangThietBiPhongs.SingleOrDefault(w => w.MaTTBP == maTTBP);
+                    tblTrangThietBiPhong sp = db.tblTrangThietBiPhongs.SingleOrDefault(w => w.MaTTBP == dym.MaTTBP);
                     db.tblTrangThietBiPhongs.Remove(sp);
                     db.SaveChanges();
                     response.Message = "SUCCESS";

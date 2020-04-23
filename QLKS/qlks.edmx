@@ -108,6 +108,8 @@
           <Property Name="MaThietBi" Type="int" />
           <Property Name="MaPhong" Type="int" />
           <Property Name="SoLuong" Type="int" />
+          <Property Name="DonGia" Type="money" />
+          <Property Name="ThanhTien" Type="money" />
         </EntityType>
         <Association Name="FK_tblDichVuPhong_tblDichVu">
           <End Role="tblDichVu" Type="Self.tblDichVu" Multiplicity="0..1" />
@@ -362,6 +364,8 @@
           <Property Name="SoLuong" Type="Int32" />
           <NavigationProperty Name="tblPhong" Relationship="qlksModel.FK_tblTrangThietBiPhong_tblPhong" FromRole="tblTrangThietBiPhong" ToRole="tblPhong" />
           <NavigationProperty Name="tblTrangThietBi" Relationship="qlksModel.FK_tblTrangThietBiPhong_tblTrangThietBi" FromRole="tblTrangThietBiPhong" ToRole="tblTrangThietBi" />
+          <Property Name="DonGia" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ThanhTien" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <Association Name="FK_tblTrangThietBiPhong_tblPhong">
           <End Type="qlksModel.tblPhong" Role="tblPhong" Multiplicity="0..1" />
@@ -597,6 +601,8 @@
           <EntitySetMapping Name="tblTrangThietBiPhongs">
             <EntityTypeMapping TypeName="qlksModel.tblTrangThietBiPhong">
               <MappingFragment StoreEntitySet="tblTrangThietBiPhong">
+                <ScalarProperty Name="ThanhTien" ColumnName="ThanhTien" />
+                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
                 <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
                 <ScalarProperty Name="MaPhong" ColumnName="MaPhong" />
                 <ScalarProperty Name="MaThietBi" ColumnName="MaThietBi" />

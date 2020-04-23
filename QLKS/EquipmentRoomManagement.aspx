@@ -111,15 +111,15 @@
                                         <option ng-repeat="item in RoomList" value="{{item.MaPhong}}">{{item.TenPhong}}</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label class="control-label">Trang thiết bị</label>
                                     <select class="chosen-select form-control" ng-model="ddlEquipment" ui-select2 style="width: 100%">
                                         <option value="">Chọn thiết bị</option>
                                         <option ng-repeat="item in EquipmentList" value="{{item.MaThietBi}}">{{item.TenThietBi}}</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-md-1 no-margin no-padding-left">
-                                    <label class="control-label">SL</label>
+                                <div class="form-group col-md-2 no-margin no-padding-left">
+                                    <label class="control-label">Số Lượng</label>
                                     <input type="number" class="form-control" ng-model="txtQuantityEquipment" />
                                 </div>
                                 <div class="form-group col-md-1">
@@ -127,11 +127,11 @@
                                         <i class="ace-icon fa fa-plus"></i>Chọn
                                     </button>
                                 </div>
-                                <div class="form-group col-md-6">
+                                <%--<div class="form-group col-md-6">
                                     <label class="control-label no-padding-right" for="form-field-1-1">Số lượng</label>
                                     <input type="text" id="txtMAmount" placeholder="Số lượng" class="form-control input-required" />
-                                </div>
-                                <div class="form-group col-md-6 table-qlks">
+                                </div>--%>
+                                <div class="form-group col-md-12 table-qlks">
                                     <table class="table table-bordered  no-margin-bottom">
                                         <thead>
                                             <tr>
@@ -143,7 +143,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr ng-repeat="item in ChooseProductList">
+                                            <tr ng-repeat="item in ChooseEquipmentList">
                                                 <td>{{item.MaThietBi}}</td>
                                                 <td>{{item.TenThietBi}}</td>
                                                 <td>{{item.SoLuong}}</td>

@@ -214,11 +214,11 @@ app.controller('EquipmentRoomManagementCtrl', function ($scope, $http, $timeout,
             return false;
         }
         var params = {
-            TenTB: $("#txtMEquipmentName").val(),
-            TinhTrang: parseInt($("#txtMNote").val())
+            MaPhong: $("#txtMEquipmentName").val(),
+            ThietBi: $scope.ChooseEquipmentList
         }
         $http({
-            url: `/WebServiceCP.aspx?action=CreateEquipment`,
+            url: `/WebServiceCP.aspx?action=CreateEquipmentRoom`,
             method: "POST",
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
