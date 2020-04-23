@@ -134,8 +134,10 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
             SDT: $("#txtMSDT").val(),
             Email: $("#txtMEmail").val(),
             DiaChi: $("#txtMAddress").val(),
-            NgaySinh: moment($("#txtMBirthday").val(), "DD/MM/YYYY").format("YYYY-MM-DD")
-            ChucVu: $("#txtMRole").val()
+            NgaySinh: moment($("#txtMBirthday").val(), "DD/MM/YYYY").format("YYYY-MM-DD"),
+            ChucVu: $("#txtMRole").val(),
+            TenDangNhap: $("#txtMUsername").val(),
+            MatKhau: $("#txtMPassword").val()
         }
         $http({
             url: `/WebServiceCP.aspx?action=CreateEmp`,
@@ -169,8 +171,10 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
             SDT: $("#txtMSDT").val().trim(),
             Email: $("#txtMEmail").val().trim(),
             DiaChi: $("#txtMAddress").val().trim(),
-            NgaySinh: moment($("#txtMBirthday").val(), "DD/MM/YYYY").format("YYYY-MM-DD")
-            ChucVu: $("#txtMRole").val().trim()
+            NgaySinh: moment($("#txtMBirthday").val(), "DD/MM/YYYY").format("YYYY-MM-DD"),
+            ChucVu: $("#txtMRole").val().trim(),
+            TenDangNhap: $("#txtMUsername").val(),
+            MatKhau: $("#txtMPassword").val()
         }
         $http({
             url: `/WebServiceCP.aspx?action=UpdateEmp`,
@@ -229,6 +233,8 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
         $("#txtMAddress").val(e.DiaChi);
         $("#txtMBirthday").val(e.NgaySinh);
         $("#txtMRole").val(e.ChucVu);
+        $("#txtMUsername").val(e.TenDangNhap);
+        $("#txtMPassword").val(e.MatKhau);
     }
     clearValueModal = function () {
         $("#txtMEmployeeID").val("");
@@ -238,6 +244,8 @@ app.controller('EmployeeManagementCtrl', function ($scope, $http, $timeout, $win
         $("#txtMAddress").val("");
         $("#txtMBirthday").val("");
         $("#txtMRole").val("");
+        $("#txtMUsername").val("");
+        $("#txtMPassword").val("");
     }
 
     //valid

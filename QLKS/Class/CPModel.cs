@@ -18,6 +18,7 @@ namespace QLKS.Class
         public int MaTB { get; set; }
         public string TenTB { get; set; }
         public bool TinhTrang { get; set; }
+        public decimal DonGia { get; set; }
     }
 
     public class Product

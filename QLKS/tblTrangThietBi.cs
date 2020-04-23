@@ -23,6 +23,7 @@ namespace QLKS
         public int MaThietBi { get; set; }
         public string TenThietBi { get; set; }
         public Nullable<bool> TinhTrang { get; set; }
+        public Nullable<decimal> DonGia { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblTrangThietBiPhong> tblTrangThietBiPhongs { get; set; }

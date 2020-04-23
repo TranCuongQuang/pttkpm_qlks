@@ -106,6 +106,7 @@ app.controller('EquipmentManagementCtrl', function ($scope, $http, $timeout, $wi
         }
         var params = {
             TenTB: $("#txtMEquipmentName").val(),
+            DonGia: $("#txtMAmount").val(),
             TinhTrang: parseInt($("#txtMNote").val())
         }
         $http({
@@ -137,6 +138,7 @@ app.controller('EquipmentManagementCtrl', function ($scope, $http, $timeout, $wi
         var params = {
             MaTB: $("#txtMEquipmentID").val(),
             TenTB: $("#txtMEquipmentName").val(),
+            DonGia: $("#txtMAmount").val(),
             TinhTrang: parseInt($("#txtMNote").val())
         }
         $http({
@@ -191,11 +193,13 @@ app.controller('EquipmentManagementCtrl', function ($scope, $http, $timeout, $wi
     setValueModal = function (e) {
         $("#txtMEquipmentID").val(e.MaThietBi);
         $("#txtMEquipmentName").val(e.TenThietBi);
+        $("#txtMAmount").val(e.DonGia);
         $("#txtMNote").val(e.TinhTrang);
     }
     clearValueModal = function () {
         $("#txtMEquipmentID").val("");
         $("#txtMEquipmentName").val("");
+        $("#txtMAmount").val("");
         $("#txtMNote").val("");
     }
 

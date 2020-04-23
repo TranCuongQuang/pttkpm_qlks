@@ -98,6 +98,7 @@
           <Property Name="MaThietBi" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TenThietBi" Type="nvarchar" MaxLength="255" />
           <Property Name="TinhTrang" Type="bit" />
+          <Property Name="DonGia" Type="money" />
         </EntityType>
         <EntityType Name="tblTrangThietBiPhong">
           <Key>
@@ -398,6 +399,7 @@
           <Property Name="TenThietBi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="TinhTrang" Type="Boolean" />
           <NavigationProperty Name="tblTrangThietBiPhongs" Relationship="qlksModel.FK_tblTrangThietBiPhong_tblTrangThietBi" FromRole="tblTrangThietBi" ToRole="tblTrangThietBiPhong" />
+          <Property Name="DonGia" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <Association Name="FK_tblTrangThietBiPhong_tblTrangThietBi">
           <End Type="qlksModel.tblTrangThietBi" Role="tblTrangThietBi" Multiplicity="0..1" />
@@ -614,6 +616,7 @@
           <EntitySetMapping Name="tblTrangThietBis">
             <EntityTypeMapping TypeName="qlksModel.tblTrangThietBi">
               <MappingFragment StoreEntitySet="tblTrangThietBi">
+                <ScalarProperty Name="DonGia" ColumnName="DonGia" />
                 <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
                 <ScalarProperty Name="TenThietBi" ColumnName="TenThietBi" />
                 <ScalarProperty Name="MaThietBi" ColumnName="MaThietBi" />

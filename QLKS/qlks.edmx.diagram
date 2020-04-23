@@ -11,7 +11,7 @@
         <EntityTypeShape EntityType="qlksModel.tblTrangThietBiPhong" Width="1.5" PointX="3" PointY="4.5" />
         <AssociationConnector Association="qlksModel.FK_tblTrangThietBiPhong_tblPhong" />
         <EntityTypeShape EntityType="qlksModel.tblDichVu" Width="1.5" PointX="6.375" PointY="8.875" />
-        <EntityTypeShape EntityType="qlksModel.tblTrangThietBi" Width="1.5" PointX="0.75" PointY="0.875" />
+        <EntityTypeShape EntityType="qlksModel.tblTrangThietBi" PointX="0.75" PointY="0.875" Width="1.5" />
         <AssociationConnector Association="qlksModel.FK_tblTrangThietBiPhong_tblTrangThietBi" />
         <EntityTypeShape EntityType="qlksModel.tblDichVuPhong" Width="1.5" PointX="8.625" PointY="6" />
         <EntityTypeShape EntityType="qlksModel.tblSanPhamPhong" Width="1.5" PointX="11.25" PointY="3.25" />

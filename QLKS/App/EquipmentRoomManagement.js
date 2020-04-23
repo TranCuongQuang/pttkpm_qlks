@@ -3,6 +3,14 @@ app.controller('EquipmentRoomManagementCtrl', function ($scope, $http, $timeout,
 
     $scope.dataTable = [];
     var requiredList = document.getElementsByClassName('input-required');
+    $scope.ChooseEquipmentList = [];
+    $scope.EquipmentList = [];
+    $scope.ddlEquipment = "";
+    $scope.RoomList = [];
+    $scope.ddlRoom = "";
+    $scope.txtQuantityEquipment = 1;
+    $scope.lblTotalMoneyEquipment = 0;
+    $scope.txtAllTotalMoney = 0;
 
     $scope.dtOptions = {
         "bStateSave": true,
@@ -13,6 +21,8 @@ app.controller('EquipmentRoomManagementCtrl', function ($scope, $http, $timeout,
 
     angular.element(document).ready(function () {
         $scope.searchEquipment();
+        $scope.GetEquipment();
+        $scope.GetRoom();
     });
 
     $(document).on("click", ".modal123", function (e) {
@@ -45,6 +55,105 @@ app.controller('EquipmentRoomManagementCtrl', function ($scope, $http, $timeout,
         var maTB = _self.data('value');
         $scope.DeleteEquipment(maTB);
     });
+
+    $scope.GetRoom = function () {
+        var params = {
+            MaPhong: "",
+            TenPhong: "",
+            TrangThai: ""
+        }
+        $http({
+            url: `/WebServiceCP.aspx?action=GetRoomList`,
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            data: params
+        }).then(function (response) {
+            var temp = response.data.Data;
+            console.log("GetRoom", response);
+            $scope.RoomList = temp;
+        }, function (err) {
+            $scope.RoomList = [];
+            console.log(err);
+        });
+    }
+
+    $scope.GetEquipment = function () {
+        var params = {
+            MaTB: "",
+            TenTB: "",
+            TinhTrang: ""
+        }
+        $http({
+            url: `/WebServiceCP.aspx?action=GetEquipmentList`,
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
+            data: params
+        }).then(function (response) {
+            var temp = response.data.Data;
+            $scope.EquipmentList = temp;
+
+        }, function (err) {
+            $scope.EquipmentList = [];
+            console.log(err);
+        });
+    }
+
+    $scope.ChooseEquipment = function () {
+        if (!$scope.ddlEquipment || $scope.ddlEquipment == "") {
+            toastr.warning("Vui lòng chọn thiết bị.");
+            return;
+        }
+
+        if ($scope.txtQuantityEquipment < 1) {
+            toastr.warning("Số lượng phải lớn hơn 0.");
+            return;
+        }
+
+        var itemExist = _.find($scope.ChooseEquipmentList, { MaThietBi: parseInt($scope.ddlEquipment) });
+        if (itemExist) {
+            //toastr.warning("Thiêt bị đã được chọn.");
+            var item = _.find($scope.ChooseEquipmentList, { MaThietBi: parseInt($scope.ddlEquipment) });
+            item.SoLuong = $scope.txtQuantityEquipment;
+            item.ThanhTien = item.SoLuong * item.DonGia;
+            $scope.ddlEquipment = "";
+            $scope.SumMoneyEquipment();
+            return;
+        }
+
+        var item = _.find($scope.EquipmentList, { MaThietBi: parseInt($scope.ddlEquipment) });
+        item.SoLuong = $scope.txtQuantityEquipment;
+        item.ThanhTien = item.SoLuong * item.DonGia;
+        $scope.ChooseEquipmentList.push(item);
+        $scope.ddlEquipment = "";
+        $scope.SumMoneyEquipment();
+        console.log("ChooseEquipment", $scope.ChooseEquipmentList);
+    }
+
+    $scope.RemoveChooseEquipment = function (item) {
+        var evens = _.remove($scope.ChooseEquipmentList, function (n) {
+            return n.MaSP == item.MaSP;
+        });
+        $scope.SumMoneyEquipment();
+        //console.log("RemoveChooseEquipment", evens);
+    }
+
+    $scope.SumMoneyEquipment = function () {
+        var money = _.sumBy($scope.ChooseEquipmentList, function (o) { return o.SoLuong * o.DonGia; });
+        $scope.lblTotalMoneyEquipment = money;
+        $scope.txtAllTotalMoney = $scope.lblTotalMoneyService + $scope.lblTotalMoneyEquipment + $scope.txtTotalMoney;
+        //console.log("SumMoneyEquipment", money);
+    }
+
+    $scope.EditChooseEquipment = function (item) {
+        console.log("EditChooseEquipment", item);
+
+        $scope.txtQuantityEquipment = item.SoLuong;
+        $scope.ddlEquipment = item.MaSP.toString();
+    }
 
     $scope.searchEquipment = function () {
         var params = {

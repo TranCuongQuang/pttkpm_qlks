@@ -231,7 +231,9 @@ namespace QLKS
                             NgaySinh = st.NgaySinh.GetValueOrDefault().ToString("dd-MM-yyyy"),
                             st.Email,
                             st.DiaChi,
-                            st.ChucVu
+                            st.ChucVu,
+                            st.TenDangNhap,
+                            st.MatKhau
                         }).ToList();
                     response.Data = emp;
                 }
@@ -265,7 +267,9 @@ namespace QLKS
                         NgaySinh = st.NgaySinh.GetValueOrDefault().ToString("dd-MM-yyyy"),
                         st.Email,
                         st.DiaChi,
-                        st.ChucVu
+                        st.ChucVu,
+                        st.TenDangNhap,
+                        st.MatKhau
                     }).Where(st => st.MaNV == maNV).ToList();
                     response.Data = emp;
                 }
@@ -297,6 +301,8 @@ namespace QLKS
                     nv.DiaChi = String.IsNullOrEmpty(dym.DiaChi.ToString()) ? String.Empty : dym.DiaChi.ToString().Trim();
                     nv.NgaySinh = dym.NgaySinh;
                     nv.ChucVu = String.IsNullOrEmpty(dym.ChucVu.ToString()) ? String.Empty : dym.ChucVu.ToString().Trim();
+                    nv.TenDangNhap = String.IsNullOrEmpty(dym.TenDangNhap.ToString()) ? String.Empty : dym.TenDangNhap.ToString().Trim();
+                    nv.MatKhau = String.IsNullOrEmpty(dym.MatKhau.ToString()) ? String.Empty : dym.MatKhau.ToString().Trim();
 
                     db.tblNhanViens.Add(nv);
                     db.SaveChanges();
@@ -331,6 +337,8 @@ namespace QLKS
                     nv.DiaChi = String.IsNullOrEmpty(dym.DiaChi.ToString()) ? String.Empty : dym.DiaChi.ToString().Trim();
                     nv.NgaySinh = dym.NgaySinh;
                     nv.ChucVu = String.IsNullOrEmpty(dym.ChucVu.ToString()) ? String.Empty : dym.ChucVu.ToString().Trim();
+                    nv.TenDangNhap = String.IsNullOrEmpty(dym.TenDangNhap.ToString()) ? String.Empty : dym.TenDangNhap.ToString().Trim();
+                    nv.MatKhau = String.IsNullOrEmpty(dym.MatKhau.ToString()) ? String.Empty : dym.MatKhau.ToString().Trim();
 
                     db.SaveChanges();
                     response.Message = "SUCCESS";
@@ -1071,6 +1079,7 @@ namespace QLKS
                         {
                             st.MaThietBi,
                             st.TenThietBi,
+                            st.DonGia,
                             StrTinhTrang = st.TinhTrang == true ? "Sử dụng" : "Đã hư",
                             TinhTrang = Convert.ToInt32(st.TinhTrang)
                         }).ToList();
@@ -1101,6 +1110,7 @@ namespace QLKS
                     {
                         st.MaThietBi,
                         st.TenThietBi,
+                        st.DonGia,
                         StrTinhTrang = st.TinhTrang == true ? "Sử dụng" : "Đã hư",
                         TinhTrang = Convert.ToInt32(st.TinhTrang)
                     }).Where(st => st.MaThietBi == maTB).ToList();
@@ -1129,6 +1139,7 @@ namespace QLKS
                 {
                     tblTrangThietBi tb = new tblTrangThietBi();
                     tb.TenThietBi = String.IsNullOrEmpty(dym.TenTB.ToString()) ? String.Empty : dym.TenTB.ToString().Trim();
+                    tb.DonGia = dym.DonGia;
                     tb.TinhTrang = dym.TinhTrang;
 
                     db.tblTrangThietBis.Add(tb);
@@ -1157,9 +1168,10 @@ namespace QLKS
                 int maTB = dym.MaTB;
                 using (var db = new qlksEntities())
                 {
-                    tblTrangThietBi sp = db.tblTrangThietBis.SingleOrDefault(w => w.MaThietBi == maTB);
-                    sp.TenThietBi = String.IsNullOrEmpty(dym.TenTB.ToString()) ? String.Empty : dym.TenTB.ToString().Trim();
-                    sp.TinhTrang = dym.TinhTrang;
+                    tblTrangThietBi tb = db.tblTrangThietBis.SingleOrDefault(w => w.MaThietBi == maTB);
+                    tb.TenThietBi = String.IsNullOrEmpty(dym.TenTB.ToString()) ? String.Empty : dym.TenTB.ToString().Trim();
+                    tb.DonGia = dym.DonGia;
+                    tb.TinhTrang = dym.TinhTrang;
 
                     db.SaveChanges();
                     response.Message = "SUCCESS";

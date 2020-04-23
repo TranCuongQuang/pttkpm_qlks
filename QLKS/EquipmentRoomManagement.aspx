@@ -106,7 +106,7 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label class="control-label" for="form-field-1-1">Mã phòng</label>
-                                    <select class="chosen-select form-control" ng-model="ddlEquipment" ui-select2 style="width: 100%">
+                                    <select class="chosen-select form-control" ng-model="ddlRoom" ui-select2 style="width: 100%">
                                         <option value="">Chọn phòng</option>
                                         <option ng-repeat="item in RoomList" value="{{item.MaPhong}}">{{item.TenPhong}}</option>
                                     </select>
@@ -149,10 +149,10 @@
                                                 <td>{{item.SoLuong}}</td>
                                                 <td>{{item.DonGia}}</td>
                                                 <td class="text-center">
-                                                    <button type="button" class="btn btn-danger" title="Xóa khỏi danh sách" ng-click="RemoveChooseEquipment(item)" ng-show="!item.MaSPP || item.MaSPP == 0">
+                                                    <button type="button" class="btn btn-danger" title="Xóa khỏi danh sách" ng-click="RemoveChooseEquipment(item)" ng-show="!item.MaPhong || item.MaPhong == 0">
                                                         <i class="ace-icon fa fa-trash-o"></i>
                                                     </button>
-                                                    <button type="button" class="btn btn-primary" title="Sửa" ng-click="EditChooseEquipment(item)" ng-show="item.MaSPP && item.MaSPP != 0">
+                                                    <button type="button" class="btn btn-primary" title="Sửa" ng-click="EditChooseEquipment(item)" ng-show="item.MaPhong && item.MaPhong != 0">
                                                         <i class="ace-icon fa fa-pencil"></i>
                                                     </button>
                                                 </td>

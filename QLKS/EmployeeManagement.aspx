@@ -45,6 +45,7 @@
                             <th>Email</th>
                             <th>Địa chỉ</th>
                             <th>Chức vụ</th>
+                            <th>Tên Đăng Nhập</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -57,6 +58,7 @@
                             <th>{{x.Email}}</th>
                             <th>{{x.DiaChi}}</th>
                             <th>{{x.ChucVu}}</th>
+                            <th>{{x.TenDangNhap}}</th>
                             <td>
                                 <div class="hidden-sm hidden-xs action-buttons">
                                     <a class="modal123 blue" href="#modal-table" role="button" data-toggle="modal" data-id="Info" data-value="{{x.MaNV}}" style="text-decoration: none; color: antiquewhite;">
@@ -142,6 +144,18 @@
                                             <option value="QL">Quản Lý</option>
                                             <option value="NV">Nhân Viên</option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Tên đăng nhập</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" id="txtMUsername" placeholder="Tên đăng nhập" class="form-control input-required" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1">Mật khẩu</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" id="txtMPassword" placeholder="Mật khẩu" class="form-control input-required" />
                                     </div>
                                 </div>
                                 <br />

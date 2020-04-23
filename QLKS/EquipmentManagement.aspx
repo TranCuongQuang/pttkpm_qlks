@@ -52,6 +52,7 @@
                         <tr >
                             <th>Mã thiết bị</th>
                             <th>Tên thiết bị</th>
+                            <th>Đơn giá</th>
                             <th>Tình trạng</th>
                             <th></th>
                         </tr>
@@ -61,6 +62,7 @@
                         <tr ng-repeat="x in dataTable">
                             <td>{{x.MaThietBi}}</td>
                             <th>{{x.TenThietBi}}</th>
+                            <th>{{x.DonGia}}</th>
                             <th>{{x.StrTinhTrang}}</th>
 
                             <td>
@@ -112,6 +114,13 @@
 
                                     <div class="col-sm-8">
                                         <input type="text" id="txtMEquipmentName" placeholder="Tên thiết bị" class="form-control input-required" />
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-1-1">Đơn giá</label>
+
+                                    <div class="col-sm-8">
+                                        <input type="text" id="txtMAmount" placeholder="Đơn giá" class="form-control input-required" />
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
