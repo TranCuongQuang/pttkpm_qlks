@@ -27,9 +27,9 @@ namespace QLKS
                                 "<li class=''><a href='ProductManagement.aspx'><i class='menu-icon fa fa-tachometer'></i><span class='menu-text'>QL sản phẩm</span></a><b class='arrow'></b></li>";
                 }
 
-                html += "<li class=''><a href='EmployeeManagement.aspx'><i class='menu-icon fa fa-tachometer'></i><span class='menu-text'>Báo cáo doanh thu</span></a><b class='arrow'></b></li>" +
-                        "<li class=''><a href='EmployeeManagement.aspx'><i class='menu-icon fa fa-tachometer'></i><span class='menu-text'>Thống kê phòng</span></a><b class='arrow'></b></li>" +
-                        "<li class=''><a href='EmployeeManagement.aspx'><i class='menu-icon fa fa-tachometer'></i><span class='menu-text'>Thống kê nhân viên</span></a><b class='arrow'></b></li>";
+                //html += "<li class=''><a href='EmployeeManagement.aspx'><i class='menu-icon fa fa-tachometer'></i><span class='menu-text'>Báo cáo doanh thu</span></a><b class='arrow'></b></li>" +
+                //        "<li class=''><a href='EmployeeManagement.aspx'><i class='menu-icon fa fa-tachometer'></i><span class='menu-text'>Thống kê phòng</span></a><b class='arrow'></b></li>" +
+                //        "<li class=''><a href='EmployeeManagement.aspx'><i class='menu-icon fa fa-tachometer'></i><span class='menu-text'>Thống kê nhân viên</span></a><b class='arrow'></b></li>";
 
                 listMenu.InnerHtml = html;
             }
