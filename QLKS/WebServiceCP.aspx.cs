@@ -223,7 +223,7 @@ namespace QLKS
                     //var emp1 = ctx.tblNhanViens.ToList();
                     //.Where(st => st.MaNV == (maNV != null ? Convert.ToInt32(maNV) : 0) && st.TenNV == tenNV)
                     var emp = ctx.tblNhanViens.AsEnumerable()
-                        .Where(st => (maNV == "" || st.MaNV == Convert.ToInt32(maNV)) && (tenNV == "" || st.TenNV == tenNV))
+                        .Where(st => (maNV == "" || st.MaNV == Convert.ToInt32(maNV)) && (tenNV == "" || st.TenNV.Contains(tenNV)))
                         .Select(st => new
                         {
                             st.MaNV,
@@ -409,7 +409,7 @@ namespace QLKS
                 using (var ctx = new qlksEntities())
                 {
                     var emp = ctx.tblKhachHangs.AsEnumerable()
-                        .Where(st => (maKH == "" || st.MaKH == Convert.ToInt32(maKH)) && (tenKH == "" || st.TenKH == tenKH))
+                        .Where(st => (maKH == "" || st.MaKH == Convert.ToInt32(maKH)) && (tenKH == "" || st.TenKH.Contains(tenKH)))
                         .Select(st => new
                         {
                             st.MaKH,
@@ -585,7 +585,7 @@ namespace QLKS
                 using (var ctx = new qlksEntities())
                 {
                     var emp = ctx.tblPhongs.AsEnumerable()
-                        .Where(st => (maPhong == "" || st.MaPhong == Convert.ToInt32(maPhong)) && (tenPhong == "" || st.TenPhong == tenPhong) && (trangThai == "" || st.TrangThai == trangThai.Equals("1")))
+                        .Where(st => (maPhong == "" || st.MaPhong == Convert.ToInt32(maPhong)) && (tenPhong == "" || st.TenPhong.Contains(tenPhong)) && (trangThai == "" || st.TrangThai == trangThai.Equals("1")))
                         .Select(st => new
                         {
                             st.MaPhong,
@@ -824,7 +824,7 @@ namespace QLKS
                 using (var ctx = new qlksEntities())
                 {
                     var emp = ctx.tblDichVus.AsEnumerable()
-                        .Where(st => (maDV == "" || st.MaDV == Convert.ToInt32(maDV)) && (tenDV == "" || st.TenDV == tenDV))
+                        .Where(st => (maDV == "" || st.MaDV == Convert.ToInt32(maDV)) && (tenDV == "" || st.TenDV.Contains(tenDV)))
                         .Select(st => new
                         {
                             st.MaDV,
@@ -985,7 +985,7 @@ namespace QLKS
                 using (var ctx = new qlksEntities())
                 {
                     var emp = ctx.tblSanPhams.AsEnumerable()
-                        .Where(st => (maSP == "" || st.MaSP == Convert.ToInt32(maSP)) && (tenSP == "" || st.TenSP == tenSP))
+                        .Where(st => (maSP == "" || st.MaSP == Convert.ToInt32(maSP)) && (tenSP == "" || st.TenSP.Contains(tenSP)))
                         .Select(st => new
                         {
                             st.MaSP,
@@ -1147,7 +1147,7 @@ namespace QLKS
                 using (var ctx = new qlksEntities())
                 {
                     var emp = ctx.tblTrangThietBis.AsEnumerable()
-                        .Where(st => (maTB == "" || st.MaThietBi == Convert.ToInt32(maTB)) && (tenTB == "" || st.TenThietBi == tenTB) && (tinhTrang == "" || st.TinhTrang == tinhTrang.Equals("1")))
+                        .Where(st => (maTB == "" || st.MaThietBi == Convert.ToInt32(maTB)) && (tenTB == "" || st.TenThietBi.Contains(tenTB)) && (tinhTrang == "" || st.TinhTrang == tinhTrang.Equals("1")))
                         .Select(st => new
                         {
                             st.MaThietBi,
